@@ -25,7 +25,7 @@ func TestDocumentedMakeTargetsExist(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		for _, m := range regexp.MustCompile("`make ([a-z][a-z0-9-]*)`|^make ([a-z][a-z0-9-]*)").FindAllStringSubmatch(string(data), -1) {
+		for _, m := range regexp.MustCompile("(?m)`make ([a-z][a-z0-9-]*)`|^\\s*make ([a-z][a-z0-9-]*)").FindAllStringSubmatch(string(data), -1) {
 			target := m[1] + m[2]
 			if !targets[target] {
 				t.Errorf("%s cita `make %s`, que não existe no Makefile", doc, target)
