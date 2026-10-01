@@ -33,13 +33,17 @@ for doc in "${docs[@]}"; do
   cp -r "$root/examples" "$dir/examples"
 
   # Linhas que começam com "cv-craft " dentro de blocos ```bash.
-  mapfile -t cmds < <(awk '
+  # (while read em vez de mapfile: funciona também no bash 3.2 do macOS)
+  cmds=()
+  while IFS= read -r line; do
+    cmds+=("$line")
+  done < <(awk '
     /^```bash/ { inside = 1; next }
     /^```/     { inside = 0; next }
     inside && /^cv-craft / { print }
   ' "$root/$doc")
 
-  for cmd in "${cmds[@]}"; do
+  for cmd in ${cmds[@]+"${cmds[@]}"}; do
     total=$((total + 1))
     if (cd "$dir" && PATH="$work/bin:$PATH" bash -c "$cmd" >"$work/out" 2>&1 </dev/null); then
       echo "ok   [$doc] $cmd"
