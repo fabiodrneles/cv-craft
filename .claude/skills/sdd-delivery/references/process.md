@@ -192,6 +192,18 @@ Prática recomendada: antes de pedir a revisão, simular o merge par a par das b
 - **FR-48** Achados no repositório (specs, issues, PRs); o chat aponta para eles.
 - **FR-49** Dizer o que foi verificado e o que não foi.
 
+## 14. Retomada e economia de uso
+
+- **FR-50** Ticket criado ao começar a tarefa; PR aberto assim que ela passa na verificação local.
+- **FR-51** Pedido novo do dono fora da tarefa em curso vira ticket na hora.
+- **FR-52** Comentário "Estado da fase" no épico, atualizado a cada marco (PRs e CI, decisões,
+  conflitos previstos, próximo passo).
+- **FR-53** Retomada: comentário de estado → PRs e issues abertas → `CLAUDE.md` → próximo passo.
+- **FR-54** SHOULD: `CLAUDE.md` (mapa, comandos, convenções, armadilhas) e hook de início de
+  sessão que instala as ferramentas do CI na web.
+- **FR-55** Economia: ler trechos e não reler; resumo do CI e fim do log da falha; validação
+  num comando; subagentes só para buscas amplas; chat curto.
+
 ## Requisitos não funcionais
 
 - **NFR-1 Rastreabilidade:** de qualquer linha mergeada chega-se, por links, ao PR, ticket,
