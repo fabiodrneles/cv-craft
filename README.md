@@ -150,7 +150,7 @@ Veja exemplos completos em [`examples/`](examples/): [`full.yaml`](examples/full
 
 ## Desenvolvimento
 
-O projeto segue **Spec Driven Development**: toda mudança de comportamento começa por uma spec em [`specs/`](specs/README.md), e cada critério de aceite vira um teste.
+O projeto segue **Spec Driven Development**: toda mudança de comportamento começa por uma spec em [`specs/`](specs/README.md), e cada critério de aceite vira um teste. O fluxo completo (tickets, branches, commits, PRs e revisão) está no [guia de contribuição](CONTRIBUTING.md).
 
 ```bash
 make test     # testes unitários, golden files e CLI
