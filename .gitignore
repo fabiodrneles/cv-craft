@@ -12,6 +12,7 @@
 !/CONTRIBUTING.md
 /*.txt
 /*.yaml
+!/.goreleaser.yaml
 
 # Testes
 coverage.out

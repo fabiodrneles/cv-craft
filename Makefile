@@ -5,7 +5,7 @@ COMMIT  ?= $(shell git rev-parse --short HEAD 2>/dev/null)
 DATE    ?= $(shell date -u +%Y-%m-%dT%H:%M:%SZ)
 LDFLAGS := -s -w -X main.version=$(VERSION) -X main.commit=$(COMMIT) -X main.date=$(DATE)
 
-.PHONY: all build test race cover lint smoke golden ci clean
+.PHONY: all build test race cover lint smoke golden ci release-snapshot clean
 
 all: ci
 
@@ -33,6 +33,10 @@ golden: ## Regrava os golden files após uma mudança intencional nas saídas
 	go test ./internal/generator -update
 
 ci: lint race cover smoke ## Tudo que o CI roda
+
+release-snapshot: ## Gera os binários e arquivos da release em ./dist, sem publicar
+	goreleaser release --snapshot --clean
+	scripts/check-release.sh dist
 
 clean:
 	rm -rf bin dist coverage.out

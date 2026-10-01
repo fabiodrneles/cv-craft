@@ -33,6 +33,7 @@ Não há testes, CI, `.gitignore` nem processo de release. O repositório versio
 - **FR-13** GoReleaser disparado por tag `v*`: binários linux/darwin/windows × amd64/arm64, checksums, changelog automático.
 - **FR-14** Versão injetada via `-ldflags "-X main.version=… -X main.commit=… -X main.date=…"` (spec 002 FR-10).
 - **FR-15** `CHANGELOG.md` no formato Keep a Changelog; versionamento SemVer; primeira release `v0.1.0`.
+- **FR-16** Implementação: `.goreleaser.yaml` (versão como `v{{ .Version }}`, `mod_timestamp` do commit para binários reproduzíveis, arquivos com `LICENSE`, `README.md`, `CHANGELOG.md` e `licenses/OFL.txt`); `.github/workflows/release.yml` chama o `ci.yml` completo (`workflow_call`) antes de publicar; o job `release-check` do CI roda `goreleaser release --snapshot` e `scripts/check-release.sh` em todo PR; `make release-snapshot` faz o mesmo localmente.
 
 ## Critérios de aceite
 
