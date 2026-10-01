@@ -36,3 +36,7 @@ ci: lint race cover smoke ## Tudo que o CI roda
 
 clean:
 	rm -rf bin dist coverage.out
+
+.PHONY: bench
+bench: ## Benchmarks de parsing e de cada formato (requisitos não-funcionais das specs 001 e 003)
+	go test -run '^$$' -bench . -benchmem ./internal/...

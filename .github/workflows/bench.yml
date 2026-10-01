@@ -1,0 +1,42 @@
+name: Benchmarks
+
+# Mede o desempenho (specs 001 NFR-1 e 003 NFR-2) e publica o resultado como
+# artefato. Não falha por variação de tempo: os limites com margem são
+# verificados pelos testes do CI; aqui fica o histórico para comparação.
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: bench-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  bench:
+    name: Benchmarks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-go@v6
+        with:
+          go-version: stable
+      - name: go test -bench
+        run: go test -run '^$' -bench . -benchmem -count 5 ./internal/... | tee bench.txt
+      - name: Resumo
+        run: |
+          {
+            echo '## Benchmarks'
+            echo
+            echo '```text'
+            grep -E '^(Benchmark|goos|goarch|cpu)' bench.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: bench
+          path: bench.txt

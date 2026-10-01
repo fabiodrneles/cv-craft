@@ -22,7 +22,7 @@ var update = flag.Bool("update", false, "regrava os golden files em testdata/")
 
 var fixedDate = time.Date(2025, 1, 2, 3, 4, 5, 0, time.UTC)
 
-func loadExample(t *testing.T, name string) *resume.Resume {
+func loadExample(t testing.TB, name string) *resume.Resume {
 	t.Helper()
 	data, err := os.ReadFile(filepath.Join("..", "..", "examples", name))
 	if err != nil {
