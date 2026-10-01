@@ -1,5 +1,7 @@
 # CV-Craft
 
+**Português** · [English](README.en.md)
+
 **Currículos profissionais e otimizados para ATS, gerados a partir de um único arquivo YAML.**
 
 [![CI](https://github.com/fabiodrneles/cv-craft/actions/workflows/ci.yml/badge.svg)](https://github.com/fabiodrneles/cv-craft/actions/workflows/ci.yml)
@@ -27,7 +29,7 @@ Você escreve o conteúdo uma vez em YAML; o CV-Craft gera o **PDF** para enviar
 
 ```bash
 # Exemplo no Linux (x86-64); troque a versão e o sistema conforme o arquivo baixado
-tar -xzf cv-craft_0.1.0_linux_amd64.tar.gz
+tar -xzf cv-craft_0.2.0_linux_amd64.tar.gz
 sudo mv cv-craft /usr/local/bin/
 cv-craft version
 ```
@@ -181,12 +183,13 @@ make lint     # go vet + golangci-lint
 make cover    # cobertura (mínimo de 80% em internal/)
 make smoke    # smoke test de ponta a ponta com o binário real
 make docs     # lint de Markdown, links e comandos da documentação
-make ci       # tudo o que o CI roda
+make ci       # as verificações de código do CI
 make golden   # regrava os golden files após uma mudança intencional nas saídas
+make schema   # regrava schema/cv-craft.schema.json a partir do modelo Go
 make release-snapshot  # gera os binários da release em ./dist, sem publicar
 ```
 
-Para publicar uma versão, basta criar e enviar a tag (`git tag v0.2.0 && git push origin v0.2.0`): o workflow de release roda o CI completo e publica os binários. As mudanças de cada versão ficam no [CHANGELOG](CHANGELOG.md).
+Para publicar uma versão, basta criar e enviar a tag (`git tag vX.Y.Z && git push origin vX.Y.Z`): o workflow de release roda o CI completo e publica os binários. As mudanças de cada versão ficam no [CHANGELOG](CHANGELOG.md).
 
 Os testes que conferem o texto do PDF usam o `pdftotext` (pacote `poppler-utils` no Linux, `poppler` no Homebrew) e são pulados se ele não estiver instalado.
 
