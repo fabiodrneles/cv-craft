@@ -1,0 +1,24 @@
+# Binários
+/bin/
+/dist/
+/cv-craft
+*.exe
+
+# Currículos gerados e dados pessoais na raiz do repositório
+/*.pdf
+/*.md
+!/README.md
+!/CHANGELOG.md
+!/CONTRIBUTING.md
+/*.txt
+/*.yaml
+
+# Testes
+coverage.out
+*.test
+
+# Editores e sistema
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

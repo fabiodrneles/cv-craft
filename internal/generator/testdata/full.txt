@@ -1,0 +1,71 @@
+Carlos Silva
+Engenheiro de Software Sênior | Go e Cloud
+São Paulo, Brasil | +55 (11) 98765-4321 | carlos.silva.dev@email.com
+LinkedIn: https://linkedin.com/in/carlos-silva-dev | GitHub: https://github.com/carlos-silva-dev | Portfólio: https://carlos-silva-portfolio.vercel.app
+
+RESUMO
+======
+Engenheiro de Software Sênior com mais de 7 anos de experiência em desenvolvimento backend e arquitetura em nuvem. Especialista em microsserviços escaláveis, sistemas distribuídos e práticas de DevOps, com histórico de liderança técnica e entregas de alta qualidade.
+
+HABILIDADES
+===========
+- Backend (Especialista): Go, Java, Python, REST, gRPC, Microsserviços
+- Cloud e Infraestrutura (Avançado): AWS, Docker, Kubernetes, Terraform, CI/CD, Helm
+- Bancos de Dados (Avançado): PostgreSQL, MySQL, Redis, MongoDB, DynamoDB
+- Mensageria e Streaming (Intermediário): Kafka, RabbitMQ, AWS SQS, Arquitetura orientada a eventos
+- Observabilidade (Intermediário): Prometheus, Grafana, OpenTelemetry, Datadog
+- Liderança: Mentoria, Code review, Métodos ágeis, System design
+
+EXPERIÊNCIA PROFISSIONAL
+========================
+Engenheiro de Backend Sênior — TechCorp Soluções
+São Paulo, Brasil | Híbrido | Mar 2022 - Atual
+Plataforma de pagamentos B2B com 2 milhões de transações por mês.
+Responsabilidades:
+- Liderei a migração do monólito para microsserviços em Go
+- Projetei a arquitetura orientada a eventos com Kafka, processando mais de 1 milhão de eventos por dia
+- Mentorei 3 desenvolvedores júnior e estabeleci padrões de código para o time
+Conquistas:
+- Reduzi a latência média das APIs em 40%
+- Diminuí o tempo de deploy de 2 horas para 15 minutos com pipelines de CI/CD
+Tecnologias: Go, Kafka, PostgreSQL, Redis, Kubernetes, AWS, Terraform
+
+Engenheiro de Software — InovaTech Startups
+Florianópolis, Brasil | Remoto | Jan 2020 - Fev 2022
+Responsabilidades:
+- Desenvolvi APIs REST para aplicações web e mobile com mais de 500 mil usuários
+- Implementei notificações em tempo real com WebSockets e Redis pub/sub
+Conquistas:
+- Aumentei a cobertura de testes para 90%, reduzindo bugs em produção
+- Reduzi custos de servidor em 30% com auto-scaling
+Tecnologias: Java, Spring Boot, Redis, MySQL, Docker
+
+Desenvolvedor Júnior — Digital Solutions Lab
+Campinas, Brasil | Presencial | Jun 2018 - Dez 2019
+Responsabilidades:
+- Desenvolvi funcionalidades em Django e React
+- Escrevi a documentação das APIs e da arquitetura do sistema
+Conquistas:
+- Promovido a Engenheiro de Software após 1 ano
+Tecnologias: Python, Django, JavaScript, React, PostgreSQL
+
+FORMAÇÃO
+========
+Bacharelado em Ciência da Computação — Universidade de São Paulo (USP)
+São Paulo, Brasil | 2014 - 2018
+Trabalho de conclusão: Análise de desempenho de padrões de comunicação entre microsserviços
+Disciplinas relevantes: Sistemas Distribuídos, Computação em Nuvem, Banco de Dados
+
+Técnico em Desenvolvimento de Sistemas — ETEC
+São Paulo, Brasil | 2012 - 2013
+
+CERTIFICADOS
+============
+- AWS Certified Solutions Architect – Professional — Amazon Web Services | 2023 — https://credly.com/users/carlos-silva
+- Certified Kubernetes Administrator (CKA) — Cloud Native Computing Foundation | 2022
+
+IDIOMAS
+=======
+- Português: Nativo
+- Inglês: Fluente
+- Espanhol: Intermediário

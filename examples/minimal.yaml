@@ -1,0 +1,58 @@
+# Modelo de currículo do CV-Craft.
+# Edite os valores e gere com: cv-craft build curriculum.yaml
+# Campos marcados como (obrigatório) precisam estar preenchidos.
+
+meta:
+  locale: pt-BR # idioma dos títulos das seções: pt-BR ou en
+
+contact:
+  name: "Seu Nome" # (obrigatório)
+  email: "seu.email@exemplo.com" # (obrigatório)
+  phone: "+55 (11) 99999-9999"
+  location: "São Paulo, SP"
+  linkedin: "linkedin.com/in/seu-perfil"
+  github: "github.com/seu-usuario"
+  portfolio: "seu-portfolio.com"
+
+professional_title: "Seu Cargo | Sua Especialidade" # (obrigatório)
+
+summary: >-
+  Duas a quatro frases sobre sua experiência, suas principais competências
+  e o tipo de problema que você resolve.
+
+skills: # (obrigatório) pelo menos uma categoria
+  - name: "Categoria 1"
+    level: "advanced" # opcional: expert, advanced, proficient, intermediate, beginner
+    keywords: ["Habilidade 1", "Habilidade 2", "Habilidade 3"]
+  - name: "Categoria 2"
+    keywords: ["Habilidade 4", "Habilidade 5"]
+
+experience: # (obrigatório) pelo menos uma experiência
+  - role: "Seu Cargo" # (obrigatório)
+    company: "Nome da Empresa" # (obrigatório)
+    location: "Cidade, UF"
+    period: "Jan 2023 - Atual"
+    work_type: "Híbrido"
+    description: "Uma frase sobre o contexto da empresa ou do time."
+    responsibilities:
+      - "Comece com um verbo de ação e descreva o que você fez"
+    achievements:
+      - "Use números: reduzi o tempo de deploy em 40%"
+    technologies: ["Tecnologia 1", "Tecnologia 2"]
+
+education: # (obrigatório) pelo menos uma formação
+  - degree: "Seu Curso" # (obrigatório)
+    institution: "Nome da Instituição" # (obrigatório)
+    location: "Cidade, UF"
+    period: "2019 - 2023"
+
+certificates: # opcional
+  - name: "Nome do Certificado"
+    institution: "Emissor"
+    date: "2024"
+
+languages: # opcional
+  - language: "Português"
+    level: "Nativo"
+  - language: "Inglês"
+    level: "Intermediário"
