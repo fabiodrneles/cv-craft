@@ -1,0 +1,27 @@
+<!-- Título no formato Conventional Commits, ex.: "feat: add --watch mode" -->
+
+Closes #
+
+<!-- Se este PR depende de outro ainda não mergeado (PR empilhado), diga aqui:
+> PR empilhado sobre #NN. -->
+
+## O que muda
+
+<!-- O problema e a solução, do ponto de vista de quem usa o CV-Craft. -->
+
+## Specs e critérios de aceite
+
+<!-- Ex.: 003 FR-8, AC-6. Se o comportamento mudou, a spec foi atualizada neste PR? -->
+
+## Como foi testado
+
+<!-- Testes novos ou alterados e o que mais foi verificado manualmente. -->
+
+## Checklist
+
+- [ ] `make ci` passa localmente
+- [ ] Testes cobrem os critérios de aceite deste PR
+- [ ] Golden files regravados **e revisados** (se as saídas mudaram)
+- [ ] Spec atualizada (se o comportamento mudou)
+- [ ] README/docs atualizados (se a interface mudou)
+- [ ] Mudança incompatível sinalizada com `!` no título e explicada acima

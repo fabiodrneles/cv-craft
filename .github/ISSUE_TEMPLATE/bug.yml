@@ -1,0 +1,51 @@
+name: Bug
+description: Algo não funciona como o README ou as specs descrevem
+title: "fix: "
+labels: ["tipo:bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Obrigado por reportar! **Não publique dados pessoais reais**: troque nome, e-mail e telefone do seu currículo por valores fictícios.
+  - type: input
+    id: version
+    attributes:
+      label: Versão
+      description: Saída de `cv-craft version`
+      placeholder: cv-craft v0.1.0 (commit abc1234, 2026-10-01)
+    validations:
+      required: true
+  - type: dropdown
+    id: os
+    attributes:
+      label: Sistema operacional
+      options: [Windows, macOS, Linux]
+    validations:
+      required: true
+  - type: input
+    id: command
+    attributes:
+      label: Comando executado
+      placeholder: cv-craft build curriculum.yaml --format pdf
+    validations:
+      required: true
+  - type: textarea
+    id: yaml
+    attributes:
+      label: YAML mínimo que reproduz o problema
+      render: yaml
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: O que você esperava
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: O que aconteceu
+      description: Mensagem de erro, exit code (`echo $?`) ou trecho da saída gerada
+    validations:
+      required: true
