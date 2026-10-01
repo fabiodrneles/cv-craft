@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Guia rápido para agentes (Claude Code) trabalharem neste repositório sem redescobrir o projeto a cada sessão. O processo completo está na [spec 009](specs/009-delivery-process/spec.md) e na skill [`sdd-delivery`](.claude/skills/sdd-delivery/SKILL.md).
+Guia rápido para agentes (Claude Code) trabalharem neste repositório sem redescobrir o projeto a cada sessão. O processo completo está na [spec 009](specs/009-delivery-process/spec.md) e na skill [`sdd-delivery`](https://github.com/fabiodrneles/sdd-kit) (plugin do sdd-kit, habilitado em `.claude/settings.json`).
 
 ## Retomar o trabalho (sessão nova ou contexto perdido)
 

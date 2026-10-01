@@ -72,7 +72,7 @@ Mudanças incompatíveis usam `!` (`feat!: ...`) e explicam o impacto no corpo d
 
 Depois que todos os PRs da fase forem mergeados, um **PR de fechamento** atualiza o status das specs, o [`ROADMAP.md`](specs/ROADMAP.md) e o `CHANGELOG.md`. Assim, os PRs da fase não entram em conflito por editarem os mesmos arquivos. Em seguida, cria-se a tag da versão.
 
-O processo completo é normativo na [spec 009](specs/009-delivery-process/spec.md). Quem usa o Claude Code tem a skill [`sdd-delivery`](.claude/skills/sdd-delivery/SKILL.md), que aplica o mesmo fluxo neste e em outros repositórios.
+O processo completo é normativo na [spec 009](specs/009-delivery-process/spec.md). Quem usa o Claude Code tem a skill [`sdd-delivery`](https://github.com/fabiodrneles/sdd-kit), instalada pelo plugin do [sdd-kit](https://github.com/fabiodrneles/sdd-kit) declarado em `.claude/settings.json`, que aplica o mesmo fluxo neste e em outros repositórios.
 
 ## Ambiente de desenvolvimento
 
