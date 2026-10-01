@@ -13,22 +13,25 @@ $repo = 'fabiodrneles/cv-craft'
 $dir = if ($env:CV_CRAFT_INSTALL_DIR) { $env:CV_CRAFT_INSTALL_DIR } else { Join-Path $env:LOCALAPPDATA 'Programs\cv-craft' }
 $arch = if ($env:PROCESSOR_ARCHITECTURE -eq 'ARM64') { 'arm64' } else { 'amd64' }
 
-$version = $env:CV_CRAFT_VERSION
-if (-not $version) {
-    $version = (Invoke-RestMethod "https://api.github.com/repos/$repo/releases/latest").tag_name
+# A versão vem do checksums.txt da release (e não da API do GitHub, que limita
+# requisições anônimas por IP e falha em redes compartilhadas).
+$base = if ($env:CV_CRAFT_VERSION) {
+    "https://github.com/$repo/releases/download/v$($env:CV_CRAFT_VERSION.TrimStart('v'))"
+} else {
+    "https://github.com/$repo/releases/latest/download"
 }
-$version = $version.TrimStart('v')
-
-$archive = "cv-craft_${version}_windows_$arch.zip"
-$base = "https://github.com/$repo/releases/download/v$version"
 $tmp = Join-Path ([IO.Path]::GetTempPath()) ([Guid]::NewGuid())
 New-Item -ItemType Directory -Path $tmp | Out-Null
 try {
+    Invoke-WebRequest "$base/checksums.txt" -OutFile (Join-Path $tmp 'checksums.txt') -UseBasicParsing
+    $line = Get-Content (Join-Path $tmp 'checksums.txt') | Where-Object { $_ -match " cv-craft_[^ ]+_windows_$arch\.zip$" } | Select-Object -First 1
+    if (-not $line) { throw "a release não tem um arquivo para windows/$arch" }
+    $archive = ($line -split ' ')[-1]
+    $version = ($archive -split '_')[1]
+
     Write-Host "Baixando o CV-Craft $version (windows/$arch)..."
     Invoke-WebRequest "$base/$archive" -OutFile (Join-Path $tmp $archive) -UseBasicParsing
-    Invoke-WebRequest "$base/checksums.txt" -OutFile (Join-Path $tmp 'checksums.txt') -UseBasicParsing
 
-    $line = Get-Content (Join-Path $tmp 'checksums.txt') | Where-Object { $_ -match " $([regex]::Escape($archive))$" }
     $expected = ($line -split ' ')[0]
     $actual = (Get-FileHash (Join-Path $tmp $archive) -Algorithm SHA256).Hash.ToLower()
     if (-not $expected -or $expected -ne $actual) { throw 'o checksum do arquivo baixado não confere' }

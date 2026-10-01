@@ -26,22 +26,25 @@ case "$(uname -m)" in
   *) fail "arquitetura não suportada: $(uname -m)" ;;
 esac
 
-version="${CV_CRAFT_VERSION:-}"
-if [ -z "$version" ]; then
-  version="$(curl -fsSL "https://api.github.com/repos/$repo/releases/latest" |
-    sed -n 's/.*"tag_name": *"v\([^"]*\)".*/\1/p' | head -n 1)"
-  [ -n "$version" ] || fail "não foi possível descobrir a versão mais recente"
-fi
-version="${version#v}"
-
-archive="cv-craft_${version}_${os}_${arch}.tar.gz"
-base="https://github.com/$repo/releases/download/v$version"
 tmp="$(mktemp -d)"
 trap 'rm -rf "$tmp"' EXIT
 
+# A versão vem do checksums.txt da release (e não da API do GitHub, que limita
+# requisições anônimas por IP e falha em redes compartilhadas).
+version="${CV_CRAFT_VERSION:-}"
+if [ -n "$version" ]; then
+  base="https://github.com/$repo/releases/download/v${version#v}"
+else
+  base="https://github.com/$repo/releases/latest/download"
+fi
+curl -fsSL -o "$tmp/checksums.txt" "$base/checksums.txt" || fail "não foi possível baixar $base/checksums.txt"
+archive="$(grep -o "cv-craft_[^ ]*_${os}_${arch}\.tar\.gz" "$tmp/checksums.txt" | head -n 1)"
+[ -n "$archive" ] || fail "a release não tem um arquivo para $os/$arch"
+version="${archive#cv-craft_}"
+version="${version%%_*}"
+
 echo "Baixando o CV-Craft $version ($os/$arch)..."
 curl -fsSL -o "$tmp/$archive" "$base/$archive" || fail "não foi possível baixar $base/$archive"
-curl -fsSL -o "$tmp/checksums.txt" "$base/checksums.txt" || fail "não foi possível baixar checksums.txt"
 
 expected="$(grep " $archive\$" "$tmp/checksums.txt" | cut -d ' ' -f 1)"
 if command -v sha256sum >/dev/null; then

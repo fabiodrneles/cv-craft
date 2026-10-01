@@ -6,6 +6,11 @@ O formato segue o [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/), e
 
 ## [Unreleased]
 
+### Adicionado
+
+- Instalação com um comando: `scripts/install.ps1` no Windows (instala sem administrador e ajusta o `PATH`) e `scripts/install.sh` no macOS e no Linux, ambos conferindo o checksum da release ([#40](https://github.com/fabiodrneles/cv-craft/issues/40)).
+- Guia passo a passo nos READMEs: instalação por sistema, primeiro currículo do zero ao PDF, atualizar e desinstalar, e problemas comuns ([#40](https://github.com/fabiodrneles/cv-craft/issues/40)).
+
 ## [1.0.0] - 2026-10-01
 
 Fase 3, "profissional" ([#10](https://github.com/fabiodrneles/cv-craft/issues/10)). A partir desta versão, a CLI e o formato do YAML são estáveis.
