@@ -2,12 +2,14 @@ package cli
 
 import (
 	"bytes"
+	"encoding/json"
 	"os"
 	"path/filepath"
 	"strings"
 	"testing"
 
 	"github.com/fabiodrneles/cv-craft/examples"
+	"github.com/fabiodrneles/cv-craft/internal/resume"
 )
 
 type result struct {
@@ -161,9 +163,17 @@ func TestWarningsGoToStderr(t *testing.T) {
 	}
 }
 
-func TestDeprecatedATSFlag(t *testing.T) {
+// 003/FR-9: -ats foi removida na v1.0.0 (depreciada desde a v0.2.0) e agora é
+// uma flag desconhecida como outra qualquer.
+func TestRemovedATSFlag(t *testing.T) {
 	chdir(t)
-	expect(t, run(t, "", false, "build", "cv.yaml", "-ats"), ExitOK, "aviso: --ats está obsoleta")
+	for _, flag := range []string{"-ats", "--ats"} {
+		r := run(t, "", false, "build", "cv.yaml", flag)
+		expect(t, r, ExitUsage, "flag desconhecida: -ats")
+		if strings.Contains(r.stderr, "obsoleta") {
+			t.Errorf("%s: não deve mais haver aviso de depreciação: %s", flag, r.stderr)
+		}
+	}
 }
 
 // 002/AC-9: sem ANSI quando a saída não é um terminal.
@@ -239,4 +249,17 @@ func TestTokenize(t *testing.T) {
 			t.Errorf("tokenize(%q) deveria falhar", bad)
 		}
 	}
+}
+
+// 010/AC-5: cv-craft schema imprime o JSON Schema gerado do modelo.
+func TestSchemaCommand(t *testing.T) {
+	r := run(t, "", false, "schema")
+	if r.code != ExitOK || r.stdout != string(resume.JSONSchema()) {
+		t.Errorf("schema: exit %d, saída diferente de resume.JSONSchema()\nstderr: %s", r.code, r.stderr)
+	}
+	if !json.Valid([]byte(r.stdout)) {
+		t.Error("schema: a saída não é JSON válido")
+	}
+	expect(t, run(t, "", false, "schema", "x"), ExitUsage, "não recebe argumentos")
+	expect(t, run(t, "", false, "help", "schema"), ExitOK, "yaml-language-server")
 }

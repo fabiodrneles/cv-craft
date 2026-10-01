@@ -4,6 +4,7 @@ package cli
 
 import (
 	"bufio"
+	"context"
 	"errors"
 	"flag"
 	"fmt"
@@ -35,6 +36,10 @@ type Env struct {
 	// IsTerminal informa se stdin é um terminal interativo.
 	IsTerminal func() bool
 	Getenv     func(string) string
+	// Context encerra operações longas (o --watch); padrão: Background.
+	Context context.Context
+	// PollInterval e Debounce ajustam o --watch nos testes; zero usa o padrão.
+	PollInterval, Debounce time.Duration
 
 	Version, Commit, Date string
 }
@@ -57,6 +62,9 @@ func Run(args []string, env Env) int {
 	}
 	if env.Getenv == nil {
 		env.Getenv = func(string) string { return "" }
+	}
+	if env.Context == nil {
+		env.Context = context.Background()
 	}
 	if env.Version == "" {
 		env.Version = "dev"
@@ -84,6 +92,8 @@ func (r *runner) dispatch(args []string) int {
 		return r.help(rest)
 	case "ui", "interactive":
 		return r.interactive()
+	case "schema":
+		return r.schema(rest)
 	}
 	r.errorf("comando desconhecido %q", cmd)
 	fmt.Fprintln(r.err, "Use 'cv-craft help' para ver os comandos disponíveis.")
@@ -93,14 +103,15 @@ func (r *runner) dispatch(args []string) int {
 func (r *runner) build(args []string) int {
 	fs := newFlagSet("build")
 	var format, output, lang string
-	var force, quiet, verbose, ats bool
+	var force, quiet, verbose bool
 	stringFlag(fs, &format, "pdf", "format", "f")
 	stringFlag(fs, &output, "", "output", "o")
 	stringFlag(fs, &lang, "", "lang")
+	var watch bool
+	boolFlag(fs, &watch, "watch", "w")
 	boolFlag(fs, &force, "force", "y")
 	boolFlag(fs, &quiet, "quiet", "q")
 	boolFlag(fs, &verbose, "verbose", "v")
-	boolFlag(fs, &ats, "ats")
 
 	pos, code, ok := r.parse(fs, args, usageBuild)
 	if !ok {
@@ -125,9 +136,6 @@ func (r *runner) build(args []string) int {
 			return r.usageError(usageBuild, err.Error())
 		}
 	}
-	if ats && !quiet {
-		fmt.Fprintln(r.err, "aviso: --ats está obsoleta e não tem efeito; o layout padrão já é otimizado para ATS")
-	}
 
 	opts := app.BuildOptions{
 		Input:     pos[0],
@@ -144,6 +152,9 @@ func (r *runner) build(args []string) int {
 	if verbose {
 		fmt.Fprintf(r.err, "entrada: %s | formatos: %s\n", opts.Input, joinFormats(formats))
 	}
+	if watch {
+		return r.watch(opts, quiet)
+	}
 
 	res, err := app.Build(opts)
 	if !quiet {
@@ -159,6 +170,22 @@ func (r *runner) build(args []string) int {
 		for _, f := range res.Files {
 			fmt.Fprintf(r.out, "Gerado: %s (%s)\n", f.Path, humanSize(f.Size))
 		}
+	}
+	return ExitOK
+}
+
+// schema imprime o JSON Schema do YAML (spec 010), para uso offline.
+func (r *runner) schema(args []string) int {
+	fs := newFlagSet("schema")
+	pos, code, ok := r.parse(fs, args, usageSchema)
+	if !ok {
+		return code
+	}
+	if len(pos) > 0 {
+		return r.usageError(usageSchema, "o comando schema não recebe argumentos")
+	}
+	if _, err := r.out.Write(resume.JSONSchema()); err != nil {
+		return r.fail(err)
 	}
 	return ExitOK
 }

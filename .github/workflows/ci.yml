@@ -23,8 +23,8 @@ jobs:
     name: Lint e formatação
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-go@v6
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
         with:
           go-version: ${{ env.GO_MIN }}
       - name: go mod tidy sem diferenças
@@ -34,7 +34,7 @@ jobs:
       - name: go vet
         run: go vet ./...
       - name: golangci-lint (inclui gofmt e goimports)
-        uses: golangci/golangci-lint-action@v8
+        uses: golangci/golangci-lint-action@v9
         with:
           version: v2.14
 
@@ -50,21 +50,32 @@ jobs:
           - os: ubuntu-latest
             go: stable
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-go@v6
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
         with:
           go-version: ${{ matrix.go }}
 
-      # O texto dos PDFs é verificado com o pdftotext (poppler). No Linux e no
-      # macOS ele é obrigatório; no Windows esses testes são pulados.
+      # O texto dos PDFs é verificado com o pdftotext e o pdfinfo (poppler),
+      # obrigatórios nos três sistemas.
       - name: Instalar poppler (Linux)
         if: runner.os == 'Linux'
         run: sudo apt-get update && sudo apt-get install -y poppler-utils
       - name: Instalar poppler (macOS)
         if: runner.os == 'macOS'
         run: brew install poppler
+      # O Git for Windows já traz um pdftotext antigo, mas não o pdfinfo; a pasta
+      # do poppler vai para o início do PATH para que as duas ferramentas
+      # venham da mesma instalação.
+      - name: Instalar poppler (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          choco install poppler --no-progress -y
+          $bin = Get-ChildItem C:\ProgramData\chocolatey\lib\poppler -Recurse -Filter pdfinfo.exe | Select-Object -First 1
+          if (-not $bin) { throw "pdfinfo.exe não encontrado depois de instalar o poppler" }
+          $bin.DirectoryName | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+          & (Join-Path $bin.DirectoryName pdftotext.exe) -v
       - name: Exigir poppler
-        if: runner.os != 'Windows'
         shell: bash
         run: echo "CV_CRAFT_REQUIRE_POPPLER=1" >> "$GITHUB_ENV"
 
@@ -80,7 +91,7 @@ jobs:
         run: scripts/coverage.sh coverage.out 80
       - name: Publicar relatório de cobertura
         if: runner.os == 'Linux' && matrix.go != 'stable'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: coverage
           path: coverage.out
@@ -97,8 +108,8 @@ jobs:
         goos: [linux, darwin, windows]
         goarch: [amd64, arm64]
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-go@v6
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
         with:
           go-version: ${{ env.GO_MIN }}
       - name: go build
@@ -112,8 +123,8 @@ jobs:
     name: Vulnerabilidades (govulncheck)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-go@v6
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
         with:
           go-version: stable
       - name: govulncheck
@@ -123,8 +134,8 @@ jobs:
     name: Documentação
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-go@v6
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
         with:
           go-version: ${{ env.GO_MIN }}
       # Inclui os golden files de Markdown, que são a saída gerada a partir de
@@ -145,14 +156,14 @@ jobs:
     name: Release (snapshot)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
-      - uses: actions/setup-go@v6
+      - uses: actions/setup-go@v7
         with:
           go-version: stable
       - name: goreleaser check + snapshot
-        uses: goreleaser/goreleaser-action@v6
+        uses: goreleaser/goreleaser-action@v7
         with:
           distribution: goreleaser
           version: "~> v2"

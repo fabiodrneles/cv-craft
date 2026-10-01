@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fabiodrneles/cv-craft/main/schema/cv-craft.schema.json
 # Exemplo completo em português, com todos os campos suportados.
 meta:
   locale: pt-BR

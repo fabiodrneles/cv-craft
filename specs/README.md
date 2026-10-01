@@ -37,5 +37,6 @@ Convenções: `MUST`/`SHOULD`/`MAY` seguem a RFC 2119. Prioridades: **P0** (bloq
 | 007 | [Qualidade, CI e release](007-quality-ci-release/spec.md) | P1 | Done |
 | 008 | [README e documentação](008-readme-docs/spec.md) | P1 | Done |
 | 009 | [Processo de entrega](009-delivery-process/spec.md) | P1 | Done |
+| 010 | [JSON Schema do YAML](010-json-schema/spec.md) | P2 | In Progress |
 
 Status possíveis: `Draft` → `Approved` → `In Progress` → `Done`.
