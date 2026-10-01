@@ -22,3 +22,6 @@ coverage.out
 .vscode/
 .DS_Store
 Thumbs.db
+
+# Cópias de trabalho temporárias de agentes paralelos (Claude Code)
+.claude/worktrees/
