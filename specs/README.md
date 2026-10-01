@@ -36,5 +36,6 @@ Convenções: `MUST`/`SHOULD`/`MAY` seguem a RFC 2119. Prioridades: **P0** (bloq
 | 006 | [Internacionalização das saídas](006-i18n/spec.md) | P2 | Done |
 | 007 | [Qualidade, CI e release](007-quality-ci-release/spec.md) | P1 | In Progress (falta release) |
 | 008 | [README e documentação](008-readme-docs/spec.md) | P1 | In Progress (falta `CONTRIBUTING.md`) |
+| 009 | [Processo de entrega](009-delivery-process/spec.md) | P1 | Draft |
 
 Status possíveis: `Draft` → `Approved` → `In Progress` → `Done`.
