@@ -93,14 +93,13 @@ func (r *runner) dispatch(args []string) int {
 func (r *runner) build(args []string) int {
 	fs := newFlagSet("build")
 	var format, output, lang string
-	var force, quiet, verbose, ats bool
+	var force, quiet, verbose bool
 	stringFlag(fs, &format, "pdf", "format", "f")
 	stringFlag(fs, &output, "", "output", "o")
 	stringFlag(fs, &lang, "", "lang")
 	boolFlag(fs, &force, "force", "y")
 	boolFlag(fs, &quiet, "quiet", "q")
 	boolFlag(fs, &verbose, "verbose", "v")
-	boolFlag(fs, &ats, "ats")
 
 	pos, code, ok := r.parse(fs, args, usageBuild)
 	if !ok {
@@ -124,9 +123,6 @@ func (r *runner) build(args []string) int {
 		if _, err := i18n.Get(lang); err != nil {
 			return r.usageError(usageBuild, err.Error())
 		}
-	}
-	if ats && !quiet {
-		fmt.Fprintln(r.err, "aviso: --ats está obsoleta e não tem efeito; o layout padrão já é otimizado para ATS")
 	}
 
 	opts := app.BuildOptions{
