@@ -79,12 +79,12 @@ descoberta → ANALYSIS.md → decisões do dono → constituição + specs + RO
 
 ### 6. Pull requests
 
-- **FR-23** Um PR por ticket. A descrição MUST começar com `Closes #N · Épico #M · Spec NNN` (com `Spec —` quando não houver spec afetada). O título segue Conventional Commits.
+- **FR-23** Um PR por ticket. A primeira linha da descrição MUST ser `Closes #N · Épico #M · Spec NNN` (com `Spec —` quando não houver spec afetada); a nota de PR empilhado (FR-25), quando houver, vem logo em seguida. O título segue Conventional Commits.
 - **FR-24** A descrição MUST ter as seções **O que muda** e **Como foi testado**, e SHOULD ter **Notas ou decisões para a revisão** quando houver algo que o dono precise decidir ou saber. Seções adicionais do template do repositório (specs e AC, checklist) MAY ser usadas.
-- **FR-25** Um PR empilhado MUST dizer isso no topo (`> PR empilhado sobre #NN`). Quando o PR base é mergeado e sua branch apagada, o GitHub redireciona o empilhado para a `main`; o agente MUST então conferir se o diff continua só com o ticket e se o CI segue verde.
+- **FR-25** Um PR empilhado MUST dizer isso no topo, logo após a linha `Closes` (`> PR empilhado sobre #NN`). Quando o PR base é mergeado e sua branch apagada, o GitHub redireciona o empilhado para a `main`; o agente MUST então conferir se o diff continua só com o ticket e se o CI segue verde.
 - **FR-26** O PR MUST ficar no escopo do ticket. O que estiver fora vira ticket novo (FR-13).
-- **FR-27** Para evitar conflitos entre PRs paralelos da mesma fase, PRs de ticket MUST NOT editar os arquivos de status compartilhados: status das specs em `specs/README.md` e no cabeçalho das specs, checkboxes do ROADMAP e entradas do CHANGELOG. Isso é feito no PR de fechamento (FR-40). Exceções: o ticket que **cria** um desses arquivos, e o conteúdo normativo das specs (FR-9), que muda junto com o código.
-- **FR-28** PRs do agente MUST terminar com `🤖 Generated with [Claude Code](https://claude.com/claude-code)` e o link da sessão.
+- **FR-27** Para evitar conflitos entre PRs paralelos da mesma fase, PRs de ticket MUST NOT editar os arquivos de status compartilhados: status das specs em `specs/README.md` e no cabeçalho das specs, checkboxes do ROADMAP e entradas do CHANGELOG. Isso é feito no PR de fechamento (FR-42). Exceções: o ticket que **cria** um desses arquivos, e o conteúdo normativo das specs (FR-9), que muda junto com o código.
+- **FR-28** PRs do agente MUST terminar com o rodapé de atribuição da ferramenta usada (com Claude Code: `🤖 Generated with [Claude Code](https://claude.com/claude-code)` e o link da sessão).
 
 ### 7. Validação antes do push
 
@@ -113,7 +113,7 @@ descoberta → ANALYSIS.md → decisões do dono → constituição + specs + RO
 
 ### 11. Fechamento de fase
 
-- **FR-42** Depois de mergeados todos os PRs da fase, um **PR de fechamento** MUST atualizar: o status das specs (`specs/README.md` e cabeçalhos), os checkboxes do ROADMAP e o `CHANGELOG.md` ([Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/): `[Unreleased]` vira `[X.Y.Z] - AAAA-MM-DD`).
+- **FR-42** Depois de mergeados todos os PRs da fase, um **PR de fechamento** MUST atualizar: o status das specs (`specs/README.md` e cabeçalhos) e a seção "Estado atual" das specs que a tiverem, os checkboxes do ROADMAP e o `CHANGELOG.md` ([Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/): `[Unreleased]` vira `[X.Y.Z] - AAAA-MM-DD`).
 - **FR-43** Após o merge do PR de fechamento, o dono cria e envia a tag `vX.Y.Z` (SemVer). O workflow de release MUST rodar o CI completo antes de publicar os binários e os checksums.
 - **FR-44** O épico é fechado quando a release da fase estiver publicada.
 
@@ -149,11 +149,11 @@ descoberta → ANALYSIS.md → decisões do dono → constituição + specs + RO
 - **AC-2** Dado uma fase do ROADMAP, então existe um épico com labels `épico` e `fase-N`, e cada tarefa da fase é sub-issue dele.
 - **AC-3** Dado um ticket, então seu corpo tem Contexto, O que fazer, Critérios de aceite, Spec(s) e Épico, e ele tem uma label `fase-N`, uma `tipo:*` e uma de prioridade.
 - **AC-4** Dado um PR de ticket, então o nome da branch segue `<tipo>/<nº>-<descrição>`, a descrição começa com `Closes #N · Épico #M · Spec NNN` e o CI está verde antes de o PR entrar na revisão.
-- **AC-5** Dado um PR empilhado, então a primeira seção da descrição diz sobre qual PR ele está empilhado.
+- **AC-5** Dado um PR empilhado, então a primeira linha da descrição é a linha `Closes` (FR-23) e a seguinte diz sobre qual PR ele está empilhado.
 - **AC-6** Dado uma divergência entre implementação e spec, então a spec é atualizada no mesmo PR com uma entrada em Decisões (ou nota "Revisado na implementação").
 - **AC-7** Dado dois PRs de ticket da mesma fase, então nenhum deles altera status em `specs/README.md`, checkboxes do ROADMAP ou entradas do CHANGELOG (salvo a criação do arquivo, FR-27).
 - **AC-8** Dado um teste novo num PR, quando o código coberto é quebrado de propósito, então o teste falha.
-- **AC-9** Dado um CI vermelho num PR do agente, então o commit seguinte corrige a causa raiz descrita no PR ou no commit, sem teste novo pulado, sem gate rebaixado e sem commit vazio.
+- **AC-9** Dado um CI vermelho num PR do agente, então o commit seguinte corrige a causa raiz descrita no PR ou no commit, sem nenhum teste (novo ou existente) pulado, desativado ou enfraquecido, sem gate rebaixado e sem commit vazio (FR-37).
 - **AC-10** Dado o fim de uma fase, então existe um PR de fechamento que atualiza ROADMAP, status das specs e CHANGELOG, e a tag `vX.Y.Z` só é criada depois do merge dele.
 - **AC-11** Dado um PR de fase com PRs empilhados sobre ele, quando é mergeado, então o merge é por merge commit e os empilhados passam a apontar para a `main`.
 - **AC-12** Dado qualquer issue, PR ou comentário escrito pelo agente, então ele termina com o rodapé de atribuição (FR-14, FR-28).
