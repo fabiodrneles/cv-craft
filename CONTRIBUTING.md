@@ -25,7 +25,7 @@ O trabalho é organizado em **fases** (ver [`specs/ROADMAP.md`](specs/ROADMAP.md
 - critérios de aceite verificáveis;
 - spec(s) afetada(s).
 
-Labels: `fase-N`, `tipo:feature|bug|docs|ci|teste|chore` e prioridade `P1` (alta) a `P3` (baixa).
+Labels: `fase-N`, `tipo:feature|docs|ci|teste|chore` (defeitos usam o label padrão `bug`) e prioridade `P1` (alta) a `P3` (baixa).
 
 Mudanças pequenas e óbvias (erro de digitação, link quebrado) podem ir direto para PR, sem ticket.
 
