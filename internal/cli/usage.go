@@ -19,6 +19,7 @@ Exemplos:
   cv-craft build curriculum.yaml
   cv-craft build curriculum.yaml --format all -o dist/
   cv-craft build curriculum.yaml -f md --lang en
+  cv-craft build curriculum.yaml --watch
 
 Exit codes: 0 sucesso · 1 erro inesperado · 2 uso incorreto ·
             3 saída já existe/cancelado · 4 YAML inválido
@@ -36,6 +37,7 @@ Flags:
   -y, --force           sobrescreve arquivos existentes sem perguntar
   -q, --quiet           mostra apenas erros
   -v, --verbose         mostra detalhes da execução
+  -w, --watch           gera de novo a cada vez que o YAML é salvo, até Ctrl+C
 `
 
 const usageValidate = `Uso: cv-craft validate <arquivo.yaml>

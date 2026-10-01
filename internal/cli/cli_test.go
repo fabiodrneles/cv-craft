@@ -163,9 +163,17 @@ func TestWarningsGoToStderr(t *testing.T) {
 	}
 }
 
-func TestDeprecatedATSFlag(t *testing.T) {
+// 003/FR-9: -ats foi removida na v1.0.0 (depreciada desde a v0.2.0) e agora é
+// uma flag desconhecida como outra qualquer.
+func TestRemovedATSFlag(t *testing.T) {
 	chdir(t)
-	expect(t, run(t, "", false, "build", "cv.yaml", "-ats"), ExitOK, "aviso: --ats está obsoleta")
+	for _, flag := range []string{"-ats", "--ats"} {
+		r := run(t, "", false, "build", "cv.yaml", flag)
+		expect(t, r, ExitUsage, "flag desconhecida: -ats")
+		if strings.Contains(r.stderr, "obsoleta") {
+			t.Errorf("%s: não deve mais haver aviso de depreciação: %s", flag, r.stderr)
+		}
+	}
 }
 
 // 002/AC-9: sem ANSI quando a saída não é um terminal.

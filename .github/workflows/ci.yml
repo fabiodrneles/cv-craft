@@ -55,16 +55,27 @@ jobs:
         with:
           go-version: ${{ matrix.go }}
 
-      # O texto dos PDFs é verificado com o pdftotext (poppler). No Linux e no
-      # macOS ele é obrigatório; no Windows esses testes são pulados.
+      # O texto dos PDFs é verificado com o pdftotext e o pdfinfo (poppler),
+      # obrigatórios nos três sistemas.
       - name: Instalar poppler (Linux)
         if: runner.os == 'Linux'
         run: sudo apt-get update && sudo apt-get install -y poppler-utils
       - name: Instalar poppler (macOS)
         if: runner.os == 'macOS'
         run: brew install poppler
+      # O Git for Windows já traz um pdftotext antigo, mas não o pdfinfo; a pasta
+      # do poppler vai para o início do PATH para que as duas ferramentas
+      # venham da mesma instalação.
+      - name: Instalar poppler (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          choco install poppler --no-progress -y
+          $bin = Get-ChildItem C:\ProgramData\chocolatey\lib\poppler -Recurse -Filter pdfinfo.exe | Select-Object -First 1
+          if (-not $bin) { throw "pdfinfo.exe não encontrado depois de instalar o poppler" }
+          $bin.DirectoryName | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+          & (Join-Path $bin.DirectoryName pdftotext.exe) -v
       - name: Exigir poppler
-        if: runner.os != 'Windows'
         shell: bash
         run: echo "CV_CRAFT_REQUIRE_POPPLER=1" >> "$GITHUB_ENV"
 

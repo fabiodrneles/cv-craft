@@ -41,7 +41,7 @@ Seções vazias não são renderizadas.
 - **FR-6** Links (e-mail, LinkedIn, GitHub, portfólio, certificados) MUST ser clicáveis (`pdf.LinkString`).
 - **FR-7** O PDF MUST conter metadados: `Title` = "Nome — Título profissional", `Author` = nome, `Subject`, `Keywords` = união das keywords das skills, `Creator` = "cv-craft vX.Y.Z".
 - **FR-8** Quebra de página: título de seção nunca fica sozinho no fim da página; o cabeçalho de uma experiência (cargo + empresa) nunca é separado do primeiro item. Remover o limiar fixo de 250 mm.
-- **FR-9** Comportamento de `-ats` conforme decisão D3. Se a flag for removida, aceitar e ignorar com aviso de depreciação por uma versão.
+- **FR-9** A flag `-ats` não existe (decisão D3): foi aceita sem efeito, com aviso de depreciação, na v0.2.0, e removida na v1.0.0. Passá-la resulta em "flag desconhecida" (exit 2, spec 002).
 - **FR-10** O gerador MUST ser determinístico em testes: data de criação injetável (ou `SOURCE_DATE_EPOCH`).
 - **FR-11** O gerador não escreve em stdout/stderr; retorna erro.
 - **FR-12** Rótulos das seções vêm do pacote de i18n (spec 006), não são literais no gerador.
@@ -72,7 +72,7 @@ Seções vazias não são renderizadas.
 
 ## Decisões
 
-- D3 — `-ats` é aceita e ignorada, com aviso de depreciação em stderr; será removida em uma versão futura.
+- D3 — `-ats` foi aceita e ignorada, com aviso de depreciação em stderr, na v0.2.0, e removida na v1.0.0 (#14): o layout padrão já é otimizado para ATS.
 - D4 — Liberation Sans (Regular, Bold, Italic; SIL OFL 1.1) embutida via `embed`, com subset no PDF. Cobre Latin, Latin Extended, grego e cirílico. PDF típico: ~50 KB.
 - D6 — nível exibido traduzido entre parênteses (`Backend (Avançado): Go, …`).
 - Links do cabeçalho são exibidos sem `https://` (o destino clicável é a URL completa) e rótulo e link nunca são separados por quebra de linha.

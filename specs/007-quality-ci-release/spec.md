@@ -22,7 +22,7 @@ Não há testes, CI, `.gitignore` nem processo de release. O repositório versio
 
 - **FR-6** Unitários do parser/validação cobrindo os AC da spec 001.
 - **FR-7** Golden files dos geradores em `internal/generator/testdata/`, com flag `-update` para regenerar.
-- **FR-8** Teste do PDF via extração de texto com o `pdftotext` (poppler). **Revisado na implementação:** a lib Go pura avaliada (`ledongthuc/pdf`) trunca caracteres acima de U+00FF em fontes TTF embutidas (`—`, `•`, `Ł`), o que esconderia justamente os bugs de Unicode. O poppler é instalado no CI (Linux e macOS, obrigatório via `CV_CRAFT_REQUIRE_POPPLER=1`); localmente e no Windows os testes de texto do PDF são pulados se ele não existir.
+- **FR-8** Teste do PDF via extração de texto com o `pdftotext` (poppler). **Revisado na implementação:** a lib Go pura avaliada (`ledongthuc/pdf`) trunca caracteres acima de U+00FF em fontes TTF embutidas (`—`, `•`, `Ł`), o que esconderia justamente os bugs de Unicode. O poppler é instalado no CI nos três sistemas (Linux, macOS e, desde #16, Windows via Chocolatey) e é obrigatório via `CV_CRAFT_REQUIRE_POPPLER=1`; localmente, os testes de texto do PDF são pulados se ele não existir.
 - **FR-9** Teste de CLI de ponta a ponta cobrindo os exit codes da spec 002: `cli.Run` testado em processo (`internal/cli/cli_test.go`) e o binário real exercitado por `scripts/smoke.sh` em Linux, macOS e Windows.
 - **FR-10** Cobertura mínima: 80% em `internal/`.
 

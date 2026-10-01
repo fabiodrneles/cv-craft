@@ -31,6 +31,7 @@ cv-craft                                   Sem argumentos: ajuda (ver decisão D
 | `--lang` | | do YAML | Idioma das seções (spec 006) |
 | `--quiet` | `-q` | `false` | Só erros |
 | `--verbose` | `-v` | `false` | Logs de diagnóstico em stderr |
+| `--watch` | `-w` | `false` | Gera e regenera a cada alteração do YAML, até Ctrl+C (FR-15) |
 
 Flags de forma única com um hífen (`-format`) SHOULD continuar aceitas por compatibilidade.
 
@@ -50,6 +51,12 @@ Flags de forma única com um hífen (`-format`) SHOULD continuar aceitas por com
 - **FR-12** stdout: só o resultado (caminho gerado). stderr: logs, avisos, erros. Geradores não chamam `log` diretamente.
 - **FR-13** Emojis/cores MUST ser desativados quando stdout não for TTY ou `NO_COLOR` estiver definida.
 - **FR-14** Todas as mensagens da CLI em um único idioma (ver spec 006).
+- **FR-15** `build --watch` gera uma vez e regenera a cada alteração do arquivo de entrada:
+  - Detecção por *polling* da data de modificação e do tamanho a cada 200 ms (decisão D7), com *debounce* de 300 ms: só gera depois que o arquivo para de mudar.
+  - Erros de validação ou de geração são mostrados em stderr **sem encerrar**; a próxima alteração tenta de novo.
+  - Depois da primeira geração bem-sucedida, as seguintes sobrescrevem as próprias saídas sem perguntar.
+  - Encerra com 0 em Ctrl+C (SIGINT) ou SIGTERM; com 1 se o arquivo de entrada não existir ao iniciar; com 3 se a primeira geração não puder gravar (saída existente sem `--force` e sem terminal, ou sobrescrita recusada), como o `build` comum (FR-5).
+  - Um arquivo que some por um instante (editores que salvam renomeando um temporário) não interrompe a observação.
 
 ## Exit codes
 
@@ -73,10 +80,12 @@ Flags de forma única com um hífen (`-format`) SHOULD continuar aceitas por com
 - **AC-8** `cv-craft validate invalido.yaml` ⇒ exit 4, todos os erros listados em stderr.
 - **AC-9** `cv-craft build x.yaml | cat` não contém códigos ANSI.
 - **AC-10** `cv-craft version` com binário de release mostra a tag.
+- **AC-11** Com `build x.yaml --watch` rodando, alterar e salvar `x.yaml` regenera a saída em menos de 1 s.
+- **AC-12** Com `--watch`, um YAML inválido mostra os erros sem encerrar; corrigido e salvo, a geração volta a funcionar sem reiniciar. Ctrl+C encerra com 0.
+- **AC-13** `build nao-existe.yaml --watch` sai com 1; com a saída existente, sem `--force` e sem terminal, sai com 3 sem alterar o arquivo.
 
 ## Fora de escopo
 
-- Watch mode (`--watch`) — candidato a spec futura.
 - Configuração global (`~/.cv-craft`).
 
 ## Decisões
@@ -85,3 +94,4 @@ Flags de forma única com um hífen (`-format`) SHOULD continuar aceitas por com
 - Arquivo de entrada inexistente sai com 1 (falha de I/O); YAML com erro de sintaxe ou validação sai com 4.
 - Com um único formato, `--output` apontando para um diretório existente grava `<diretório>/<nome>.<ext>`.
 - Implementado em `internal/app` (serviço) e `internal/cli` (parsing e apresentação); testes em `internal/cli/cli_test.go` e `scripts/smoke.sh`.
+- D7 — `--watch` usa *polling* (só a biblioteca padrão) em vez de `fsnotify`: observa um único arquivo, regenera em menos de 1 s, funciona igual nos três sistemas e não tem os casos especiais de editores que salvam renomeando um arquivo temporário (#12). Testes em `internal/cli/watch_test.go`.
