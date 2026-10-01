@@ -1,0 +1,35 @@
+Ana Oliveira
+Full Stack Developer | React & Node.js
+Rio de Janeiro, Brazil | +55 (21) 91234-5678 | ana.oliveira.dev@example.com
+LinkedIn: https://linkedin.com/in/ana-oliveira-dev | Portfolio: https://anaoliveira-dev.vercel.app
+
+SUMMARY
+=======
+Full Stack Developer with 4 years of experience building web applications. Passionate about user-friendly interfaces and robust backend systems.
+
+SKILLS
+======
+- Frontend (Proficient): React, TypeScript, Next.js, Tailwind CSS
+- Backend (Proficient): Node.js, Express, Python, REST APIs
+- Tools (Intermediate): Git, Docker, AWS, Jest, Cypress
+
+PROFESSIONAL EXPERIENCE
+=======================
+Full Stack Developer — Digital Innovations Inc
+Remote | 2021 - Present
+Responsibilities:
+- Built and maintained responsive web applications with React and Node.js
+- Implemented real-time features with WebSockets
+Achievements:
+- Improved page load times by 40%
+Technologies: React, Node.js, MongoDB, AWS
+
+EDUCATION
+=========
+Bachelor of Information Systems — Federal University of Rio de Janeiro
+Rio de Janeiro, Brazil | 2017 - 2021
+
+LANGUAGES
+=========
+- Portuguese: Native
+- English: Fluent
