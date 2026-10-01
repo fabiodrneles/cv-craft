@@ -6,7 +6,23 @@ O formato segue o [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/), e
 
 ## [Unreleased]
 
-Primeira versão pública, a ser publicada como **v0.1.0** ao fim da Fase 1 ([#1](https://github.com/fabiodrneles/cv-craft/issues/1)).
+## [0.2.0] - 2026-10-01
+
+Fase 2, "confiável e publicável" ([#3](https://github.com/fabiodrneles/cv-craft/issues/3)). Primeira versão com binários pré-compilados.
+
+### Adicionado
+
+- Binários pré-compilados para Linux, macOS e Windows (amd64 e arm64), com `checksums.txt`, publicados automaticamente a cada tag.
+- Referência completa do formato YAML em [`docs/schema.md`](docs/schema.md) e guia dos exemplos em [`examples/README.md`](examples/README.md).
+- Guia de contribuição ([`CONTRIBUTING.md`](CONTRIBUTING.md)), formulários de issue e template de PR.
+
+### Alterado
+
+- Versão mínima do Go para compilar ou instalar com `go install`: **1.26**.
+
+## [0.1.0] - 2026-10-01
+
+Fase 1, "funcionar de verdade" ([#1](https://github.com/fabiodrneles/cv-craft/issues/1)). Marco sem binários publicados (a automação de release entrou na 0.2.0).
 
 ### Adicionado
 
@@ -36,4 +52,6 @@ Primeira versão pública, a ser publicada como **v0.1.0** ao fim da Fase 1 ([#1
 
 - `-ats`: aceita, mas sem efeito (o layout padrão já é otimizado para ATS). Será removida em uma versão futura.
 
-[Unreleased]: https://github.com/fabiodrneles/cv-craft/commits/main
+[Unreleased]: https://github.com/fabiodrneles/cv-craft/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/fabiodrneles/cv-craft/compare/v0.1.0...v0.2.0
+[0.1.0]: https://github.com/fabiodrneles/cv-craft/releases/tag/v0.1.0

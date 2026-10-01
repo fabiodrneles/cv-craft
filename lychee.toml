@@ -14,8 +14,11 @@ exclude = [
   '^mailto:',
   # O pkg.go.dev só indexa o módulo depois que o caminho novo
   # (github.com/fabiodrneles/cv-craft) estiver na main ou numa tag.
-  # Remover esta exclusão no PR de fechamento da Fase 1, após a tag v0.1.0.
+  # Remover esta exclusão quando a página existir (após a primeira tag publicada).
   '^https://pkg\.go\.dev/github\.com/fabiodrneles/cv-craft',
+  # Links de versão do CHANGELOG: só existem depois que o dono cria a tag, que vem
+  # após o merge do PR de fechamento da fase.
+  '^https://github\.com/fabiodrneles/cv-craft/(compare|releases/tag)/',
 ]
 
 # Links para issues/PRs e para o próprio repositório: o GitHub limita requisições

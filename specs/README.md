@@ -12,7 +12,7 @@ spec.md (O QUÊ / POR QUÊ)  →  revisão  →  testes a partir dos critérios 
 2. **Resolver decisões** — itens em "Decisões em aberto" precisam ser respondidos antes de implementar.
 3. **Testar primeiro** — cada `AC-*` vira ao menos um teste automatizado (unitário, golden file ou de CLI).
 4. **Implementar** — PR referencia os IDs (ex.: `implements 003/FR-1, AC-2`).
-5. **Fechar** — atualizar o status abaixo e a seção "Estado atual" da spec.
+5. **Fechar** — no PR de fechamento da fase (e não em cada PR de ticket), atualizar o status abaixo, a seção "Estado atual" das specs, o [ROADMAP](ROADMAP.md) e o `CHANGELOG.md`. Detalhes na [spec 009](009-delivery-process/spec.md).
 
 Convenções: `MUST`/`SHOULD`/`MAY` seguem a RFC 2119. Prioridades: **P0** (bloqueia uso real), **P1** (confiabilidade), **P2** (polimento).
 
@@ -34,8 +34,8 @@ Convenções: `MUST`/`SHOULD`/`MAY` seguem a RFC 2119. Prioridades: **P0** (bloq
 | 004 | [Saídas Markdown e Texto](004-text-outputs/spec.md) | P0 | Done |
 | 005 | [Modo interativo](005-interactive-mode/spec.md) | P1 | Done |
 | 006 | [Internacionalização das saídas](006-i18n/spec.md) | P2 | Done |
-| 007 | [Qualidade, CI e release](007-quality-ci-release/spec.md) | P1 | In Progress (falta release) |
-| 008 | [README e documentação](008-readme-docs/spec.md) | P1 | In Progress (falta `CONTRIBUTING.md`) |
-| 009 | [Processo de entrega](009-delivery-process/spec.md) | P1 | Draft |
+| 007 | [Qualidade, CI e release](007-quality-ci-release/spec.md) | P1 | Done |
+| 008 | [README e documentação](008-readme-docs/spec.md) | P1 | Done |
+| 009 | [Processo de entrega](009-delivery-process/spec.md) | P1 | Done |
 
 Status possíveis: `Draft` → `Approved` → `In Progress` → `Done`.

@@ -72,6 +72,8 @@ Mudanças incompatíveis usam `!` (`feat!: ...`) e explicam o impacto no corpo d
 
 Depois que todos os PRs da fase forem mergeados, um **PR de fechamento** atualiza o status das specs, o [`ROADMAP.md`](specs/ROADMAP.md) e o `CHANGELOG.md`. Assim, os PRs da fase não entram em conflito por editarem os mesmos arquivos. Em seguida, cria-se a tag da versão.
 
+O processo completo é normativo na [spec 009](specs/009-delivery-process/spec.md). Quem usa o Claude Code tem a skill [`sdd-delivery`](.claude/skills/sdd-delivery/SKILL.md), que aplica o mesmo fluxo neste e em outros repositórios.
+
 ## Ambiente de desenvolvimento
 
 Requisitos:
@@ -92,7 +94,10 @@ Comandos:
 | `make lint` | `go vet` + `golangci-lint` |
 | `make smoke` | Smoke test de ponta a ponta com o binário real |
 | `make golden` | Regrava os golden files após uma mudança **intencional** nas saídas |
-| `make ci` | Tudo o que o CI roda; rode antes de abrir o PR |
+| `make bench` | Benchmarks de parsing e de cada formato |
+| `make docs` | Lint de Markdown, comandos da documentação e links (requer Node) |
+| `make release-snapshot` | Gera os arquivos da release em `./dist`, sem publicar (requer GoReleaser) |
+| `make ci` | Verificações de código do CI; rode antes de abrir o PR (e `make docs` se mexeu em documentação) |
 
 ### Golden files
 
