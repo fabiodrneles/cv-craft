@@ -32,4 +32,4 @@ O modo interativo é um REPL que aceita `build`, `init`, `validate`, `templates`
 
 - D2 — o modo interativo é mantido como camada fina sobre o mesmo `dispatch` da CLI e não é mais o padrão sem argumentos.
 - O tokenizer respeita aspas simples e duplas, mas não trata `\` como escape, para aceitar caminhos do Windows.
-- AC-2 e AC-3 são verificados com stdin simulado (`IsTerminal` injetável) em `internal/cli/cli_test.go`, sem PTY real.
+- AC-2 e AC-3 são verificados de dois jeitos: com stdin simulado (`IsTerminal` injetável) em `internal/cli/cli_test.go`, em todos os sistemas; e com o binário real num pseudo-terminal em `pty_test.go` (Linux e macOS; #15), que também cobre o Ctrl+C (FR-1) e a pergunta de sobrescrita (FR-4). D8 — a dependência `github.com/creack/pty` é usada só nesses testes e não entra no binário. O Windows fica de fora porque não tem PTY no estilo Unix (o ConPTY é outra API).
