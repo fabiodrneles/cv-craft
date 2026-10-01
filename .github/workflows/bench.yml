@@ -26,6 +26,9 @@ jobs:
         with:
           go-version: stable
       - name: go test -bench
+        # "shell: bash" ativa o pipefail: sem ele, o job ficaria verde mesmo
+        # com o go test falhando, porque vale o exit code do tee.
+        shell: bash
         run: go test -run '^$' -bench . -benchmem -count 5 ./internal/... | tee bench.txt
       - name: Resumo
         run: |
