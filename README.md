@@ -87,8 +87,17 @@ As flags podem vir antes ou depois do arquivo.
 | `-y`, `--force` | — | Sobrescreve arquivos existentes sem perguntar |
 | `-q`, `--quiet` | — | Mostra apenas erros |
 | `-v`, `--verbose` | — | Mostra detalhes da execução |
+| `-w`, `--watch` | — | Gera de novo a cada vez que o YAML é salvo, até `Ctrl+C` |
 
 Se o arquivo de saída já existir, o CV-Craft pergunta antes de sobrescrever quando está em um terminal. Em scripts e no CI, ele falha com exit code `3`, a não ser que você use `--force`.
+
+Para editar o currículo vendo o resultado, deixe o `--watch` rodando num terminal e o PDF aberto num visualizador que recarrega o arquivo:
+
+```text
+cv-craft build curriculum.yaml --watch
+```
+
+Cada vez que você salva o YAML, o currículo é gerado de novo em menos de um segundo. Se o YAML ficar inválido, os erros aparecem e a observação continua; ao corrigir e salvar, a geração volta a funcionar. `Ctrl+C` encerra com exit code `0`.
 
 ### Exit codes
 
