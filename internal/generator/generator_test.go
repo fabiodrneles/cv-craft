@@ -105,7 +105,8 @@ func poppler(t *testing.T, tool string, data []byte, args ...string) string {
 	if err != nil {
 		t.Fatalf("%s: %v", tool, err)
 	}
-	return string(out)
+	// O poppler do Windows termina as linhas com CRLF.
+	return strings.ReplaceAll(string(out), "\r\n", "\n")
 }
 
 // pdfPages extrai o texto de cada página com o pdftotext, sem linhas em branco.
