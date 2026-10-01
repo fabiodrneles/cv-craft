@@ -78,6 +78,7 @@ languages:                # opcional
 
 - **NFR-1** Parsing + validação de um YAML de 50 KB em < 50 ms.
 - **NFR-2** Sem dependências novas além de `yaml.v3`.
+- **NFR-3** Verificação: `TestParseValidate50KBPerformance` (limite com margem de 5×, para não ser instável em runners compartilhados), `BenchmarkParseValidate50KB` (limite exato; `make bench` e o workflow `bench.yml`) e `TestResumeDependencies` (`go list -deps`).
 
 ## Critérios de aceite
 

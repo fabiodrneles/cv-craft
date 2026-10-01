@@ -52,6 +52,7 @@ Seções vazias não são renderizadas.
 - **NFR-2** Geração de um CV de 2 páginas em < 200 ms.
 - **NFR-3** Arquivo < 300 KB (com fonte embutida em subset, se aplicável).
 - **NFR-4** Margens de 15–20 mm; corpo ≥ 10 pt; contraste do texto ≥ cinza 80.
+- **NFR-5** Verificação: NFR-1 pelos golden files e pelo teste de paridade; NFR-2 por `TestPDFGenerationTime` (margem de 5×) e `BenchmarkGenerate/pdf`; NFR-3 por `TestPDFSize` (exemplo completo e um CV com 18 experiências).
 
 ## Critérios de aceite
 

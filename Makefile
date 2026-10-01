@@ -32,6 +32,10 @@ smoke: ## Smoke test de ponta a ponta com o binário real
 golden: ## Regrava os golden files após uma mudança intencional nas saídas
 	go test ./internal/generator -update
 
+.PHONY: bench
+bench: ## Benchmarks de parsing e de cada formato (requisitos não-funcionais das specs 001 e 003)
+	go test -run '^$$' -bench . -benchmem ./internal/...
+
 ci: lint race cover smoke ## Tudo que o CI roda
 
 release-snapshot: ## Gera os binários e arquivos da release em ./dist, sem publicar
