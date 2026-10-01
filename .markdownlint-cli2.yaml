@@ -1,0 +1,14 @@
+# Lint de Markdown (spec 004 FR-MD-5, spec 008). Roda no CI (job "docs") e
+# com "make docs". Os golden files em internal/generator/testdata/ são a saída
+# Markdown gerada a partir de examples/, então também são verificados aqui.
+config:
+  MD013: false # tamanho de linha: textos longos são esperados
+  MD060: false # estilo de espaçamento do separador de tabela (|---|)
+  MD033:
+    allowed_elements: [p, img] # prévia centralizada no README
+globs:
+  - "**/*.md"
+ignores:
+  - ".claude/**"
+  - "node_modules/**"
+  - "dist/**"

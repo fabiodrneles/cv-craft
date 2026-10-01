@@ -30,7 +30,7 @@ O `.txt` é o formato de máxima compatibilidade com ATS (colar em formulários)
 ## Texto
 
 - **FR-TXT-1** Sem marcação: títulos de seção em MAIÚSCULAS seguidos de linha de `=`/`-`.
-- **FR-TXT-2** Listas com `- `.
+- **FR-TXT-2** Listas com `-` seguido de espaço.
 - **FR-TXT-3** URLs escritas por extenso.
 - **FR-TXT-4** Quebra de linha em 100 colunas é **opcional** (MAY); padrão: não quebrar, para não atrapalhar colagem em formulários.
 
