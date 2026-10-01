@@ -42,6 +42,8 @@ func TestOutputPaths(t *testing.T) {
 		{"padrão", "", pdf, []string{filepath.Join("docs", "meu cv.pdf")}},
 		{"arquivo explícito", "out.pdf", pdf, []string{"out.pdf"}},
 		{"diretório existente", dir, pdf, []string{filepath.Join(dir, "meu cv.pdf")}},
+		{"diretório novo terminado em /", "novo/", pdf, []string{filepath.Join("novo", "meu cv.pdf")}},
+		{"diretório novo terminado em separador do SO", "novo" + string(filepath.Separator), pdf, []string{filepath.Join("novo", "meu cv.pdf")}},
 		{"all sem output", "", all, []string{
 			filepath.Join("docs", "meu cv.pdf"), filepath.Join("docs", "meu cv.md"), filepath.Join("docs", "meu cv.txt"),
 		}},
@@ -83,6 +85,25 @@ func TestBuildAllFormats(t *testing.T) {
 		if strings.HasPrefix(e.Name(), ".cv-craft-") {
 			t.Errorf("arquivo temporário esquecido: %s", e.Name())
 		}
+	}
+}
+
+// Revisão do #2: "-o dist/" com um formato e dist/ ainda inexistente gerava
+// "rename ...: file exists" e deixava a pasta vazia.
+func TestBuildIntoNewDirectory(t *testing.T) {
+	dir := t.TempDir()
+	in := writeExample(t, dir)
+	out := filepath.Join(dir, "dist") + "/"
+	res, err := Build(BuildOptions{Input: in, Output: out})
+	if err != nil {
+		t.Fatal(err)
+	}
+	want := filepath.Join(dir, "dist", "cv.pdf")
+	if len(res.Files) != 1 || res.Files[0].Path != want {
+		t.Fatalf("esperava %s, veio %+v", want, res.Files)
+	}
+	if _, err := os.Stat(want); err != nil {
+		t.Fatal(err)
 	}
 }
 
