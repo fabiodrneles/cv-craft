@@ -7,7 +7,7 @@ config:
   MD024:
     siblings_only: true # o CHANGELOG repete "Adicionado"/"Alterado" em cada versão
   MD033:
-    allowed_elements: [p, img] # prévia centralizada no README
+    allowed_elements: [p, img, details, summary] # prévia centralizada e seções recolhíveis no README
 globs:
   - "**/*.md"
 ignores:

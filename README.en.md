@@ -25,24 +25,64 @@ You write the content once in YAML; CV-Craft generates the **PDF** to send to re
 
 ## Installation
 
-**Prebuilt binary** (no Go needed): download the archive for your system from [Releases](https://github.com/fabiodrneles/cv-craft/releases/latest), extract it and put `cv-craft` (or `cv-craft.exe`) in a folder on your `PATH`.
+Pick your system and follow the steps. Every command block can be copied and pasted whole into the terminal.
 
-```bash
-# Example on Linux (x86-64); change the version and system to match the downloaded file
-tar -xzf cv-craft_0.2.0_linux_amd64.tar.gz
-sudo mv cv-craft /usr/local/bin/
-cv-craft version
-```
+### Windows
 
-There are archives for Linux, macOS and Windows (amd64 and arm64), and `checksums.txt` lets you verify the download (`sha256sum -c checksums.txt --ignore-missing`).
+1. Open **PowerShell**: press the **Windows** key, type `PowerShell` and press **Enter**. It does not need to run as administrator.
+2. Copy and paste this command and press **Enter**:
 
-**With Go (1.26 or later):**
+   ```powershell
+   irm https://raw.githubusercontent.com/fabiodrneles/cv-craft/main/scripts/install.ps1 | iex
+   ```
+
+   It downloads the latest version, verifies the file (checksum), installs it in `%LOCALAPPDATA%\Programs\cv-craft` and adds that folder to your `PATH`, so the `cv-craft` command works in any folder.
+3. Check the installation:
+
+   ```powershell
+   cv-craft version
+   ```
+
+   You should see something like `cv-craft v1.0.0 (...)`. Terminals that were already open before the installation must be closed and reopened to pick up the new `PATH`.
+
+<details>
+<summary>Manual installation on Windows (no script)</summary>
+
+1. From [Releases](https://github.com/fabiodrneles/cv-craft/releases/latest), download `cv-craft_<version>_windows_amd64.zip` (or `arm64` on ARM computers).
+2. Right-click the file → **Extract All** → choose the folder `C:\Users\<your user>\AppData\Local\Programs\cv-craft`.
+3. Add that folder to the `PATH`: press **Windows**, type **environment variables**, open **Edit environment variables for your account**, select **Path** → **Edit** → **New**, paste the folder path and confirm with **OK** in every window.
+4. Open a **new** PowerShell and run `cv-craft version`.
+
+</details>
+
+### macOS and Linux
+
+1. Open the **Terminal** (on macOS: **Cmd + Space**, type `Terminal` and press **Enter**).
+2. Copy and paste this command:
+
+   ```sh
+   curl -fsSL https://raw.githubusercontent.com/fabiodrneles/cv-craft/main/scripts/install.sh | sh
+   ```
+
+   It detects your system and processor (Intel/AMD or ARM, like M1/M2/M3 Macs), downloads the latest version, verifies the checksum and installs it in `~/.local/bin`.
+3. If the installer says the folder is not on your `PATH`, copy and run the command it prints (it adds `~/.local/bin` to your shell's `PATH`).
+4. Check the installation:
+
+   ```sh
+   cv-craft version
+   ```
+
+> Downloaded the file with a browser on macOS and got "cannot verify the developer"? Run `xattr -d com.apple.quarantine ~/.local/bin/cv-craft` (use the path where you put the file). The installer above does not have this problem.
+
+### With Go
+
+If you already have Go 1.26 or later:
 
 ```bash
 go install github.com/fabiodrneles/cv-craft@latest
 ```
 
-**From source:**
+### From source
 
 ```bash
 git clone https://github.com/fabiodrneles/cv-craft.git
@@ -50,19 +90,45 @@ cd cv-craft
 make build        # builds ./bin/cv-craft (or: go build .)
 ```
 
+### Update and uninstall
+
+- **Update:** run the same installation command again; it replaces the installed version with the latest one.
+- **Uninstall on Windows:** delete the `%LOCALAPPDATA%\Programs\cv-craft` folder and remove it from `Path` (same screen as step 3 of the manual installation).
+- **Uninstall on macOS and Linux:** `rm ~/.local/bin/cv-craft`.
+
 ## Quick start
 
-```bash
-cv-craft init                      # creates curriculum.yaml from a commented template
-# edit curriculum.yaml with your data (set meta.locale to "en" for English section titles)
-cv-craft build curriculum.yaml     # generates curriculum.pdf
-```
+From zero to your first PDF:
+
+1. Create a folder for your resume and go into it:
+
+   ```sh
+   mkdir my-resume
+   cd my-resume
+   ```
+
+2. Create the commented template:
+
+   ```bash
+   cv-craft init                      # creates curriculum.yaml from a commented template
+   ```
+
+3. Open `curriculum.yaml` in an editor and replace the examples with your data (set `meta.locale` to `en` for English section titles). Recommended: [VS Code](https://code.visualstudio.com/) with the [Red Hat YAML](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml) extension, which autocompletes fields and flags errors as you type (see [Editor autocompletion and validation](#editor-autocompletion-and-validation)). In YAML, **indentation with spaces** matters: keep the template's alignment.
+4. Generate the PDF:
+
+   ```bash
+   cv-craft build curriculum.yaml     # generates curriculum.pdf
+   ```
+
+5. Open the result: `start curriculum.pdf` (Windows), `open curriculum.pdf` (macOS) or `xdg-open curriculum.pdf` (Linux).
 
 To generate all three formats at once:
 
 ```bash
 cv-craft build curriculum.yaml --format all -o dist/
 ```
+
+To see the PDF update while you edit, use [`--watch`](#build-flags).
 
 ## Usage
 
@@ -160,6 +226,17 @@ Keys with typos are **rejected**, with the path and line (`experience[0].respons
 The YAML created by `cv-craft init` (and the ones in `examples/`) starts with a line pointing to CV-Craft's [JSON Schema](schema/cv-craft.schema.json). With a YAML extension in your editor ([Red Hat YAML](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml) in VS Code, or the built-in support in JetBrains IDEs), you get field autocompletion, a description of each field on hover and errors flagged as you type: empty required field, misspelled key, invalid email. To work offline, generate a local copy with `cv-craft schema > cv-craft.schema.json` (details in [`docs/schema.md`](docs/schema.md#autocompletar-e-validar-no-editor)).
 
 See complete examples in [`examples/`](examples/README.md): [`en.yaml`](examples/en.yaml) (English), [`full.yaml`](examples/full.yaml) (Portuguese, every field) and [`minimal.yaml`](examples/minimal.yaml) (the `init` template).
+
+## Troubleshooting
+
+| Symptom | Cause and fix |
+|---|---|
+| `cv-craft: command not found` or "is not recognized as the name of a cmdlet" | The installation folder is not on the `PATH`. On Windows, close and reopen the terminal; if it persists, redo step 3 of the manual installation. On macOS/Linux, run the `PATH` command the installer printed and open a new terminal. |
+| `erro: ... já existe` and exit code `3` | The output file already exists and the terminal is not interactive. Use `--force` to overwrite or `-o` for another name. |
+| `YAML inválido: ... line N` | Syntax error, almost always indentation (use spaces, never Tab) or text containing `:` without quotes. Put the text in quotes. |
+| `campo desconhecido "..."` | Misspelled field name. The message shows the path and line; check the name in [`docs/schema.md`](docs/schema.md). |
+| `campo obrigatório` | A required field is empty. Run `cv-craft validate curriculum.yaml` to see all of them at once. |
+| PowerShell blocks the installation script | Use exactly the `irm ... \| iex` command above, which does not depend on the script execution policy, or follow the manual installation. |
 
 ## Output formats
 

@@ -152,6 +152,34 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+  install:
+    name: Instaladores (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v7
+      # Os scripts do guia de instalação (README) instalam a última release
+      # publicada; aqui eles rodam como uma pessoa rodaria, numa pasta nova.
+      - name: install.sh
+        if: runner.os != 'Windows'
+        shell: bash
+        run: |
+          dir="$(mktemp -d)"
+          CV_CRAFT_INSTALL_DIR="$dir" sh scripts/install.sh
+          "$dir/cv-craft" version | grep -E '^cv-craft v[0-9]+\.[0-9]+\.[0-9]+'
+      - name: install.ps1
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $env:CV_CRAFT_INSTALL_DIR = Join-Path $env:RUNNER_TEMP 'cv-craft'
+          ./scripts/install.ps1
+          $out = & (Join-Path $env:CV_CRAFT_INSTALL_DIR 'cv-craft.exe') version
+          if ($out -notmatch '^cv-craft v\d+\.\d+\.\d+') { throw "versão inesperada: $out" }
+          if (([Environment]::GetEnvironmentVariable('Path', 'User') -split ';') -notcontains $env:CV_CRAFT_INSTALL_DIR) { throw 'a pasta não foi adicionada ao PATH do usuário' }
+
   release-check:
     name: Release (snapshot)
     runs-on: ubuntu-latest
