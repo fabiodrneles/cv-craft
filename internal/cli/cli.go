@@ -92,6 +92,8 @@ func (r *runner) dispatch(args []string) int {
 		return r.help(rest)
 	case "ui", "interactive":
 		return r.interactive()
+	case "schema":
+		return r.schema(rest)
 	}
 	r.errorf("comando desconhecido %q", cmd)
 	fmt.Fprintln(r.err, "Use 'cv-craft help' para ver os comandos disponíveis.")
@@ -168,6 +170,22 @@ func (r *runner) build(args []string) int {
 		for _, f := range res.Files {
 			fmt.Fprintf(r.out, "Gerado: %s (%s)\n", f.Path, humanSize(f.Size))
 		}
+	}
+	return ExitOK
+}
+
+// schema imprime o JSON Schema do YAML (spec 010), para uso offline.
+func (r *runner) schema(args []string) int {
+	fs := newFlagSet("schema")
+	pos, code, ok := r.parse(fs, args, usageSchema)
+	if !ok {
+		return code
+	}
+	if len(pos) > 0 {
+		return r.usageError(usageSchema, "o comando schema não recebe argumentos")
+	}
+	if _, err := r.out.Write(resume.JSONSchema()); err != nil {
+		return r.fail(err)
 	}
 	return ExitOK
 }

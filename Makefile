@@ -5,7 +5,7 @@ COMMIT  ?= $(shell git rev-parse --short HEAD 2>/dev/null)
 DATE    ?= $(shell date -u +%Y-%m-%dT%H:%M:%SZ)
 LDFLAGS := -s -w -X main.version=$(VERSION) -X main.commit=$(COMMIT) -X main.date=$(DATE)
 
-.PHONY: all build test race cover lint smoke golden ci release-snapshot clean
+.PHONY: all build test race cover lint smoke golden schema ci release-snapshot clean
 
 all: ci
 
@@ -28,6 +28,9 @@ lint: ## go vet + golangci-lint
 
 smoke: ## Smoke test de ponta a ponta com o binário real
 	scripts/smoke.sh
+
+schema: ## Regrava schema/cv-craft.schema.json a partir do modelo Go (spec 010)
+	go run . schema > schema/cv-craft.schema.json
 
 golden: ## Regrava os golden files após uma mudança intencional nas saídas
 	go test ./internal/generator -update
