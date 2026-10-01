@@ -150,7 +150,7 @@ func OutputPaths(input, output string, formats []generator.Format) ([]string, er
 	dir := filepath.Dir(input)
 
 	if len(formats) == 1 && output != "" {
-		if fi, err := os.Stat(output); err == nil && fi.IsDir() {
+		if isDirPath(output) {
 			return []string{filepath.Join(output, base+formats[0].Ext())}, nil
 		}
 		return []string{output}, nil
@@ -166,6 +166,16 @@ func OutputPaths(input, output string, formats []generator.Format) ([]string, er
 		paths[i] = filepath.Join(dir, base+f.Ext())
 	}
 	return paths, nil
+}
+
+// isDirPath indica se output é um diretório: um que já existe ou um caminho
+// terminado em separador ("dist/"), que será criado.
+func isDirPath(output string) bool {
+	if strings.HasSuffix(output, "/") || strings.HasSuffix(output, string(filepath.Separator)) {
+		return true
+	}
+	fi, err := os.Stat(output)
+	return err == nil && fi.IsDir()
 }
 
 func checkOverwrite(paths []string, force bool, confirm func(string) (bool, error)) error {
