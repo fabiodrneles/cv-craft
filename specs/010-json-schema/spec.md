@@ -1,7 +1,7 @@
 # 010 — JSON Schema do YAML
 
 - **Prioridade:** P2
-- **Status:** In Progress
+- **Status:** Done
 - **Código afetado:** `internal/resume/schema.go`, `internal/cli` (comando `schema`), `schema/cv-craft.schema.json`, `examples/`
 - **Resolve:** #11 (e o item "JSON Schema publicado" de "Fora de escopo" da [spec 001](../001-yaml-schema/spec.md))
 

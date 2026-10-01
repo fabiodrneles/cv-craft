@@ -32,5 +32,6 @@ Cada tarefa referencia a spec e os critérios de aceite que ela fecha. Ordem sug
 ## Fase 3 — Profissional (P2) → `v1.0.0`
 
 - [x] **T17** i18n `pt-BR`/`en` — 006 *(antecipada)*
-- [ ] **T18** README em inglês (~~prévia em PNG, badges~~ feitos na Fase 1)
-- [ ] **T19** (futuro) JSON Schema para autocompletar no VS Code; `--watch`; templates adicionais
+- [x] **T18** README em inglês (~~prévia em PNG, badges~~ feitos na Fase 1) — 008 FR-3 (#13)
+- [x] **T19** JSON Schema para autocompletar no VS Code — 010 (#11); `--watch` — 002 FR-15 (#12). Templates adicionais seguem fora de escopo (decisão D5)
+- [x] Remover a flag `-ats` — 003 FR-9 (#14); testes do modo interativo em PTY real — 005 (#15); texto do PDF verificado também no Windows — 007 FR-8 (#16)
