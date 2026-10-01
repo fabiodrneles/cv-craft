@@ -139,6 +139,22 @@ descoberta → ANALYSIS.md → decisões do dono → constituição + specs + RO
 - **FR-48** Achados vão para o repositório (specs, issues, descrições de PR), não só para o chat; o chat aponta para eles.
 - **FR-49** O agente MUST dizer claramente o que foi verificado e o que não foi (ex.: "testado no Linux; o Windows só no CI").
 
+### 14. Retomada e economia de uso
+
+O agente pode perder o contexto a qualquer momento: a conversa é compactada, a sessão é reiniciada ou o limite de uso se esgota. O trabalho MUST poder continuar a partir do repositório (#37).
+
+- **FR-50** O ticket MUST ser criado quando a tarefa começa, e o PR MUST ser aberto assim que a tarefa termina e a verificação local passa. Trabalho pronto só na máquina do agente se perde com a sessão.
+- **FR-51** Um pedido novo do dono que não cabe na tarefa em curso vira ticket **na hora**, antes de qualquer outra ação.
+- **FR-52** O épico da fase MUST ter um comentário **"Estado da fase"**, criado ao abrir os primeiros PRs e atualizado a cada marco: PRs abertos com o estado do CI, decisões tomadas, conflitos previstos e próximo passo.
+- **FR-53** Retomada: uma sessão nova lê o comentário de estado mais recente do épico aberto, os PRs e as issues abertas e o `CLAUDE.md`, e continua do próximo passo registrado, sem refazer análises que já estão no repositório.
+- **FR-54** O repositório SHOULD ter um `CLAUDE.md` com o mapa do código, os comandos, as convenções e as armadilhas conhecidas, e um hook de início de sessão (`.claude/hooks/session-start.sh`) que instale as ferramentas do CI no ambiente na web.
+- **FR-55** Práticas de economia (SHOULD):
+  - ler trechos de arquivo (`sed -n`, `grep -n`) e não reler o que já foi lido;
+  - para o CI, pedir só o resumo das conclusões e, numa falha, o fim do log do job;
+  - validar num comando só (`make ci`);
+  - usar subagentes só para buscas amplas;
+  - no chat, só o resumo e o próximo passo; detalhes nos PRs.
+
 ## Requisitos não funcionais
 
 - **NFR-1** **Rastreabilidade:** de qualquer linha mergeada é possível chegar, por links, ao PR, ao ticket, ao épico e à spec (`FR`/`AC`) que a justificam.
@@ -160,6 +176,7 @@ descoberta → ANALYSIS.md → decisões do dono → constituição + specs + RO
 - **AC-11** Dado um PR de fase com PRs empilhados sobre ele, quando é mergeado, então o merge é por merge commit e os empilhados passam a apontar para a `main`.
 - **AC-12** Dado qualquer issue, PR ou comentário escrito pelo agente, então ele termina com o rodapé de atribuição (FR-14, FR-28).
 - **AC-13** Dado o `CONTRIBUTING.md` e esta spec, então não há regra em um que contradiga o outro.
+- **AC-14** Dada uma sessão nova sem a conversa anterior, quando ela lê o comentário "Estado da fase" do épico, os PRs e as issues abertas e o `CLAUDE.md`, então consegue dizer o próximo passo da fase sem refazer análises (FR-53).
 
 ## Reaplicação em outros repositórios
 
@@ -209,6 +226,7 @@ Exemplos reais que motivaram requisitos:
 
 ## Decisões
 
+- **Retomada e economia (#37).** Adotados: o `CLAUDE.md` na raiz, o hook de início de sessão (síncrono; só em sessões na web; instala o golangci-lint na versão do CI e o poppler) e o comentário de estado no épico. Não adotado: lista de permissões em `.claude/settings.json`, porque as sessões na web rodam em modo automático e quem contribui localmente configura as próprias permissões.
 - **Duas escalas de prioridade.** Specs usam `P0..P2` (definida em `specs/README.md`: P0 bloqueia uso real); tickets usam labels `P1..P3` (alta → baixa). São escalas distintas: a da spec diz quão essencial é a área; a do ticket, a ordem de trabalho dentro da fase.
 - **Status no fechamento.** O passo 5 de `specs/README.md` ("Fechar — atualizar o status") acontece no PR de fechamento da fase (FR-42), e não em cada PR de ticket, para evitar conflitos (FR-27).
 - **Primeira linha do PR.** `Closes #N · Épico #M · Spec NNN` é o formato normativo; os IDs finos (`003 FR-8, AC-6`) vão na seção de specs do template ou em "O que muda".

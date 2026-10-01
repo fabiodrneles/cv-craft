@@ -137,6 +137,21 @@ Depois que um PR base é mergeado, confira se o empilhado continua só com o seu
   antes de usar ou publicar.
 - Escreva no idioma do dono (specs, issues, PRs); commits e código em inglês.
 
+## Retomada e economia de uso
+
+O contexto pode acabar a qualquer momento: compactação, sessão nova ou limite de uso. Trabalhe de modo que o **repositório** baste para continuar:
+
+- Crie o ticket ao começar a tarefa e abra o PR assim que ela passar na verificação local. Pedido novo do dono que não cabe na tarefa em curso vira ticket **na hora**.
+- Mantenha no épico um comentário **"Estado da fase"**, atualizado a cada marco: PRs e CI, decisões, conflitos previstos, próximo passo.
+- **Ao retomar:** leia o comentário de estado mais recente do épico, os PRs e as issues abertas e o `CLAUDE.md`, e continue do próximo passo.
+- **No repositório:** um `CLAUDE.md` (mapa do código, comandos, convenções, armadilhas) e um hook de início de sessão que instale as ferramentas do CI na web.
+- **Economia:**
+  - leia trechos (`sed -n`, `grep -n`) e não releia;
+  - no CI, só o resumo das conclusões, e o fim do log quando falhar;
+  - valide num comando só;
+  - subagentes só para buscas amplas;
+  - chat curto, detalhes nos PRs.
+
 ## Operações de GitHub usadas
 
 Funciona com o GitHub MCP ou com `gh`:

@@ -9,6 +9,7 @@
 /*.md
 !/README.md
 !/README.en.md
+!/CLAUDE.md
 !/CHANGELOG.md
 !/CONTRIBUTING.md
 /*.txt

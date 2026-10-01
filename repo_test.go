@@ -21,7 +21,7 @@ func TestDocumentedMakeTargetsExist(t *testing.T) {
 		targets[m[1]] = true
 	}
 
-	for _, doc := range []string{"README.md", "README.en.md", "CONTRIBUTING.md"} {
+	for _, doc := range []string{"README.md", "README.en.md", "CONTRIBUTING.md", "CLAUDE.md"} {
 		data, err := os.ReadFile(doc)
 		if err != nil {
 			t.Fatal(err)
