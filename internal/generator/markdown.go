@@ -42,7 +42,7 @@ func (g *markdownGenerator) Generate(w io.Writer, r *resume.Resume) error {
 
 	if s := trim(r.Summary); s != "" {
 		add("## %s", l.Summary)
-		add("%s", mdLine(s))
+		add("%s", mdLines(s, ""))
 	}
 
 	if len(r.Skills) > 0 {
@@ -59,10 +59,10 @@ func (g *markdownGenerator) Generate(w io.Writer, r *resume.Resume) error {
 		for _, e := range r.Experience {
 			add("### %s", md(titled(e.Role, e.Company)))
 			if m := experienceMeta(e); m != "" {
-				add("%s", mdLine(m))
+				add("%s", mdLines(m, ""))
 			}
 			if d := trim(e.Description); d != "" {
-				add("%s", mdLine(d))
+				add("%s", mdLines(d, ""))
 			}
 			addList(&blocks, l.Responsibilities, e.Responsibilities)
 			addList(&blocks, l.Achievements, e.Achievements)
@@ -77,7 +77,7 @@ func (g *markdownGenerator) Generate(w io.Writer, r *resume.Resume) error {
 		for _, e := range r.Education {
 			add("### %s", md(titled(e.Degree, e.Institution)))
 			if m := educationMeta(e); m != "" {
-				add("%s", mdLine(m))
+				add("%s", mdLines(m, ""))
 			}
 			var extra []string
 			if t := trim(e.Thesis); t != "" {
@@ -133,7 +133,7 @@ func addList(blocks *[]string, label string, items []string) {
 	*blocks = append(*blocks, fmt.Sprintf("**%s:**", label))
 	lines := make([]string, len(items))
 	for i, it := range items {
-		lines[i] = "- " + mdLine(it)
+		lines[i] = "- " + mdLines(it, "  ")
 	}
 	*blocks = append(*blocks, strings.Join(lines, "\n"))
 }
@@ -150,9 +150,24 @@ var mdEscaper = strings.NewReplacer(
 	`\`, `\\`, "`", "\\`", `*`, `\*`, `_`, `\_`, `[`, `\[`, `]`, `\]`, `<`, `\<`,
 )
 
+var lineBreaks = regexp.MustCompile(`\s*\n\s*`)
+
 // md escapa texto do usuário para que seja exibido literalmente (FR-MD-3).
+// É usado em contextos de uma linha só (títulos, rótulos, contato), então
+// quebras de linha viram espaço.
 func md(s string) string {
-	return mdEscaper.Replace(strings.TrimSpace(s))
+	return mdEscaper.Replace(lineBreaks.ReplaceAllString(strings.TrimSpace(s), " "))
+}
+
+// mdLines escapa texto que pode ter várias linhas (blocos "|" do YAML),
+// aplicando mdLine a cada uma. indent é prefixado às linhas seguintes, para
+// que a continuação de um item de lista permaneça dentro do item.
+func mdLines(s, indent string) string {
+	lines := strings.Split(strings.TrimSpace(s), "\n")
+	for i, l := range lines {
+		lines[i] = mdLine(l)
+	}
+	return strings.Join(lines, "\n"+indent)
 }
 
 var mdBlockStart = regexp.MustCompile(`^(\d+)([.)])`)
