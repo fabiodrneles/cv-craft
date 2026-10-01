@@ -128,11 +128,11 @@ education:                 # obrigatório: ao menos uma
     institution: "USP"
 ```
 
-Também são suportados `work_type` e `description` nas experiências; `location`, `period`, `thesis` e `relevant_courses` na formação; e as listas opcionais `certificates` (`name`, `institution`, `date`, `url`) e `languages` (`language`, `level`). A referência completa do schema está na [spec 001](specs/001-yaml-schema/spec.md).
+Também são suportados `work_type` e `description` nas experiências; `location`, `period`, `thesis` e `relevant_courses` na formação; e as listas opcionais `certificates` (`name`, `institution`, `date`, `url`) e `languages` (`language`, `level`). A referência completa, com todos os campos, os níveis aceitos e os erros mais comuns, está em [`docs/schema.md`](docs/schema.md).
 
 Os níveis de habilidade também podem ser escritos em português (`avançado`, `intermediário`, `básico`…). Chaves com erro de digitação são **rejeitadas**, com o caminho e a linha (`experience[0].responsabilities: campo desconhecido "responsabilities" (linha 12)`), para que nada suma do currículo sem aviso.
 
-Veja exemplos completos em [`examples/`](examples/): [`full.yaml`](examples/full.yaml) (português, todos os campos), [`en.yaml`](examples/en.yaml) (inglês) e [`minimal.yaml`](examples/minimal.yaml) (o modelo do `init`).
+Veja exemplos completos em [`examples/`](examples/README.md): [`full.yaml`](examples/full.yaml) (português, todos os campos), [`en.yaml`](examples/en.yaml) (inglês) e [`minimal.yaml`](examples/minimal.yaml) (o modelo do `init`).
 
 ## Formatos de saída
 
