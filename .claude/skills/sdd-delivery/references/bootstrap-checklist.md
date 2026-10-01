@@ -31,7 +31,7 @@ não executa. Os `⏸` são pontos de parada.
 
 ## 3. GitHub
 
-- [ ] Labels: `épico`, `fase-0..N`, `tipo:feature|bug|docs|ci|teste|chore`, `P1..P3`
+- [ ] Labels: `épico`, `fase-0..N`, `tipo:feature|docs|ci|teste|chore` ou `bug` (label padrão do GitHub), `P1..P3`
       (criadas pela primeira issue que as usar, ou explicitamente).
 - [ ] Um épico por fase, com a ordem sugerida de revisão.
 - [ ] Tickets: criar a issue → anexar como sub-issue do épico.

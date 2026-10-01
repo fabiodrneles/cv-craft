@@ -75,7 +75,7 @@ teste) → implementar (PR referencia IDs) → fechar (status, no PR de fechamen
 - **FR-10** Um **épico** por fase (labels `épico`, `fase-N`); cada tarefa é **sub-issue nativa**.
 - **FR-11** Corpo: **Contexto**, **O que fazer**, **Critérios de aceite**, **Spec(s)**, **Épico**;
   "Decisão para a revisão" MAY.
-- **FR-12** Labels: `fase-N`; `tipo:feature|bug|docs|ci|teste|chore`; `P1` alta, `P2` média, `P3` baixa.
+- **FR-12** Labels: `fase-N`; `tipo:feature|docs|ci|teste|chore` ou `bug` (label padrão do GitHub); `P1` alta, `P2` média, `P3` baixa.
 - **FR-13** Trabalho descoberto no meio da fase vira ticket novo no épico corrente (ou futuro);
   não entra de carona num PR existente.
 - **FR-14** Issue e comentário do agente terminam com linha em branco, `---` e o rodapé de

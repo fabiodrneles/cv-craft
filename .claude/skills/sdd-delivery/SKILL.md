@@ -68,7 +68,7 @@ na seção "Decisões" das specs afetadas e em ANALYSIS.md; specs passam de `Dra
    falha se alguma label ainda não existir.
    - Corpo: **Contexto / O que fazer / Critérios de aceite / Spec(s) / Épico**
      (+ "Decisão para a revisão" opcional).
-   - Labels: `fase-N`, `tipo:feature|bug|docs|ci|teste|chore`, `P1|P2|P3`.
+   - Labels: `fase-N`, `tipo:feature|docs|ci|teste|chore` ou `bug` (label padrão do GitHub), `P1|P2|P3`.
 3. **Branch** por ticket: `<tipo>/<nº-da-issue>-<descrição-curta>`, a partir da `main` ou
    empilhada na branch da fase anterior ainda não mergeada.
 4. **Testes a partir dos critérios de aceite**; depois o código. Cada `AC-*` vira ao menos
