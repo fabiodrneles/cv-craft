@@ -52,25 +52,27 @@ func generate(t *testing.T, f Format, r *resume.Resume) []byte {
 	return buf.Bytes()
 }
 
-// havePoppler informa se o pdftotext (poppler-utils) está instalado. No CI,
+// haveTool informa se uma ferramenta do poppler (pdftotext, pdfinfo) está
+// instalada. Cada uma é verificada separadamente: o Git for Windows, por
+// exemplo, traz o pdftotext mas não o pdfinfo. No CI,
 // CV_CRAFT_REQUIRE_POPPLER=1 transforma a ausência em falha.
-func havePoppler(t *testing.T) bool {
+func haveTool(t *testing.T, tool string) bool {
 	t.Helper()
-	if _, err := exec.LookPath("pdftotext"); err == nil {
+	if _, err := exec.LookPath(tool); err == nil {
 		return true
 	}
 	if os.Getenv("CV_CRAFT_REQUIRE_POPPLER") != "" {
-		t.Fatal("pdftotext não encontrado e CV_CRAFT_REQUIRE_POPPLER está definido")
+		t.Fatalf("%s não encontrado e CV_CRAFT_REQUIRE_POPPLER está definido", tool)
 	}
-	t.Log("pdftotext (poppler-utils) não encontrado; verificações do texto do PDF puladas")
+	t.Logf("%s (poppler-utils) não encontrado; verificações que dependem dele foram puladas", tool)
 	return false
 }
 
-// requirePoppler pula o teste se o pdftotext não estiver instalado.
-func requirePoppler(t *testing.T) {
+// requireTool pula o teste se a ferramenta não estiver instalada.
+func requireTool(t *testing.T, tool string) {
 	t.Helper()
-	if !havePoppler(t) {
-		t.Skip("pdftotext (poppler-utils) não encontrado")
+	if !haveTool(t, tool) {
+		t.Skipf("%s (poppler-utils) não encontrado", tool)
 	}
 }
 
@@ -82,7 +84,7 @@ func outputText(t *testing.T, f Format, r *resume.Resume) (text string, ok bool)
 	if f != PDF {
 		return string(out), true
 	}
-	if !havePoppler(t) {
+	if !haveTool(t, "pdftotext") {
 		return "", false
 	}
 	return pdfText(t, out), true
@@ -90,7 +92,7 @@ func outputText(t *testing.T, f Format, r *resume.Resume) (text string, ok bool)
 
 func poppler(t *testing.T, tool string, data []byte, args ...string) string {
 	t.Helper()
-	requirePoppler(t)
+	requireTool(t, tool)
 	path := filepath.Join(t.TempDir(), "cv.pdf")
 	if err := os.WriteFile(path, data, 0o644); err != nil {
 		t.Fatal(err)
