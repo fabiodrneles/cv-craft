@@ -1,6 +1,6 @@
 <!-- Título no formato Conventional Commits, ex.: "feat: add --watch mode" -->
 
-Closes #
+Closes # · Épico # · Spec <!-- ex.: Closes #12 · Épico #10 · Spec 002 (use "Spec —" se nenhuma spec for afetada) -->
 
 <!-- Se este PR depende de outro ainda não mergeado (PR empilhado), diga aqui:
 > PR empilhado sobre #NN. -->

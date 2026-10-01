@@ -56,7 +56,7 @@ Mudanças incompatíveis usam `!` (`feat!: ...`) e explicam o impacto no corpo d
 
 ### 4. Pull requests
 
-- Um PR por ticket, com `Closes #nº` na descrição. O template é preenchido automaticamente.
+- Um PR por ticket. A descrição começa com `Closes #nº · Épico #nº · Spec NNN`; o template já traz essa linha.
 - Diga quais specs e critérios de aceite o PR implementa e **como foi testado**.
 - Se o comportamento mudou, atualize a spec no mesmo PR.
 - Mantenha o PR focado: o que não é do ticket vira outro ticket.
