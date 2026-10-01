@@ -4,6 +4,32 @@ Esta página descreve **todos** os campos aceitos no arquivo do currículo, como
 
 > A especificação formal (requisitos e critérios de aceite) está na [spec 001](../specs/001-yaml-schema/spec.md). Esta página é a versão para quem escreve o currículo.
 
+## Autocompletar e validar no editor
+
+O CV-Craft publica um **JSON Schema** do YAML em [`schema/cv-craft.schema.json`](../schema/cv-craft.schema.json), gerado a partir do código e testado para aceitar e rejeitar os mesmos arquivos que o `cv-craft validate`. Editores com a extensão YAML (VS Code com a [extensão da Red Hat](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml), IDEs JetBrains) usam o schema para:
+
+- autocompletar os campos e os níveis de habilidade;
+- mostrar a descrição de cada campo;
+- marcar erros enquanto você digita: campo obrigatório vazio, chave desconhecida, lista obrigatória vazia, e-mail inválido.
+
+O arquivo criado pelo `cv-craft init` e os exemplos já trazem, na primeira linha, o comentário que liga o YAML ao schema publicado:
+
+```text
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fabiodrneles/cv-craft/main/schema/cv-craft.schema.json
+```
+
+Para usar uma cópia local (offline, ou fixada na versão que você tem instalada), gere o schema e troque a primeira linha do YAML:
+
+```bash
+cv-craft schema > cv-craft.schema.json
+```
+
+```text
+# yaml-language-server: $schema=./cv-craft.schema.json
+```
+
+O `cv-craft validate` continua sendo a referência: a checagem de e-mail do editor é uma aproximação, e níveis de habilidade desconhecidos, que o CV-Craft trata como aviso, não são marcados no editor.
+
 ## Regras gerais
 
 - O arquivo é YAML em **UTF-8**; acentos e caracteres especiais funcionam em todos os formatos.

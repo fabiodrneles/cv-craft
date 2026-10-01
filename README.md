@@ -71,6 +71,7 @@ cv-craft build curriculum.yaml --format all -o dist/
 | `cv-craft build <arquivo.yaml>` | Gera o currículo (PDF, Markdown ou texto) |
 | `cv-craft validate <arquivo.yaml>` | Valida o YAML e lista **todos** os problemas de validação de uma vez (um erro de sintaxe do YAML aparece sozinho, antes) |
 | `cv-craft init [arquivo.yaml]` | Cria um YAML modelo (padrão: `curriculum.yaml`); não sobrescreve sem `--force` |
+| `cv-craft schema` | Imprime o JSON Schema do YAML, para autocompletar no editor |
 | `cv-craft version` | Mostra a versão |
 | `cv-craft help [comando]` | Ajuda geral ou de um comando |
 | `cv-craft ui` | Modo interativo, com os mesmos comandos |
@@ -140,6 +141,10 @@ education:                 # obrigatório: ao menos uma
 Também são suportados `work_type` e `description` nas experiências; `location`, `period`, `thesis` e `relevant_courses` na formação; e as listas opcionais `certificates` (`name`, `institution`, `date`, `url`) e `languages` (`language`, `level`). A referência completa, com todos os campos, os níveis aceitos e os erros mais comuns, está em [`docs/schema.md`](docs/schema.md).
 
 Os níveis de habilidade também podem ser escritos em português (`avançado`, `intermediário`, `básico`…). Chaves com erro de digitação são **rejeitadas**, com o caminho e a linha (`experience[0].responsabilities: campo desconhecido "responsabilities" (linha 12)`), para que nada suma do currículo sem aviso.
+
+### Autocompletar e validar no editor
+
+O YAML criado pelo `cv-craft init` (e os de `examples/`) começa com uma linha que aponta para o [JSON Schema](schema/cv-craft.schema.json) do CV-Craft. Com a extensão YAML no editor ([Red Hat YAML](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml) no VS Code, ou o suporte nativo das IDEs JetBrains), você ganha autocompletar dos campos, a descrição de cada um ao passar o mouse e os erros marcados enquanto digita: campo obrigatório vazio, chave com erro de digitação, e-mail inválido. Para trabalhar offline, gere uma cópia local com `cv-craft schema > cv-craft.schema.json` (detalhes em [`docs/schema.md`](docs/schema.md#autocompletar-e-validar-no-editor)).
 
 Veja exemplos completos em [`examples/`](examples/README.md): [`full.yaml`](examples/full.yaml) (português, todos os campos), [`en.yaml`](examples/en.yaml) (inglês) e [`minimal.yaml`](examples/minimal.yaml) (o modelo do `init`).
 

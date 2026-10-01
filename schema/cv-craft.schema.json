@@ -1,0 +1,477 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/fabiodrneles/cv-craft/main/schema/cv-craft.schema.json",
+  "title": "Currículo do CV-Craft",
+  "description": "Schema do YAML lido por cv-craft build e cv-craft validate. Gerado a partir do código: não edite à mão (make schema).",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "meta": {
+      "description": "Configurações do documento (não aparecem no currículo).",
+      "type": [
+        "object",
+        "null"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "locale": {
+          "description": "Idioma dos títulos das seções: pt-BR (padrão) ou en. A flag --lang tem prioridade.",
+          "anyOf": [
+            {
+              "enum": [
+                "pt-BR",
+                "en"
+              ]
+            },
+            {
+              "type": [
+                "string",
+                "null"
+              ],
+              "pattern": "^\\s*(([pP][tT]|[eE][nN])([-_].*)?)?\\s*$"
+            }
+          ]
+        }
+      }
+    },
+    "contact": {
+      "description": "Dados de contato. Obrigatório.",
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "description": "Nome completo. Obrigatório.",
+          "type": [
+            "string",
+            "number",
+            "boolean"
+          ],
+          "pattern": "\\S"
+        },
+        "email": {
+          "description": "E-mail. Obrigatório; vira um link clicável no PDF.",
+          "type": "string",
+          "pattern": "^\\s*[^@\\s<>()\",;:]+@[^@\\s<>()\",;:]+\\s*$"
+        },
+        "phone": {
+          "description": "Telefone, como deve aparecer (ex.: +55 11 99999-0000).",
+          "type": [
+            "string",
+            "number",
+            "boolean",
+            "null"
+          ]
+        },
+        "location": {
+          "description": "Cidade e estado ou país (ex.: São Paulo, SP).",
+          "type": [
+            "string",
+            "number",
+            "boolean",
+            "null"
+          ]
+        },
+        "linkedin": {
+          "description": "Perfil do LinkedIn; https:// é acrescentado se faltar (ex.: linkedin.com/in/seu-perfil).",
+          "type": [
+            "string",
+            "number",
+            "boolean",
+            "null"
+          ]
+        },
+        "github": {
+          "description": "Perfil do GitHub; https:// é acrescentado se faltar (ex.: github.com/seu-usuario).",
+          "type": [
+            "string",
+            "number",
+            "boolean",
+            "null"
+          ]
+        },
+        "portfolio": {
+          "description": "Site ou portfólio; https:// é acrescentado se faltar.",
+          "type": [
+            "string",
+            "number",
+            "boolean",
+            "null"
+          ]
+        }
+      },
+      "required": [
+        "name",
+        "email"
+      ]
+    },
+    "professional_title": {
+      "description": "Título profissional, logo abaixo do nome (ex.: Engenheira de Software Sênior). Obrigatório.",
+      "type": [
+        "string",
+        "number",
+        "boolean"
+      ],
+      "pattern": "\\S"
+    },
+    "summary": {
+      "description": "Resumo profissional em um parágrafo.",
+      "type": [
+        "string",
+        "number",
+        "boolean",
+        "null"
+      ]
+    },
+    "skills": {
+      "description": "Habilidades agrupadas por categoria, na ordem em que devem aparecer. Obrigatório: pelo menos uma categoria.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "description": "Nome da categoria (ex.: Backend). Obrigatório.",
+            "type": [
+              "string",
+              "number",
+              "boolean"
+            ],
+            "pattern": "\\S"
+          },
+          "level": {
+            "description": "Nível, opcional: expert, advanced, proficient, intermediate ou beginner (ou em português: especialista, avançado, proficiente, intermediário, básico). Aparece traduzido entre parênteses; um valor desconhecido gera aviso e é omitido.",
+            "anyOf": [
+              {
+                "enum": [
+                  "expert",
+                  "advanced",
+                  "proficient",
+                  "intermediate",
+                  "beginner",
+                  "avancado",
+                  "avançado",
+                  "basico",
+                  "básico",
+                  "especialista",
+                  "iniciante",
+                  "intermediario",
+                  "intermediário",
+                  "proficiente"
+                ]
+              },
+              {
+                "type": [
+                  "string",
+                  "number",
+                  "boolean",
+                  "null"
+                ]
+              }
+            ]
+          },
+          "keywords": {
+            "description": "Habilidades da categoria (ex.: [Go, PostgreSQL, Docker]). Obrigatório: pelo menos uma.",
+            "type": "array",
+            "items": {
+              "type": [
+                "string",
+                "number",
+                "boolean",
+                "null"
+              ]
+            },
+            "contains": {
+              "type": [
+                "string",
+                "number",
+                "boolean"
+              ],
+              "pattern": "\\S"
+            }
+          }
+        },
+        "required": [
+          "name",
+          "keywords"
+        ]
+      }
+    },
+    "experience": {
+      "description": "Experiências profissionais, da mais recente para a mais antiga. Obrigatório: pelo menos uma.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "role": {
+            "description": "Cargo. Obrigatório.",
+            "type": [
+              "string",
+              "number",
+              "boolean"
+            ],
+            "pattern": "\\S"
+          },
+          "company": {
+            "description": "Empresa. Obrigatório.",
+            "type": [
+              "string",
+              "number",
+              "boolean"
+            ],
+            "pattern": "\\S"
+          },
+          "location": {
+            "description": "Cidade ou \"Remoto\".",
+            "type": [
+              "string",
+              "number",
+              "boolean",
+              "null"
+            ]
+          },
+          "period": {
+            "description": "Período, em texto livre (ex.: Mar 2022 - Atual).",
+            "type": [
+              "string",
+              "number",
+              "boolean",
+              "null"
+            ]
+          },
+          "work_type": {
+            "description": "Modalidade, exibida como está (ex.: Remoto, Híbrido, Presencial).",
+            "type": [
+              "string",
+              "number",
+              "boolean",
+              "null"
+            ]
+          },
+          "description": {
+            "description": "Descrição curta da empresa ou da função.",
+            "type": [
+              "string",
+              "number",
+              "boolean",
+              "null"
+            ]
+          },
+          "responsibilities": {
+            "description": "Responsabilidades, uma por item.",
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": [
+                "string",
+                "number",
+                "boolean",
+                "null"
+              ]
+            }
+          },
+          "achievements": {
+            "description": "Conquistas, de preferência com números (ex.: reduziu a latência em 40%).",
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": [
+                "string",
+                "number",
+                "boolean",
+                "null"
+              ]
+            }
+          },
+          "technologies": {
+            "description": "Tecnologias usadas, mostradas numa linha.",
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": [
+                "string",
+                "number",
+                "boolean",
+                "null"
+              ]
+            }
+          }
+        },
+        "required": [
+          "role",
+          "company"
+        ]
+      }
+    },
+    "education": {
+      "description": "Formação acadêmica. Obrigatório: pelo menos uma.",
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "degree": {
+            "description": "Curso ou grau (ex.: Bacharelado em Ciência da Computação). Obrigatório.",
+            "type": [
+              "string",
+              "number",
+              "boolean"
+            ],
+            "pattern": "\\S"
+          },
+          "institution": {
+            "description": "Instituição. Obrigatório.",
+            "type": [
+              "string",
+              "number",
+              "boolean"
+            ],
+            "pattern": "\\S"
+          },
+          "location": {
+            "description": "Cidade e estado ou país.",
+            "type": [
+              "string",
+              "number",
+              "boolean",
+              "null"
+            ]
+          },
+          "period": {
+            "description": "Período, em texto livre (ex.: 2015 - 2019).",
+            "type": [
+              "string",
+              "number",
+              "boolean",
+              "null"
+            ]
+          },
+          "thesis": {
+            "description": "Título do trabalho de conclusão, se houver.",
+            "type": [
+              "string",
+              "number",
+              "boolean",
+              "null"
+            ]
+          },
+          "relevant_courses": {
+            "description": "Disciplinas relevantes, em texto livre.",
+            "type": [
+              "string",
+              "number",
+              "boolean",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "degree",
+          "institution"
+        ]
+      }
+    },
+    "certificates": {
+      "description": "Certificados e cursos. Opcional.",
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "description": "Nome do certificado. Obrigatório.",
+            "type": [
+              "string",
+              "number",
+              "boolean"
+            ],
+            "pattern": "\\S"
+          },
+          "institution": {
+            "description": "Emissor (ex.: AWS).",
+            "type": [
+              "string",
+              "number",
+              "boolean",
+              "null"
+            ]
+          },
+          "date": {
+            "description": "Data, em texto livre (ex.: 2024).",
+            "type": [
+              "string",
+              "number",
+              "boolean",
+              "null"
+            ]
+          },
+          "url": {
+            "description": "Link de verificação; vira um link clicável no PDF.",
+            "type": [
+              "string",
+              "number",
+              "boolean",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "name"
+        ]
+      }
+    },
+    "languages": {
+      "description": "Idiomas. Opcional.",
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "language": {
+            "description": "Idioma (ex.: Inglês). Obrigatório.",
+            "type": [
+              "string",
+              "number",
+              "boolean"
+            ],
+            "pattern": "\\S"
+          },
+          "level": {
+            "description": "Proficiência, em texto livre (ex.: Fluente, Intermediário).",
+            "type": [
+              "string",
+              "number",
+              "boolean",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "language"
+        ]
+      }
+    }
+  },
+  "required": [
+    "contact",
+    "professional_title",
+    "skills",
+    "experience",
+    "education"
+  ]
+}

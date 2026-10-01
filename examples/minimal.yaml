@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fabiodrneles/cv-craft/main/schema/cv-craft.schema.json
 # Modelo de currículo do CV-Craft.
 # Edite os valores e gere com: cv-craft build curriculum.yaml
 # Campos marcados como (obrigatório) precisam estar preenchidos.

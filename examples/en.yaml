@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/fabiodrneles/cv-craft/main/schema/cv-craft.schema.json
 # English example: section titles are rendered in English via meta.locale.
 meta:
   locale: en

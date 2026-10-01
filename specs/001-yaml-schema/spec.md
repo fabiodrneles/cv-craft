@@ -93,7 +93,7 @@ languages:                # opcional
 
 ## Fora de escopo
 
-- JSON Schema publicado (pode virar spec futura para autocompletar em editores).
+- JSON Schema publicado para autocompletar em editores: virou a [spec 010](../010-json-schema/spec.md).
 - Datas estruturadas em `period`.
 
 ## Decisões
