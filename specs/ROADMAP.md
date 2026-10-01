@@ -6,7 +6,7 @@ Cada tarefa referencia a spec e os critérios de aceite que ela fecha. Ordem sug
 
 - [x] Responder D1–D6 em [ANALYSIS.md §7](ANALYSIS.md#7-decisões) e mover specs para `Approved`.
 
-## Fase 1 — Funcionar de verdade (P0) → `v0.1.0`
+## Fase 1 — Funcionar de verdade (P0) → publicada na `v0.2.0` (sem tag própria)
 
 - [x] **T1** Renomear módulo, `.gitignore`, remover binários/saídas, criar `examples/` — 007 FR-1..5
 - [x] **T2** Testes + golden files — 007 FR-6..8 (goldens gravados já com o comportamento corrigido, pois o comportamento antigo era o bug)

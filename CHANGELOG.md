@@ -8,7 +8,7 @@ O formato segue o [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/), e
 
 ## [0.2.0] - 2026-10-01
 
-Fase 2, "confiável e publicável" ([#3](https://github.com/fabiodrneles/cv-craft/issues/3)). Primeira versão com binários pré-compilados.
+Fase 2, "confiável e publicável" ([#3](https://github.com/fabiodrneles/cv-craft/issues/3)). Primeira versão publicada e a primeira com binários pré-compilados; inclui também a Fase 1, descrita no fim desta seção.
 
 ### Adicionado
 
@@ -20,11 +20,11 @@ Fase 2, "confiável e publicável" ([#3](https://github.com/fabiodrneles/cv-craf
 
 - Versão mínima do Go para compilar ou instalar com `go install`: **1.26**.
 
-## [0.1.0] - 2026-10-01
+### Fase 1 — "funcionar de verdade" ([#1](https://github.com/fabiodrneles/cv-craft/issues/1))
 
-Fase 1, "funcionar de verdade" ([#1](https://github.com/fabiodrneles/cv-craft/issues/1)). Marco sem binários publicados (a automação de release entrou na 0.2.0).
+Incluída na 0.2.0: a Fase 1 não recebeu tag própria.
 
-### Adicionado
+#### Adicionado
 
 - Comandos `build`, `validate`, `init`, `version`, `help` e `ui` (modo interativo).
 - Saídas em PDF, Markdown e texto puro com o mesmo conteúdo; `--format all` gera as três de uma vez.
@@ -35,12 +35,12 @@ Fase 1, "funcionar de verdade" ([#1](https://github.com/fabiodrneles/cv-craft/is
 - Exit codes documentados e flags `--force`, `--quiet` e `--verbose`, para uso em scripts.
 - Exemplos em `examples/` e modelo comentado gerado por `cv-craft init`.
 
-### Alterado
+#### Alterado
 
 - **Incompatível:** a CLI antiga (`go run main.go -input ...`) foi substituída pelos subcomandos acima; `cv-craft` sem argumentos mostra a ajuda.
 - Módulo renomeado para `github.com/fabiodrneles/cv-craft`, o que permite `go install`.
 
-### Corrigido
+#### Corrigido
 
 - Acentos corrompidos no PDF (`São Paulo` saía como `SÃ£o Paulo`).
 - Markdown e texto saíam sem responsabilidades, conquistas e tecnologias das experiências.
@@ -48,10 +48,9 @@ Fase 1, "funcionar de verdade" ([#1](https://github.com/fabiodrneles/cv-craft/is
 - O modo interativo entrava em loop infinito quando a entrada terminava.
 - `init` sobrescrevia um arquivo existente sem perguntar.
 
-### Depreciado
+#### Depreciado
 
 - `-ats`: aceita, mas sem efeito (o layout padrão já é otimizado para ATS). Será removida em uma versão futura.
 
 [Unreleased]: https://github.com/fabiodrneles/cv-craft/compare/v0.2.0...HEAD
-[0.2.0]: https://github.com/fabiodrneles/cv-craft/compare/v0.1.0...v0.2.0
-[0.1.0]: https://github.com/fabiodrneles/cv-craft/releases/tag/v0.1.0
+[0.2.0]: https://github.com/fabiodrneles/cv-craft/releases/tag/v0.2.0
