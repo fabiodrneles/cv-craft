@@ -101,11 +101,12 @@ teste) → implementar (PR referencia IDs) → fechar (status, no PR de fechamen
 
 ## 6. Pull requests
 
-- **FR-23** Um PR por ticket. Descrição começa com `Closes #N · Épico #M · Spec NNN`
-  (`Spec —` se nenhuma). Título em Conventional Commits.
+- **FR-23** Um PR por ticket. A primeira linha da descrição é `Closes #N · Épico #M · Spec NNN`
+  (`Spec —` se nenhuma); a nota de PR empilhado (FR-25) vem logo em seguida. Título em
+  Conventional Commits.
 - **FR-24** Seções **O que muda** e **Como foi testado** (MUST); **Notas ou decisões para a
   revisão** (SHOULD). Seções extras do template do repo MAY.
-- **FR-25** PR empilhado diz no topo `> PR empilhado sobre #NN`. Quando a base é mergeada e
+- **FR-25** PR empilhado diz no topo, logo após a linha `Closes`: `> PR empilhado sobre #NN`. Quando a base é mergeada e
   apagada, o GitHub redireciona para a `main`: conferir que o diff continua só com o ticket e
   que o CI segue verde.
 - **FR-26** Escopo do ticket; o resto vira ticket novo.
@@ -154,7 +155,8 @@ Prática recomendada: antes de pedir a revisão, simular o merge par a par das b
 
 ## 11. Fechamento de fase
 
-- **FR-42** PR de fechamento: status das specs (`specs/README.md` e cabeçalhos), checkboxes do
+- **FR-42** PR de fechamento: status das specs (`specs/README.md` e cabeçalhos), seção
+  "Estado atual" das specs que a tiverem, checkboxes do
   ROADMAP, `CHANGELOG.md` (Keep a Changelog: `[Unreleased]` → `[X.Y.Z] - AAAA-MM-DD`).
 - **FR-43** Após o merge, o dono cria a tag `vX.Y.Z` (SemVer). Release roda o CI completo antes
   de publicar binários e checksums.
@@ -199,7 +201,7 @@ Use como autochecagem ao final de cada etapa.
   `fase-N`, `tipo:*` e prioridade.
 - **AC-4** Branch `<tipo>/<nº>-<descrição>`; PR começa com `Closes #N · Épico #M · Spec NNN`;
   CI verde antes da revisão.
-- **AC-5** PR empilhado declara a base na primeira seção.
+- **AC-5** PR empilhado: primeira linha é a `Closes` e a seguinte declara a base.
 - **AC-6** Divergência implementação × spec → spec atualizada no mesmo PR.
 - **AC-7** Dois PRs de ticket da mesma fase não alteram status/ROADMAP/CHANGELOG.
 - **AC-8** Teste novo falha quando o código coberto é quebrado.

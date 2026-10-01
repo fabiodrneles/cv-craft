@@ -359,6 +359,7 @@ Fecha a Fase N → `vX.Y.Z`.
 - [ ] Todos os PRs da fase mergeados (lista: #a, #b, #c)
 - [ ] `specs/README.md`: status atualizado de cada spec tocada
 - [ ] Cabeçalho `Status:` de cada spec igual ao do índice
+- [ ] Seção "Estado atual" das specs que a tiverem, refletindo o que foi entregue
 - [ ] `specs/ROADMAP.md`: checkboxes das tarefas concluídas; antecipadas/riscadas explicadas
 - [ ] `CHANGELOG.md`: `[Unreleased]` → `[X.Y.Z] - AAAA-MM-DD`; nova `[Unreleased]` vazia; links de comparação
 - [ ] `specs/ANALYSIS.md`: achados resolvidos marcados (se o projeto mantiver esse controle)

@@ -80,8 +80,8 @@ na seção "Decisões" das specs afetadas e em ANALYSIS.md; specs passam de `Dra
    (escopo, arquivos esquecidos, segredos, saídas geradas, README × specs × código).
 7. **PR por ticket.** Título em Conventional Commits. Descrição começa com
    `Closes #N · Épico #M · Spec NNN` (`Spec —` se nenhuma), com **O que muda**,
-   **Como foi testado** e **Notas para a revisão**. PR empilhado declara no topo:
-   `> PR empilhado sobre #NN`. Termine com o rodapé de atribuição da ferramenta.
+   **Como foi testado** e **Notas para a revisão**. PR empilhado declara logo após a
+   linha `Closes`: `> PR empilhado sobre #NN`. Termine com o rodapé de atribuição da ferramenta.
 8. **Não toque nos arquivos de status compartilhados** num PR de ticket (status das specs em
    `specs/README.md` e cabeçalhos, checkboxes do ROADMAP, entradas do CHANGELOG) — isso é do
    PR de fechamento. Exceção: o ticket que cria o arquivo; e o conteúdo normativo da spec,
@@ -118,7 +118,7 @@ Depois que um PR base é mergeado, confira se o empilhado continua só com o seu
 ## Fechamento de fase
 
 1. Com todos os PRs mergeados, abra o **PR de fechamento**: status das specs
-   (`specs/README.md` + cabeçalhos), checkboxes do ROADMAP, `CHANGELOG.md`
+   (`specs/README.md` + cabeçalhos + seção "Estado atual"), checkboxes do ROADMAP, `CHANGELOG.md`
    (Keep a Changelog: `[Unreleased]` → `[X.Y.Z] - AAAA-MM-DD`). Checklist em templates.md.
 2. **⏸ PARE.** O dono mergeia e cria a tag `vX.Y.Z` (SemVer). O workflow de release roda o CI
    completo antes de publicar binários e checksums.
