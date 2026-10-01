@@ -3,6 +3,7 @@ module github.com/fabiodrneles/cv-craft
 go 1.26.0
 
 require (
+	github.com/creack/pty v1.1.24
 	github.com/fatih/color v1.18.0
 	github.com/go-pdf/fpdf v0.9.0
 	github.com/mattn/go-isatty v0.0.20
