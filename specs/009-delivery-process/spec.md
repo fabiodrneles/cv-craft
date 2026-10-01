@@ -1,7 +1,7 @@
 # 009 — Processo de entrega
 
 - **Prioridade:** P1
-- **Status:** Draft
+- **Status:** Done — em uso desde a Fase 2 (CONTRIBUTING, templates e skill `sdd-delivery`)
 - **Código afetado:** processo (`CONTRIBUTING.md`, `.github/`, `specs/`)
 - **Resolve:** #19
 
@@ -81,7 +81,7 @@ descoberta → ANALYSIS.md → decisões do dono → constituição + specs + RO
 
 - **FR-23** Um PR por ticket. A primeira linha da descrição MUST ser `Closes #N · Épico #M · Spec NNN` (com `Spec —` quando não houver spec afetada); a nota de PR empilhado (FR-25), quando houver, vem logo em seguida. O título segue Conventional Commits.
 - **FR-24** A descrição MUST ter as seções **O que muda** e **Como foi testado**, e SHOULD ter **Notas ou decisões para a revisão** quando houver algo que o dono precise decidir ou saber. Seções adicionais do template do repositório (specs e AC, checklist) MAY ser usadas.
-- **FR-25** Um PR empilhado MUST dizer isso no topo, logo após a linha `Closes` (`> PR empilhado sobre #NN`). Quando o PR base é mergeado e sua branch apagada, o GitHub redireciona o empilhado para a `main`; o agente MUST então conferir se o diff continua só com o ticket e se o CI segue verde.
+- **FR-25** Um PR empilhado MUST dizer isso no topo, logo após a linha `Closes` (`> PR empilhado sobre #NN`). Quando o PR base é mergeado e sua branch apagada, o GitHub redireciona o empilhado para a `main`; se a branch base não for apagada, o agente MUST redirecionar os empilhados para a `main` (editar a base do PR). Em seguida, MUST conferir se o diff continua só com o ticket e se o CI segue verde.
 - **FR-26** O PR MUST ficar no escopo do ticket. O que estiver fora vira ticket novo (FR-13).
 - **FR-27** Para evitar conflitos entre PRs paralelos da mesma fase, PRs de ticket MUST NOT editar os arquivos de status compartilhados: status das specs em `specs/README.md` e no cabeçalho das specs, checkboxes do ROADMAP e entradas do CHANGELOG. Isso é feito no PR de fechamento (FR-42). Exceções: o ticket que **cria** um desses arquivos, e o conteúdo normativo das specs (FR-9), que muda junto com o código.
 - **FR-28** PRs do agente MUST terminar com o rodapé de atribuição da ferramenta usada (com Claude Code: `🤖 Generated with [Claude Code](https://claude.com/claude-code)` e o link da sessão).
@@ -110,6 +110,7 @@ descoberta → ANALYSIS.md → decisões do dono → constituição + specs + RO
 - **FR-39** Com todos os PRs da fase abertos e verdes, o dono revisa na **ordem sugerida no épico**. O agente responde os comentários; corrige pedidos pequenos; para mudanças grandes ou de design, **propõe** (no comentário) e só implementa após concordância.
 - **FR-40** Política de merge: PRs de fase sobre os quais outros estão empilhados MUST ser mergeados com **merge commit** (para que os empilhados sejam redirecionados à `main` sem rebase); PRs de ticket MAY usar **squash**.
 - **FR-41** O dono SHOULD proteger a `main` (CI obrigatório e revisão de Code Owners). É configuração do dono, não do agente.
+- **FR-41a** Antes da rodada de merges, o agente SHOULD simular a integração completa: mergear localmente todas as branches da fase, na ordem do épico, e rodar as verificações locais (`make ci` e `make docs`). Isso acha falhas que nenhum CI individual vê, como um lint novo de um PR reprovando um arquivo criado por outro. Durante a rodada, cada branch que ainda não tem a `main` atual SHOULD recebê-la (merge, não rebase) e ter o CI verde antes do seu merge.
 
 ### 11. Fechamento de fase
 
@@ -125,11 +126,12 @@ descoberta → ANALYSIS.md → decisões do dono → constituição + specs + RO
 | Analisar, escrever specs, criar épicos e tickets | revisa | ✔ |
 | Implementar, testar, validar, abrir PRs, manter CI verde | | ✔ |
 | Revisar e aprovar PRs | ✔ | responde |
-| Merge, tags, releases | ✔ | |
+| Merge | ✔ | só com delegação explícita (FR-46) |
+| Tags, releases | ✔ | |
 | Configurações do repositório (proteção de branch, labels de sistema, segredos) | ✔ | sugere |
 
 - **FR-45** Qualquer ação irreversível ou visível para fora além do fluxo combinado (merge, tag, release, apagar branch alheia, mudar configuração, publicar em outro lugar) é do dono.
-- **FR-46** O agente MUST NOT: fazer merge; dar force-push em branch de outra pessoa; reescrever histórico publicado; trabalhar fora das branches do seu ticket.
+- **FR-46** O agente MUST NOT: fazer merge, salvo quando o dono delega explicitamente uma rodada de merges (a delegação vale só para aquela rodada, segue a ordem do épico e exige CI verde no head de cada PR); dar force-push em branch de outra pessoa; reescrever histórico publicado; trabalhar fora das branches do seu ticket.
 
 ### 13. Comunicação
 
@@ -210,4 +212,5 @@ Exemplos reais que motivaram requisitos:
 - **Duas escalas de prioridade.** Specs usam `P0..P2` (definida em `specs/README.md`: P0 bloqueia uso real); tickets usam labels `P1..P3` (alta → baixa). São escalas distintas: a da spec diz quão essencial é a área; a do ticket, a ordem de trabalho dentro da fase.
 - **Status no fechamento.** O passo 5 de `specs/README.md` ("Fechar — atualizar o status") acontece no PR de fechamento da fase (FR-42), e não em cada PR de ticket, para evitar conflitos (FR-27).
 - **Primeira linha do PR.** `Closes #N · Épico #M · Spec NNN` é o formato normativo; os IDs finos (`003 FR-8, AC-6`) vão na seção de specs do template ou em "O que muda".
+- **Delegação de merge.** Na Fase 2 o dono delegou ao agente a rodada de merges dos 9 PRs. A regra padrão continua sendo "o dono mergeia" (FR-46); a delegação é pontual e não se estende a tags nem a releases.
 - **Merge commit para PRs de fase.** Squash num PR que tem empilhados reescreveria a base deles e forçaria rebase de todos; com merge commit o GitHub só redireciona a base.

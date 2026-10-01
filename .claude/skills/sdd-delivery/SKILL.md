@@ -32,7 +32,8 @@ descoberta → ANALYSIS.md → ⏸ decisões do dono → constituição + specs 
 - **Dono** decide: decisões em aberto, escopo, prioridades, aprovação, **merge, tags,
   releases, configurações do repositório** e qualquer ação irreversível ou visível para fora.
 - **Agente** executa: análise, specs, épicos, tickets, código, testes, PRs, manter o CI verde.
-- O agente **nunca**: faz merge; dá force-push em branch alheia; reescreve histórico
+- O agente **nunca**: faz merge (salvo quando o dono delega explicitamente uma rodada de
+  merges: vale só para ela, segue a ordem do épico e exige CI verde em cada head); dá force-push em branch alheia; reescreve histórico
   publicado; trabalha fora das branches do seu ticket; cria tag ou release.
 
 ## Fase de descoberta (repositório novo para o agente)

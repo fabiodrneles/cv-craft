@@ -1,7 +1,7 @@
 # 008 — README e documentação
 
 - **Prioridade:** P1
-- **Status:** In Progress — README reescrito na Fase 1; `CONTRIBUTING.md`, `docs/schema.md` e `examples/README.md` pendentes
+- **Status:** Done — README na Fase 1; `CONTRIBUTING.md` (#5), `docs/schema.md` e `examples/README.md` (#7) e verificação da documentação no CI (#8) na Fase 2. O `README.en.md` opcional (FR-3) é o ticket #13 da Fase 3
 - **Resolve:** C5 (parte de docs) e a seção 5 de [ANALYSIS.md](../ANALYSIS.md)
 
 ## Contexto

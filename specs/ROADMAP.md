@@ -25,8 +25,9 @@ Cada tarefa referencia a spec e os critérios de aceite que ela fecha. Ordem sug
 - [x] **T12** Metadados do PDF e links clicáveis — 003 FR-6..7 *(antecipada)*
 - [x] **T13** Quebra de página inteligente — 003 FR-8 *(antecipada)*
 - [x] **T14** `--format all` — 002 FR-7 *(antecipada)*
-- [ ] **T15** ~~README novo~~ (feito na Fase 1) + `docs/schema.md` + `CONTRIBUTING.md` — 008
-- [ ] **T16** GoReleaser + CHANGELOG — 007 FR-13..15
+- [x] **T15** ~~README novo~~ (feito na Fase 1) + `docs/schema.md` + `CONTRIBUTING.md` — 008 (#5, #7)
+- [x] **T16** GoReleaser + CHANGELOG — 007 FR-13..16 (#6)
+- [x] Go 1.26 como versão mínima (#4); CI de documentação (#8); benchmarks dos NFRs (#9); spec 009 do processo (#19); skill `sdd-delivery` versionada (#25)
 
 ## Fase 3 — Profissional (P2) → `v1.0.0`
 

@@ -107,8 +107,9 @@ teste) → implementar (PR referencia IDs) → fechar (status, no PR de fechamen
 - **FR-24** Seções **O que muda** e **Como foi testado** (MUST); **Notas ou decisões para a
   revisão** (SHOULD). Seções extras do template do repo MAY.
 - **FR-25** PR empilhado diz no topo, logo após a linha `Closes`: `> PR empilhado sobre #NN`. Quando a base é mergeada e
-  apagada, o GitHub redireciona para a `main`: conferir que o diff continua só com o ticket e
-  que o CI segue verde.
+  apagada, o GitHub redireciona para a `main`; se a branch base não for apagada, o agente
+  redireciona os empilhados (editar a base do PR). Depois, conferir que o diff continua só com
+  o ticket e que o CI segue verde.
 - **FR-26** Escopo do ticket; o resto vira ticket novo.
 - **FR-27** PRs de ticket MUST NOT editar arquivos de status compartilhados: status em
   `specs/README.md` e cabeçalhos das specs, checkboxes do ROADMAP, entradas do CHANGELOG.
@@ -153,6 +154,12 @@ teste) → implementar (PR referencia IDs) → fechar (status, no PR de fechamen
 Prática recomendada: antes de pedir a revisão, simular o merge par a par das branches da fase
 (`git merge-tree --write-tree`) e documentar conflitos e resoluções nos PRs.
 
+- **FR-41a** Antes da rodada de merges, simular a integração completa: mergear localmente todas
+  as branches na ordem do épico e rodar as verificações locais (ex.: `make ci` e `make docs`).
+  Isso acha falhas que nenhum CI individual vê (ex.: lint novo de um PR reprovando arquivo de
+  outro). Na rodada, cada branch recebe a `main` atual (merge, não rebase) e fica verde antes
+  do seu merge.
+
 ## 11. Fechamento de fase
 
 - **FR-42** PR de fechamento: status das specs (`specs/README.md` e cabeçalhos), seção
@@ -170,11 +177,13 @@ Prática recomendada: antes de pedir a revisão, simular o merge par a par das b
 | Analisar, specs, épicos, tickets | revisa | ✔ |
 | Implementar, testar, validar, abrir PRs, CI verde | | ✔ |
 | Revisar e aprovar PRs | ✔ | responde |
-| Merge, tags, releases | ✔ | |
+| Merge | ✔ | só com delegação explícita (FR-46) |
+| Tags, releases | ✔ | |
 | Configurações do repo (proteção, labels de sistema, segredos) | ✔ | sugere |
 
 - **FR-45** Ação irreversível ou visível para fora além do fluxo combinado é do dono.
-- **FR-46** Agente MUST NOT: merge; force-push em branch alheia; reescrever histórico
+- **FR-46** Agente MUST NOT: merge (salvo delegação explícita do dono para uma rodada, na ordem
+  do épico e com CI verde em cada head); force-push em branch alheia; reescrever histórico
   publicado; trabalhar fora das branches do seu ticket.
 
 ## 13. Comunicação

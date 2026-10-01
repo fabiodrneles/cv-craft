@@ -36,7 +36,7 @@ golden: ## Regrava os golden files após uma mudança intencional nas saídas
 bench: ## Benchmarks de parsing e de cada formato (requisitos não-funcionais das specs 001 e 003)
 	go test -run '^$$' -bench . -benchmem ./internal/...
 
-ci: lint race cover smoke ## Tudo que o CI roda
+ci: lint race cover smoke ## Verificações de código do CI (docs, release e bench têm alvos próprios)
 
 release-snapshot: ## Gera os binários e arquivos da release em ./dist, sem publicar
 	goreleaser release --snapshot --clean
