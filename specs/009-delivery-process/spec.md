@@ -182,6 +182,7 @@ Checklist para iniciar o processo num repositório novo:
 | Verificação local | `make ci` = `lint` (`go vet` + `golangci-lint`) + `race` + `cover` (`scripts/coverage.sh`, ≥ 80% em `internal/`) + `smoke` (`scripts/smoke.sh`, binário real) |
 | Golden files | `make golden` após mudança intencional nas saídas; o diff dos goldens é revisado no PR |
 | CI (`.github/workflows/ci.yml`) | `go mod tidy` sem diff, `go vet`, `golangci-lint`; testes em Linux/macOS/Windows com `-race` (exceto Windows); cobertura; smoke; cross-build linux/darwin/windows × amd64/arm64; `govulncheck` |
+| Documentação | job `docs`: `markdownlint-cli2` (inclui os golden files de Markdown), `lychee` (links) e `scripts/doc-commands.sh` (comandos do README); `make docs` localmente — entram com o ticket #8 |
 | Ensaio de release | job `release-check` (`goreleaser release --snapshot` + `scripts/check-release.sh`) e `make release-snapshot` — entram com o ticket #6 |
 | Release | tag `v*` → `.github/workflows/release.yml` chama o `ci.yml` e publica via GoReleaser com checksums — entra com o ticket #6 |
 | Labels | `épico`, `fase-1..3`, `tipo:feature`, `tipo:bug`, `tipo:docs`, `tipo:ci`, `tipo:teste`, `tipo:chore`, `P1..P3` |
