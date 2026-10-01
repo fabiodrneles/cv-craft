@@ -32,13 +32,16 @@ for f in cv-craft LICENSE README.md CHANGELOG.md licenses/OFL.txt; do
   grep -qx "$f" <<<"$listing" || { echo "FAIL arquivo linux_amd64 sem $f"; fail=1; }
 done
 
-# A versão é injetada via -ldflags.
-bin=$(find "$dist" -path '*linux_amd64*' -name cv-craft -type f | head -n1)
-out=$("$bin" version)
-if [[ "$out" =~ ^cv-craft\ v[0-9]+\.[0-9]+\.[0-9]+.*\(commit\ [0-9a-f]{7,},\ [0-9]{4}- ]]; then
-  echo "ok   $out"
+# A versão é injetada via -ldflags. Executa o binário da plataforma em que o
+# script está rodando (no CI, linux/amd64; localmente, a do contribuidor).
+host="$(go env GOOS)_$(go env GOARCH)"
+bin=$(find "$dist" -type f \( -name cv-craft -o -name cv-craft.exe \) -path "*_${host}*" | head -n1)
+if [[ -z "$bin" ]]; then
+  echo "skip versão embutida: não há binário para $host neste dist"
+elif out=$("$bin" version 2>&1) && [[ "$out" =~ ^cv-craft\ v[0-9]+\.[0-9]+\.[0-9]+.*\(commit\ [0-9a-f]{7,},\ [0-9]{4}- ]]; then
+  echo "ok   $out ($host)"
 else
-  echo "FAIL versão inesperada: $out"; fail=1
+  echo "FAIL versão inesperada em $bin: $out"; fail=1
 fi
 
 [[ "$fail" == 0 ]] && echo "release OK" || { echo "release FALHOU"; exit 1; }
