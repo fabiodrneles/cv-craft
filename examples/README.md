@@ -4,7 +4,7 @@ Arquivos YAML prontos para gerar currículos de exemplo. Todos são validados pe
 
 | Arquivo | O que demonstra |
 |---|---|
-| [`minimal.yaml`](minimal.yaml) | O modelo criado por `cv-craft init`: todos os campos, com comentários explicando cada um e marcando os obrigatórios. |
+| [`minimal.yaml`](minimal.yaml) | O modelo criado por `cv-craft init`: os campos mais usados, com comentários explicando cada um e marcando os obrigatórios. Campos menos comuns (`thesis`, `relevant_courses`, `certificates[].url`) estão em `full.yaml` e na referência. |
 | [`full.yaml`](full.yaml) | Um currículo completo em português: três experiências com responsabilidades, conquistas e tecnologias; duas formações (uma com TCC e disciplinas); certificados com link; idiomas; níveis de habilidade variados e uma categoria sem nível. Ocupa duas páginas no PDF. |
 | [`en.yaml`](en.yaml) | Um currículo em inglês (`meta.locale: en`): os títulos das seções saem em inglês. |
 

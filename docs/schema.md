@@ -177,7 +177,9 @@ languages:
 
 ## Erros e avisos comuns
 
-Rode `cv-craft validate curriculum.yaml` para ver **todos** os problemas de uma vez. Cada mensagem traz o caminho do campo e, quando possível, a linha.
+Rode `cv-craft validate curriculum.yaml` para ver **todos os problemas de validação** de uma vez (campos obrigatórios, chaves desconhecidas, e-mail, idioma, níveis). Cada mensagem traz o caminho do campo e, quando possível, a linha.
+
+A exceção são os erros de **sintaxe ou de tipo** do YAML (as duas últimas linhas da tabela abaixo): enquanto o arquivo não puder ser lido, a validação não roda, e só esse erro aparece. Corrija-o e rode `validate` de novo para ver o resto.
 
 | Mensagem | Causa | Como corrigir |
 |---|---|---|
