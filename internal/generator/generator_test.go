@@ -294,6 +294,32 @@ func TestMarkdownEscaping(t *testing.T) {
 	}
 }
 
+// Revisão do #2: texto com várias linhas (blocos | do YAML) é escapado em
+// todas as linhas, e itens de lista com várias linhas continuam no item.
+func TestMarkdownMultilineEscaping(t *testing.T) {
+	r := loadExample(t, "minimal.yaml")
+	r.Summary = "Primeira linha.\n# não é título\n- não é item\n> não é citação\n1. não é lista"
+	r.Experience[0].Description = "Contexto.\n## também não é título"
+	r.Experience[0].Responsibilities = []string{"Primeira linha do item\n1. continuação"}
+	r.ProfessionalTitle = "Dev\n# Título quebrado"
+	out := string(generate(t, Markdown, r))
+	for _, want := range []string{
+		"Primeira linha.\n\\# não é título\n\\- não é item\n\\> não é citação\n1\\. não é lista",
+		"Contexto.\n\\## também não é título",
+		"- Primeira linha do item\n  1\\. continuação",
+		"**Dev # Título quebrado**",
+	} {
+		if !strings.Contains(out, want) {
+			t.Errorf("Markdown não contém %q:\n%s", want, out)
+		}
+	}
+	for _, line := range strings.Split(out, "\n") {
+		if strings.HasPrefix(line, "# ") && line != "# "+r.Contact.Name {
+			t.Errorf("linha virou título: %q", line)
+		}
+	}
+}
+
 // 006/AC-1/AC-2: títulos no idioma pedido em todos os formatos.
 func TestLabelsFollowLocale(t *testing.T) {
 	r := loadExample(t, "full.yaml")
