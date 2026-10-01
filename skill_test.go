@@ -49,7 +49,7 @@ func TestRepoSkills(t *testing.T) {
 
 		// Links relativos de todos os .md da skill (exemplos dentro de blocos de
 		// código, como os modelos de templates.md, não são links reais).
-		_ = filepath.WalkDir(dir, func(path string, d os.DirEntry, err error) error {
+		walkErr := filepath.WalkDir(dir, func(path string, d os.DirEntry, err error) error {
 			if err != nil || d.IsDir() || filepath.Ext(path) != ".md" {
 				return err
 			}
@@ -68,22 +68,74 @@ func TestRepoSkills(t *testing.T) {
 			}
 			return nil
 		})
+		if walkErr != nil {
+			t.Errorf("%s: erro ao percorrer os arquivos da skill: %v", dir, walkErr)
+		}
 	}
 }
 
-// withoutCodeBlocks remove o conteúdo dos blocos de código cercados por ```.
+// withoutCodeBlocks remove o conteúdo dos blocos de código cercados por ```
+// ou ~~~. Como no CommonMark, o bloco só fecha numa linha que contém apenas
+// cercas do mesmo caractere e com pelo menos o mesmo comprimento da abertura,
+// então um ``` dentro de um bloco ```` não o fecha.
 func withoutCodeBlocks(md string) string {
 	var b strings.Builder
-	inside := false
+	var fenceChar byte
+	fenceLen := 0
 	for _, line := range strings.Split(md, "\n") {
-		if strings.HasPrefix(strings.TrimSpace(line), "```") {
-			inside = !inside
-			continue
-		}
-		if !inside {
+		trimmed := strings.TrimSpace(line)
+		if fenceLen == 0 {
+			if c, n := fenceRun(trimmed); n >= 3 {
+				fenceChar, fenceLen = c, n
+				continue
+			}
 			b.WriteString(line)
 			b.WriteByte('\n')
+			continue
+		}
+		if c, n := fenceRun(trimmed); c == fenceChar && n >= fenceLen && n == len(trimmed) {
+			fenceLen = 0
 		}
 	}
 	return b.String()
+}
+
+// fenceRun devolve o caractere de cerca (` ou ~) no início de s e quantas
+// vezes ele se repete.
+func fenceRun(s string) (byte, int) {
+	if s == "" || (s[0] != '`' && s[0] != '~') {
+		return 0, 0
+	}
+	n := 0
+	for n < len(s) && s[n] == s[0] {
+		n++
+	}
+	return s[0], n
+}
+
+func TestWithoutCodeBlocks(t *testing.T) {
+	md := "fora 1\n" +
+		"````markdown\n" +
+		"dentro A\n" +
+		"```text\n" +
+		"dentro B\n" +
+		"```\n" +
+		"dentro C [x](nao-existe.md)\n" +
+		"````\n" +
+		"fora 2\n" +
+		"~~~\n" +
+		"dentro D\n" +
+		"~~~\n" +
+		"fora 3\n"
+	got := withoutCodeBlocks(md)
+	for _, want := range []string{"fora 1", "fora 2", "fora 3"} {
+		if !strings.Contains(got, want) {
+			t.Errorf("faltou %q fora dos blocos:\n%s", want, got)
+		}
+	}
+	for _, bad := range []string{"dentro A", "dentro B", "dentro C", "dentro D"} {
+		if strings.Contains(got, bad) {
+			t.Errorf("%q está dentro de um bloco de código e deveria ter sido removido:\n%s", bad, got)
+		}
+	}
 }
