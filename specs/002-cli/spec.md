@@ -1,7 +1,7 @@
 # 002 — Interface de linha de comando
 
 - **Prioridade:** P0
-- **Status:** Draft
+- **Status:** Done
 - **Código afetado:** `main.go`, novo `internal/app` (serviço de build), `cli/`
 - **Resolve:** A2, A3, A4, M2, M3, M5, M9
 
@@ -79,6 +79,9 @@ Flags de forma única com um hífen (`-format`) SHOULD continuar aceitas por com
 - Watch mode (`--watch`) — candidato a spec futura.
 - Configuração global (`~/.cv-craft`).
 
-## Decisões em aberto
+## Decisões
 
-- D2 — comportamento de `cv-craft` sem argumentos (hoje abre o modo interativo; recomendado: mostrar ajuda).
+- D2 — `cv-craft` sem argumentos mostra a ajuda (exit 0); o modo interativo é aberto com `cv-craft ui`.
+- Arquivo de entrada inexistente sai com 1 (falha de I/O); YAML com erro de sintaxe ou validação sai com 4.
+- Com um único formato, `--output` apontando para um diretório existente grava `<diretório>/<nome>.<ext>`.
+- Implementado em `internal/app` (serviço) e `internal/cli` (parsing e apresentação); testes em `internal/cli/cli_test.go` e `scripts/smoke.sh`.

@@ -124,9 +124,11 @@ A estrutura proposta está em [`008-readme-docs/spec.md`](008-readme-docs/spec.m
 14. `--format all` / múltiplos formatos numa execução.
 15. README novo, `examples/`, CHANGELOG, release com GoReleaser (binários Win/macOS/Linux).
 
-## 7. Decisões em aberto (precisam do dono do projeto)
+## 7. Decisões
 
-| # | Pergunta | Recomendação |
+Todas as recomendações abaixo foram **aprovadas** pelo dono do projeto em 2026-10-01 e implementadas na Fase 1.
+
+| # | Pergunta | Decisão |
 |---|---|---|
 | D1 | Idioma das saídas: fixo PT, fixo EN ou configurável? | Configurável via `meta.locale` no YAML + `--lang`, padrão `pt-BR` |
 | D2 | Manter o modo interativo? | Manter, mas como camada fina sobre os mesmos comandos; fora do caminho crítico |

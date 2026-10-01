@@ -1,8 +1,8 @@
 # 005 — Modo interativo
 
 - **Prioridade:** P1
-- **Status:** Draft (depende da decisão D2)
-- **Código afetado:** `cli/ui.go`
+- **Status:** Done
+- **Código afetado:** `internal/cli/shell.go` (antes `cli/ui.go`)
 - **Resolve:** C4, A2, M4
 
 ## Contexto
@@ -28,6 +28,8 @@ O modo interativo é um REPL que aceita `build`, `init`, `validate`, `templates`
 - **AC-4** `help` lista apenas comandos que existem.
 - **AC-5** Teste de unidade do REPL com `io.Reader`/`io.Writer` injetados cobre: vazio, comando desconhecido, EOF, `exit`.
 
-## Decisões em aberto
+## Decisões
 
-- D2 — manter o modo interativo e se ele é o padrão sem argumentos.
+- D2 — o modo interativo é mantido como camada fina sobre o mesmo `dispatch` da CLI e não é mais o padrão sem argumentos.
+- O tokenizer respeita aspas simples e duplas, mas não trata `\` como escape, para aceitar caminhos do Windows.
+- AC-2 e AC-3 são verificados com stdin simulado (`IsTerminal` injetável) em `internal/cli/cli_test.go`, sem PTY real.

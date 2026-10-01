@@ -28,13 +28,13 @@ Convenções: `MUST`/`SHOULD`/`MAY` seguem a RFC 2119. Prioridades: **P0** (bloq
 
 | ID | Spec | Prioridade | Status |
 |---|---|---|---|
-| 001 | [Schema YAML e validação](001-yaml-schema/spec.md) | P0 | Draft |
-| 002 | [Interface de linha de comando](002-cli/spec.md) | P0 | Draft |
-| 003 | [Gerador de PDF](003-pdf-generator/spec.md) | P0 | Draft |
-| 004 | [Saídas Markdown e Texto](004-text-outputs/spec.md) | P0 | Draft |
-| 005 | [Modo interativo](005-interactive-mode/spec.md) | P1 | Draft |
-| 006 | [Internacionalização das saídas](006-i18n/spec.md) | P2 | Draft (decisão D1) |
-| 007 | [Qualidade, CI e release](007-quality-ci-release/spec.md) | P1 | Draft |
-| 008 | [README e documentação](008-readme-docs/spec.md) | P1 | Draft |
+| 001 | [Schema YAML e validação](001-yaml-schema/spec.md) | P0 | Done |
+| 002 | [Interface de linha de comando](002-cli/spec.md) | P0 | Done |
+| 003 | [Gerador de PDF](003-pdf-generator/spec.md) | P0 | Done |
+| 004 | [Saídas Markdown e Texto](004-text-outputs/spec.md) | P0 | Done |
+| 005 | [Modo interativo](005-interactive-mode/spec.md) | P1 | Done |
+| 006 | [Internacionalização das saídas](006-i18n/spec.md) | P2 | Done |
+| 007 | [Qualidade, CI e release](007-quality-ci-release/spec.md) | P1 | In Progress (falta release) |
+| 008 | [README e documentação](008-readme-docs/spec.md) | P1 | In Progress (falta `CONTRIBUTING.md`) |
 
 Status possíveis: `Draft` → `Approved` → `In Progress` → `Done`.

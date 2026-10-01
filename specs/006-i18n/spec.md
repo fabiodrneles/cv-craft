@@ -1,7 +1,7 @@
 # 006 — Internacionalização das saídas
 
 - **Prioridade:** P2
-- **Status:** Draft (depende da decisão D1)
+- **Status:** Done (antecipada para a Fase 1: os rótulos precisavam de uma origem única)
 - **Código afetado:** novo `internal/i18n`, geradores, CLI
 - **Resolve:** M1
 
@@ -25,6 +25,7 @@ Hoje o PDF tem títulos em inglês (`SUMMARY`, `PROFESSIONAL EXPERIENCE`), o MD/
 - **AC-3** `--lang xx` ⇒ exit 2 com lista `pt-BR, en`.
 - **AC-4** Teste garante que todas as chaves existem em todos os idiomas do catálogo.
 
-## Decisões em aberto
+## Decisões
 
-- D1 — confirmar idiomas suportados e idioma padrão.
+- D1 — `pt-BR` (padrão) e `en`. Variações como `pt`, `pt_BR`, `en-US` são aceitas.
+- Mensagens da CLI em português.

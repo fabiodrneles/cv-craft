@@ -1,7 +1,7 @@
 # 003 — Gerador de PDF
 
 - **Prioridade:** P0
-- **Status:** Draft
+- **Status:** Done
 - **Código afetado:** `internal/generator/pdf.go`
 - **Resolve:** C1, C3, A1, A5, M5, M6, M8
 
@@ -69,8 +69,10 @@ Seções vazias não são renderizadas.
 - Múltiplos templates/temas visuais (decisão D5).
 - Foto, ícones, colunas.
 
-## Decisões em aberto
+## Decisões
 
-- D3 — semântica de `-ats`.
-- D4 — estratégia de fonte.
-- D6 — exibir ou não o nível da skill.
+- D3 — `-ats` é aceita e ignorada, com aviso de depreciação em stderr; será removida em uma versão futura.
+- D4 — Liberation Sans (Regular, Bold, Italic; SIL OFL 1.1) embutida via `embed`, com subset no PDF. Cobre Latin, Latin Extended, grego e cirílico. PDF típico: ~50 KB.
+- D6 — nível exibido traduzido entre parênteses (`Backend (Avançado): Go, …`).
+- Links do cabeçalho são exibidos sem `https://` (o destino clicável é a URL completa) e rótulo e link nunca são separados por quebra de linha.
+- Lista de itens usa marcador `•` com recuo deslocado; rótulos de lista ("Responsabilidades:") também nunca ficam órfãos no fim da página.

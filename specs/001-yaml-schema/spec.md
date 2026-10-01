@@ -1,8 +1,8 @@
 # 001 — Schema YAML e validação
 
 - **Prioridade:** P0
-- **Status:** Draft
-- **Código afetado:** `internal/parser/parser.go`
+- **Status:** Done
+- **Código afetado:** `internal/resume` (antes `internal/parser/parser.go`)
 - **Resolve:** C3, A5, A6, A7 (ver [ANALYSIS.md](../ANALYSIS.md))
 
 ## Contexto
@@ -95,6 +95,7 @@ languages:                # opcional
 - JSON Schema publicado (pode virar spec futura para autocompletar em editores).
 - Datas estruturadas em `period`.
 
-## Decisões em aberto
+## Decisões
 
-- D6 — lista final de níveis de skill e se o nível é exibido.
+- D6 — níveis `expert/advanced/proficient/intermediate/beginner`, aceitando também os equivalentes em português (`especialista`, `avançado`, `proficiente`, `intermediário`, `básico`/`iniciante`). O nível aparece traduzido entre parênteses após a categoria.
+- FR-2: a flag `--lenient` (MAY) não foi implementada; chaves desconhecidas são sempre erro.

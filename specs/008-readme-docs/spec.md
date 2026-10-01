@@ -1,7 +1,7 @@
 # 008 — README e documentação
 
 - **Prioridade:** P1
-- **Status:** Draft
+- **Status:** In Progress — README reescrito na Fase 1; `CONTRIBUTING.md`, `docs/schema.md` e `examples/README.md` pendentes
 - **Resolve:** C5 (parte de docs) e a seção 5 de [ANALYSIS.md](../ANALYSIS.md)
 
 ## Contexto

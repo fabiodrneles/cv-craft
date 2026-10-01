@@ -1,7 +1,7 @@
 # 007 — Qualidade, CI e release
 
 - **Prioridade:** P1 (itens 1–3 são P0 por bloquearem a instalação)
-- **Status:** Draft
+- **Status:** In Progress — repositório, testes e CI concluídos; release (FR-13..15) na Fase 2
 - **Resolve:** C5, A8
 
 ## Contexto
@@ -20,13 +20,14 @@ Não há testes, CI, `.gitignore` nem processo de release. O repositório versio
 ### Testes
 - **FR-6** Unitários do parser/validação cobrindo os AC da spec 001.
 - **FR-7** Golden files dos geradores em `internal/generator/testdata/`, com flag `-update` para regenerar.
-- **FR-8** Teste do PDF via extração de texto (lib Go pura, ex.: `ledongthuc/pdf`, só em testes) — sem depender de `pdftotext` no CI.
-- **FR-9** Teste de CLI de ponta a ponta (compila o binário em `TestMain` ou usa `testscript`) cobrindo os exit codes da spec 002.
+- **FR-8** Teste do PDF via extração de texto com o `pdftotext` (poppler). **Revisado na implementação:** a lib Go pura avaliada (`ledongthuc/pdf`) trunca caracteres acima de U+00FF em fontes TTF embutidas (`—`, `•`, `Ł`), o que esconderia justamente os bugs de Unicode. O poppler é instalado no CI (Linux e macOS, obrigatório via `CV_CRAFT_REQUIRE_POPPLER=1`); localmente e no Windows os testes de texto do PDF são pulados se ele não existir.
+- **FR-9** Teste de CLI de ponta a ponta cobrindo os exit codes da spec 002: `cli.Run` testado em processo (`internal/cli/cli_test.go`) e o binário real exercitado por `scripts/smoke.sh` em Linux, macOS e Windows.
 - **FR-10** Cobertura mínima: 80% em `internal/`.
 
 ### CI (GitHub Actions)
-- **FR-11** Workflow em PR e push para `main`: `go mod tidy` sem diff, `gofmt -l` vazio, `go vet`, `golangci-lint`, `go test -race -cover ./...`.
-- **FR-12** Matriz: `ubuntu-latest`, `windows-latest`, `macos-latest` (o autor usa Windows — `.exe` versionado).
+- **FR-11** Workflow em PR e push para `main`: `go mod tidy` sem diff, `go vet`, `golangci-lint` (inclui gofmt/goimports), `go test -race` com cobertura mínima, smoke test do binário (`scripts/smoke.sh`), cross-compilação (linux/darwin/windows × amd64/arm64) e `govulncheck`.
+- **FR-12** Matriz: `ubuntu-latest`, `windows-latest`, `macos-latest` com Go 1.24.x (mínimo do `go.mod`) + Ubuntu com Go `stable`.
+- **FR-12a** `Makefile` com os mesmos passos do CI (`make ci`) e Dependabot para módulos Go e GitHub Actions.
 
 ### Release
 - **FR-13** GoReleaser disparado por tag `v*`: binários linux/darwin/windows × amd64/arm64, checksums, changelog automático.
