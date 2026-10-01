@@ -11,8 +11,8 @@
 !/CHANGELOG.md
 !/CONTRIBUTING.md
 /*.txt
-# YAMLs pessoais na raiz (arquivos de configuração .algo.yaml não são afetados)
-/[!.]*.yaml
+/*.yaml
+!/.goreleaser.yaml
 
 # Testes
 coverage.out
