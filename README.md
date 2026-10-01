@@ -34,7 +34,7 @@ cv-craft version
 
 Há arquivos para Linux, macOS e Windows (amd64 e arm64), e o `checksums.txt` permite conferir a integridade do download (`sha256sum -c checksums.txt --ignore-missing`).
 
-**Com Go (1.24 ou superior):**
+**Com Go (1.26 ou superior):**
 
 ```bash
 go install github.com/fabiodrneles/cv-craft@latest
@@ -69,7 +69,7 @@ cv-craft build curriculum.yaml --format all -o dist/
 | Comando | Descrição |
 |---|---|
 | `cv-craft build <arquivo.yaml>` | Gera o currículo (PDF, Markdown ou texto) |
-| `cv-craft validate <arquivo.yaml>` | Valida o YAML e lista **todos** os problemas de uma vez |
+| `cv-craft validate <arquivo.yaml>` | Valida o YAML e lista **todos** os problemas de validação de uma vez (um erro de sintaxe do YAML aparece sozinho, antes) |
 | `cv-craft init [arquivo.yaml]` | Cria um YAML modelo (padrão: `curriculum.yaml`); não sobrescreve sem `--force` |
 | `cv-craft version` | Mostra a versão |
 | `cv-craft help [comando]` | Ajuda geral ou de um comando |

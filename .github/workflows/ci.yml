@@ -16,7 +16,7 @@ concurrency:
 
 env:
   # Versão mínima suportada (go.mod); os jobs também rodam na última estável.
-  GO_MIN: "1.24.x"
+  GO_MIN: "1.26.x"
 
 jobs:
   lint:
@@ -36,7 +36,7 @@ jobs:
       - name: golangci-lint (inclui gofmt e goimports)
         uses: golangci/golangci-lint-action@v8
         with:
-          version: v2.5
+          version: v2.14
 
   test:
     name: Testes (${{ matrix.os }}, Go ${{ matrix.go }})
@@ -45,7 +45,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        go: ["1.24.x"]
+        go: ["1.26.x"]
         include:
           - os: ubuntu-latest
             go: stable
