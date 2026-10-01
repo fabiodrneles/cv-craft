@@ -36,3 +36,13 @@ ci: lint race cover smoke ## Tudo que o CI roda
 
 clean:
 	rm -rf bin dist coverage.out
+
+.PHONY: docs
+docs: ## Lint de Markdown, comandos da documentação e links (requer Node; lychee é opcional)
+	npx --yes markdownlint-cli2@0.23.3
+	scripts/doc-commands.sh
+	@if command -v lychee >/dev/null; then \
+		lychee --config lychee.toml --no-progress './**/*.md'; \
+	else \
+		echo "lychee não instalado: links não verificados localmente (o CI verifica)"; \
+	fi
