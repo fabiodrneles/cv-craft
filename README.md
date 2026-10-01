@@ -23,7 +23,7 @@ Você escreve o conteúdo uma vez em YAML; o CV-Craft gera o **PDF** para enviar
 
 ## Instalação
 
-**Com Go (1.24 ou superior):**
+**Com Go (1.26 ou superior):**
 
 ```bash
 go install github.com/fabiodrneles/cv-craft@latest
