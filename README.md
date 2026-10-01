@@ -23,13 +23,22 @@ Você escreve o conteúdo uma vez em YAML; o CV-Craft gera o **PDF** para enviar
 
 ## Instalação
 
+**Binário pré-compilado** (não precisa de Go): baixe o arquivo do seu sistema em [Releases](https://github.com/fabiodrneles/cv-craft/releases/latest), extraia e coloque o `cv-craft` (ou `cv-craft.exe`) numa pasta do seu `PATH`.
+
+```bash
+# Exemplo no Linux (x86-64); troque a versão e o sistema conforme o arquivo baixado
+tar -xzf cv-craft_0.1.0_linux_amd64.tar.gz
+sudo mv cv-craft /usr/local/bin/
+cv-craft version
+```
+
+Há arquivos para Linux, macOS e Windows (amd64 e arm64), e o `checksums.txt` permite conferir a integridade do download (`sha256sum -c checksums.txt --ignore-missing`).
+
 **Com Go (1.26 ou superior):**
 
 ```bash
 go install github.com/fabiodrneles/cv-craft@latest
 ```
-
-> Binários pré-compilados para Linux, macOS e Windows serão publicados em [Releases](https://github.com/fabiodrneles/cv-craft/releases) a partir da primeira versão (`v0.1.0`).
 
 **A partir do código:**
 
@@ -128,11 +137,11 @@ education:                 # obrigatório: ao menos uma
     institution: "USP"
 ```
 
-Também são suportados `work_type` e `description` nas experiências; `location`, `period`, `thesis` e `relevant_courses` na formação; e as listas opcionais `certificates` (`name`, `institution`, `date`, `url`) e `languages` (`language`, `level`). A referência completa do schema está na [spec 001](specs/001-yaml-schema/spec.md).
+Também são suportados `work_type` e `description` nas experiências; `location`, `period`, `thesis` e `relevant_courses` na formação; e as listas opcionais `certificates` (`name`, `institution`, `date`, `url`) e `languages` (`language`, `level`). A referência completa, com todos os campos, os níveis aceitos e os erros mais comuns, está em [`docs/schema.md`](docs/schema.md).
 
 Os níveis de habilidade também podem ser escritos em português (`avançado`, `intermediário`, `básico`…). Chaves com erro de digitação são **rejeitadas**, com o caminho e a linha (`experience[0].responsabilities: campo desconhecido "responsabilities" (linha 12)`), para que nada suma do currículo sem aviso.
 
-Veja exemplos completos em [`examples/`](examples/): [`full.yaml`](examples/full.yaml) (português, todos os campos), [`en.yaml`](examples/en.yaml) (inglês) e [`minimal.yaml`](examples/minimal.yaml) (o modelo do `init`).
+Veja exemplos completos em [`examples/`](examples/README.md): [`full.yaml`](examples/full.yaml) (português, todos os campos), [`en.yaml`](examples/en.yaml) (inglês) e [`minimal.yaml`](examples/minimal.yaml) (o modelo do `init`).
 
 ## Formatos de saída
 
@@ -150,16 +159,20 @@ Veja exemplos completos em [`examples/`](examples/): [`full.yaml`](examples/full
 
 ## Desenvolvimento
 
-O projeto segue **Spec Driven Development**: toda mudança de comportamento começa por uma spec em [`specs/`](specs/README.md), e cada critério de aceite vira um teste.
+O projeto segue **Spec Driven Development**: toda mudança de comportamento começa por uma spec em [`specs/`](specs/README.md), e cada critério de aceite vira um teste. O fluxo completo (tickets, branches, commits, PRs e revisão) está no [guia de contribuição](CONTRIBUTING.md).
 
 ```bash
 make test     # testes unitários, golden files e CLI
 make lint     # go vet + golangci-lint
 make cover    # cobertura (mínimo de 80% em internal/)
 make smoke    # smoke test de ponta a ponta com o binário real
+make docs     # lint de Markdown, links e comandos da documentação
 make ci       # tudo o que o CI roda
 make golden   # regrava os golden files após uma mudança intencional nas saídas
+make release-snapshot  # gera os binários da release em ./dist, sem publicar
 ```
+
+Para publicar uma versão, basta criar e enviar a tag (`git tag v0.2.0 && git push origin v0.2.0`): o workflow de release roda o CI completo e publica os binários. As mudanças de cada versão ficam no [CHANGELOG](CHANGELOG.md).
 
 Os testes que conferem o texto do PDF usam o `pdftotext` (pacote `poppler-utils` no Linux, `poppler` no Homebrew) e são pulados se ele não estiver instalado.
 

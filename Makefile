@@ -5,7 +5,7 @@ COMMIT  ?= $(shell git rev-parse --short HEAD 2>/dev/null)
 DATE    ?= $(shell date -u +%Y-%m-%dT%H:%M:%SZ)
 LDFLAGS := -s -w -X main.version=$(VERSION) -X main.commit=$(COMMIT) -X main.date=$(DATE)
 
-.PHONY: all build test race cover lint smoke golden ci clean
+.PHONY: all build test race cover lint smoke golden ci release-snapshot clean
 
 all: ci
 
@@ -34,5 +34,19 @@ golden: ## Regrava os golden files após uma mudança intencional nas saídas
 
 ci: lint race cover smoke ## Tudo que o CI roda
 
+release-snapshot: ## Gera os binários e arquivos da release em ./dist, sem publicar
+	goreleaser release --snapshot --clean
+	scripts/check-release.sh dist
+
 clean:
 	rm -rf bin dist coverage.out
+
+.PHONY: docs
+docs: ## Lint de Markdown, comandos da documentação e links (requer Node; lychee é opcional)
+	npx --yes markdownlint-cli2@0.23.3
+	scripts/doc-commands.sh
+	@if command -v lychee >/dev/null; then \
+		lychee --config lychee.toml --no-progress './**/*.md'; \
+	else \
+		echo "lychee não instalado: links não verificados localmente (o CI verifica)"; \
+	fi

@@ -68,7 +68,7 @@ A base (parser → modelo → interface `Generator`) é boa e simples; o trabalh
 | M4 | Help interativo promete TAB-completion e histórico (↑↓) que não existem; `templates list` lista 5 templates que não existem | 005 |
 | M5 | `log.Println("Generating professional ATS-optimized resume...")` dentro do gerador sempre polui stderr; `-v` só muda flags do logger | 002, 003 |
 | M6 | Quebra de página no PDF por heurística fixa (`GetY() > 250`) — título de seção pode ficar órfão no fim da página | 003 |
-| M7 | Markdown: link do portfólio sem `https://`; campos vazios geram `|  |` e `[LinkedIn](https://)`; sem escape de caracteres Markdown | 004 |
+| M7 | Markdown: link do portfólio sem `https://`; campos vazios geram `\|  \|` e `[LinkedIn](https://)`; sem escape de caracteres Markdown | 004 |
 | M8 | PDF sem metadados (`Title`, `Author`, `Subject`, `Keywords`) — úteis para ATS e para quem recebe o arquivo | 003 |
 | M9 | Saída padrão derivada do nome do YAML (`curriculum.yaml` → `curriculum.md`) pode colidir com arquivos do próprio repo | 002 |
 
@@ -103,7 +103,8 @@ A estrutura proposta está em [`008-readme-docs/spec.md`](008-readme-docs/spec.m
 
 ## 6. Melhorias recomendadas (priorizadas)
 
-**Fase 1 — Funcionar de verdade (P0)**
+### Fase 1 — Funcionar de verdade (P0)
+
 1. Corrigir UTF-8 no PDF (C1).
 2. Paridade de conteúdo MD/TXT com o PDF (C2, A5).
 3. Skills: nunca descartar; normalizar níveis (C3).
@@ -111,18 +112,20 @@ A estrutura proposta está em [`008-readme-docs/spec.md`](008-readme-docs/spec.m
 5. Renomear módulo para `github.com/fabiodrneles/cv-craft` e corrigir instalação (C5).
 6. Extrair um único serviço de build (`internal/app`) usado por CLI e UI (A2).
 
-**Fase 2 — Confiável (P1)**
-7. Testes: unitários do parser + golden files dos geradores + teste de CLI (A8).
-8. CI no GitHub Actions (`vet`, `test`, `golangci-lint`), `.gitignore`, remover binários (A8).
-9. CLI: `--force`, `--version`, `--help` com exit 0, `validate` e `init` como subcomandos não interativos, `init` sem sobrescrever (A3, A4, M3).
-10. Validação agregada + modo estrito para chaves desconhecidas (A6, A7).
-11. Definir comportamento real de `-ats` ou remover a flag (A1).
+### Fase 2 — Confiável (P1)
 
-**Fase 3 — Profissional (P2)**
-12. i18n das seções (`pt-BR`/`en`) (M1).
-13. Metadados do PDF, quebra de página inteligente (M6, M8).
-14. `--format all` / múltiplos formatos numa execução.
-15. README novo, `examples/`, CHANGELOG, release com GoReleaser (binários Win/macOS/Linux).
+1. Testes: unitários do parser + golden files dos geradores + teste de CLI (A8).
+2. CI no GitHub Actions (`vet`, `test`, `golangci-lint`), `.gitignore`, remover binários (A8).
+3. CLI: `--force`, `--version`, `--help` com exit 0, `validate` e `init` como subcomandos não interativos, `init` sem sobrescrever (A3, A4, M3).
+4. Validação agregada + modo estrito para chaves desconhecidas (A6, A7).
+5. Definir comportamento real de `-ats` ou remover a flag (A1).
+
+### Fase 3 — Profissional (P2)
+
+1. i18n das seções (`pt-BR`/`en`) (M1).
+2. Metadados do PDF, quebra de página inteligente (M6, M8).
+3. `--format all` / múltiplos formatos numa execução.
+4. README novo, `examples/`, CHANGELOG, release com GoReleaser (binários Win/macOS/Linux).
 
 ## 7. Decisões
 
