@@ -17,7 +17,7 @@ O README atual tem ~25 linhas, está truncado (bloco de código não fechado), t
 
 ## Estrutura proposta
 
-```
+```text
 # CV-Craft
 <tagline de 1 linha>
 [badges: CI · Go Report Card · Go version · Release · License]

@@ -166,6 +166,7 @@ make test     # testes unitários, golden files e CLI
 make lint     # go vet + golangci-lint
 make cover    # cobertura (mínimo de 80% em internal/)
 make smoke    # smoke test de ponta a ponta com o binário real
+make docs     # lint de Markdown, links e comandos da documentação
 make ci       # tudo o que o CI roda
 make golden   # regrava os golden files após uma mudança intencional nas saídas
 make release-snapshot  # gera os binários da release em ./dist, sem publicar

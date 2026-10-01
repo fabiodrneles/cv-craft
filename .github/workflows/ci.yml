@@ -119,6 +119,28 @@ jobs:
       - name: govulncheck
         run: go run golang.org/x/vuln/cmd/govulncheck@latest ./...
 
+  docs:
+    name: Documentação
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-go@v6
+        with:
+          go-version: ${{ env.GO_MIN }}
+      # Inclui os golden files de Markdown, que são a saída gerada a partir de
+      # examples/ (spec 004 FR-MD-5).
+      - name: markdownlint
+        run: npx --yes markdownlint-cli2@0.23.3
+      - name: Comandos da documentação
+        run: scripts/doc-commands.sh
+      - name: Links
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --config lychee.toml --no-progress './**/*.md'
+          fail: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   release-check:
     name: Release (snapshot)
     runs-on: ubuntu-latest
