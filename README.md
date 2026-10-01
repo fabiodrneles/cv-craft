@@ -60,7 +60,7 @@ cv-craft build curriculum.yaml --format all -o dist/
 | Comando | Descrição |
 |---|---|
 | `cv-craft build <arquivo.yaml>` | Gera o currículo (PDF, Markdown ou texto) |
-| `cv-craft validate <arquivo.yaml>` | Valida o YAML e lista **todos** os problemas de uma vez |
+| `cv-craft validate <arquivo.yaml>` | Valida o YAML e lista **todos** os problemas de validação de uma vez (um erro de sintaxe do YAML aparece sozinho, antes) |
 | `cv-craft init [arquivo.yaml]` | Cria um YAML modelo (padrão: `curriculum.yaml`); não sobrescreve sem `--force` |
 | `cv-craft version` | Mostra a versão |
 | `cv-craft help [comando]` | Ajuda geral ou de um comando |
