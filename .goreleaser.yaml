@@ -1,0 +1,67 @@
+# Release dos binários (spec 007, FR-13..15).
+# Testar localmente: make release-snapshot
+version: 2
+
+project_name: cv-craft
+
+builds:
+  - id: cv-craft
+    main: .
+    binary: cv-craft
+    env:
+      - CGO_ENABLED=0
+    goos: [linux, darwin, windows]
+    goarch: [amd64, arm64]
+    flags:
+      - -trimpath
+    ldflags:
+      - -s -w -X main.version=v{{ .Version }} -X main.commit={{ .ShortCommit }} -X main.date={{ .Date }}
+    # Binários reproduzíveis: a data dos arquivos é a do commit.
+    mod_timestamp: "{{ .CommitTimestamp }}"
+
+archives:
+  - id: default
+    formats: [tar.gz]
+    format_overrides:
+      - goos: windows
+        formats: [zip]
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    files:
+      - LICENSE
+      - README.md
+      - CHANGELOG.md
+      - src: internal/generator/fonts/OFL.txt
+        dst: licenses
+        strip_parent: true
+
+checksum:
+  name_template: checksums.txt
+
+changelog:
+  use: git
+  sort: asc
+  groups:
+    - title: Novidades
+      regexp: '^.*?feat(\(.+\))??!?:.+$'
+      order: 0
+    - title: Correções
+      regexp: '^.*?fix(\(.+\))??!?:.+$'
+      order: 1
+    - title: Documentação
+      regexp: '^.*?docs(\(.+\))??!?:.+$'
+      order: 2
+    - title: Outros
+      order: 999
+  filters:
+    exclude:
+      - "^Merge "
+
+release:
+  github:
+    owner: fabiodrneles
+    name: cv-craft
+  prerelease: auto
+  footer: |
+    ---
+    Como instalar: veja a seção [Instalação do README](https://github.com/fabiodrneles/cv-craft#instala%C3%A7%C3%A3o).
+    Confira a integridade do download com o `checksums.txt`.
