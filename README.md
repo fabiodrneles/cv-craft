@@ -6,7 +6,7 @@
 
 [![CI](https://github.com/fabiodrneles/cv-craft/actions/workflows/ci.yml/badge.svg)](https://github.com/fabiodrneles/cv-craft/actions/workflows/ci.yml)
 [![Go Reference](https://pkg.go.dev/badge/github.com/fabiodrneles/cv-craft.svg)](https://pkg.go.dev/github.com/fabiodrneles/cv-craft)
-[![Go Report Card](https://goreportcard.com/badge/github.com/fabiodrneles/cv-craft)](https://goreportcard.com/report/github.com/fabiodrneles/cv-craft)
+[![Release](https://img.shields.io/github/v/release/fabiodrneles/cv-craft)](https://github.com/fabiodrneles/cv-craft/releases/latest)
 [![Licença: MIT](https://img.shields.io/badge/licen%C3%A7a-MIT-blue.svg)](LICENSE)
 
 Você escreve o conteúdo uma vez em YAML; o CV-Craft gera o **PDF** para enviar a recrutadores, o **texto puro** para colar em formulários de candidatura e o **Markdown** para o GitHub ou portfólio, todos com o mesmo conteúdo.

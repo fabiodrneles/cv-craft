@@ -6,7 +6,7 @@
 
 [![CI](https://github.com/fabiodrneles/cv-craft/actions/workflows/ci.yml/badge.svg)](https://github.com/fabiodrneles/cv-craft/actions/workflows/ci.yml)
 [![Go Reference](https://pkg.go.dev/badge/github.com/fabiodrneles/cv-craft.svg)](https://pkg.go.dev/github.com/fabiodrneles/cv-craft)
-[![Go Report Card](https://goreportcard.com/badge/github.com/fabiodrneles/cv-craft)](https://goreportcard.com/report/github.com/fabiodrneles/cv-craft)
+[![Release](https://img.shields.io/github/v/release/fabiodrneles/cv-craft)](https://github.com/fabiodrneles/cv-craft/releases/latest)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 You write the content once in YAML; CV-Craft generates the **PDF** to send to recruiters, the **plain text** to paste into application forms and the **Markdown** for GitHub or your portfolio, all with the same content.
