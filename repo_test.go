@@ -4,6 +4,7 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"strings"
 	"testing"
 
 	"gopkg.in/yaml.v3"
@@ -20,7 +21,7 @@ func TestDocumentedMakeTargetsExist(t *testing.T) {
 		targets[m[1]] = true
 	}
 
-	for _, doc := range []string{"README.md", "CONTRIBUTING.md"} {
+	for _, doc := range []string{"README.md", "README.en.md", "CONTRIBUTING.md"} {
 		data, err := os.ReadFile(doc)
 		if err != nil {
 			t.Fatal(err)
@@ -64,6 +65,41 @@ func TestIssueTemplates(t *testing.T) {
 		}
 		if form.Name == "" || form.Description == "" || len(form.Body) == 0 {
 			t.Errorf("%s: formulário precisa de name, description e body", f)
+		}
+	}
+}
+
+// As duas versões do README têm a mesma estrutura de títulos (008 FR-3, #13):
+// uma seção nova em uma delas sem a tradução na outra quebra o teste. Cada uma
+// aponta para a outra no topo.
+func TestReadmeTranslationsMatch(t *testing.T) {
+	headings := func(path string) []string {
+		data, err := os.ReadFile(path)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var levels []string
+		inCode := false
+		for _, line := range strings.Split(string(data), "\n") {
+			if strings.HasPrefix(line, "```") {
+				inCode = !inCode
+				continue
+			}
+			if h, _, ok := strings.Cut(line, " "); !inCode && ok && h != "" && strings.Trim(h, "#") == "" {
+				levels = append(levels, h)
+			}
+		}
+		return levels
+	}
+	pt, en := headings("README.md"), headings("README.en.md")
+	if strings.Join(pt, " ") != strings.Join(en, " ") {
+		t.Errorf("os READMEs têm estruturas de títulos diferentes:\nREADME.md:    %v\nREADME.en.md: %v", pt, en)
+	}
+	for file, link := range map[string]string{"README.md": "(README.en.md)", "README.en.md": "(README.md)"} {
+		data, _ := os.ReadFile(file)
+		top, _, _ := strings.Cut(string(data), "\n## ")
+		if !strings.Contains(top, link) {
+			t.Errorf("%s: falta o link de idioma %s no topo", file, link)
 		}
 	}
 }

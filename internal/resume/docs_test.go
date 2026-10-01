@@ -57,7 +57,7 @@ func TestSchemaDocCoversEveryField(t *testing.T) {
 // 008 FR-5: os exemplos YAML de docs/schema.md são válidos e sem avisos (os do
 // README são verificados em TestReadmeExampleIsValid).
 func TestDocYAMLExamplesAreValid(t *testing.T) {
-	for _, doc := range []string{"../../docs/schema.md"} {
+	for _, doc := range []string{"../../docs/schema.md", "../../README.md", "../../README.en.md"} {
 		data, err := os.ReadFile(doc)
 		if err != nil {
 			t.Fatal(err)
