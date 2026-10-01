@@ -26,7 +26,8 @@ Não há testes, CI, `.gitignore` nem processo de release. O repositório versio
 
 ### CI (GitHub Actions)
 - **FR-11** Workflow em PR e push para `main`: `go mod tidy` sem diff, `go vet`, `golangci-lint` (inclui gofmt/goimports), `go test -race` com cobertura mínima, smoke test do binário (`scripts/smoke.sh`), cross-compilação (linux/darwin/windows × amd64/arm64) e `govulncheck`.
-- **FR-12** Matriz: `ubuntu-latest`, `windows-latest`, `macos-latest` com Go 1.24.x (mínimo do `go.mod`) + Ubuntu com Go `stable`.
+- **FR-12** Matriz: `ubuntu-latest`, `windows-latest`, `macos-latest` com Go 1.26.x (mínimo do `go.mod`) + Ubuntu com Go `stable`.
+- **FR-12b** Política de versão: o mínimo do Go é sempre a **penúltima versão suportada** pelo time do Go (que mantém só as duas últimas). Revisar a cada release do Go (fevereiro e agosto).
 - **FR-12a** `Makefile` com os mesmos passos do CI (`make ci`) e Dependabot para módulos Go e GitHub Actions.
 
 ### Release
@@ -36,7 +37,7 @@ Não há testes, CI, `.gitignore` nem processo de release. O repositório versio
 
 ## Critérios de aceite
 
-- **AC-1** Em máquina limpa com Go ≥ 1.24: `go install github.com/fabiodrneles/cv-craft@latest && cv-craft version` funciona.
+- **AC-1** Em máquina limpa com Go ≥ 1.26: `go install github.com/fabiodrneles/cv-craft@latest && cv-craft version` funciona.
 - **AC-2** `git ls-files` não contém `.exe` nem `.pdf` fora de `docs/`/`testdata/`.
 - **AC-3** PR com `gofmt` quebrado ou teste falhando fica vermelho.
 - **AC-4** `git tag v0.1.0 && git push --tags` publica release com 6 binários.
