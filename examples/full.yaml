@@ -1,0 +1,110 @@
+# Exemplo completo em português, com todos os campos suportados.
+meta:
+  locale: pt-BR
+
+contact:
+  name: "Carlos Silva"
+  email: "carlos.silva.dev@email.com"
+  phone: "+55 (11) 98765-4321"
+  location: "São Paulo, Brasil"
+  linkedin: "linkedin.com/in/carlos-silva-dev"
+  github: "github.com/carlos-silva-dev"
+  portfolio: "carlos-silva-portfolio.vercel.app"
+
+professional_title: "Engenheiro de Software Sênior | Go e Cloud"
+
+summary: >-
+  Engenheiro de Software Sênior com mais de 7 anos de experiência em
+  desenvolvimento backend e arquitetura em nuvem. Especialista em
+  microsserviços escaláveis, sistemas distribuídos e práticas de DevOps,
+  com histórico de liderança técnica e entregas de alta qualidade.
+
+skills:
+  - name: "Backend"
+    level: "expert"
+    keywords: ["Go", "Java", "Python", "REST", "gRPC", "Microsserviços"]
+  - name: "Cloud e Infraestrutura"
+    level: "advanced"
+    keywords: ["AWS", "Docker", "Kubernetes", "Terraform", "CI/CD", "Helm"]
+  - name: "Bancos de Dados"
+    level: "advanced"
+    keywords: ["PostgreSQL", "MySQL", "Redis", "MongoDB", "DynamoDB"]
+  - name: "Mensageria e Streaming"
+    level: "intermediate"
+    keywords: ["Kafka", "RabbitMQ", "AWS SQS", "Arquitetura orientada a eventos"]
+  - name: "Observabilidade"
+    level: "intermediate"
+    keywords: ["Prometheus", "Grafana", "OpenTelemetry", "Datadog"]
+  - name: "Liderança"
+    keywords: ["Mentoria", "Code review", "Métodos ágeis", "System design"]
+
+experience:
+  - role: "Engenheiro de Backend Sênior"
+    company: "TechCorp Soluções"
+    location: "São Paulo, Brasil"
+    period: "Mar 2022 - Atual"
+    work_type: "Híbrido"
+    description: "Plataforma de pagamentos B2B com 2 milhões de transações por mês."
+    responsibilities:
+      - "Liderei a migração do monólito para microsserviços em Go"
+      - "Projetei a arquitetura orientada a eventos com Kafka, processando mais de 1 milhão de eventos por dia"
+      - "Mentorei 3 desenvolvedores júnior e estabeleci padrões de código para o time"
+    achievements:
+      - "Reduzi a latência média das APIs em 40%"
+      - "Diminuí o tempo de deploy de 2 horas para 15 minutos com pipelines de CI/CD"
+    technologies: ["Go", "Kafka", "PostgreSQL", "Redis", "Kubernetes", "AWS", "Terraform"]
+
+  - role: "Engenheiro de Software"
+    company: "InovaTech Startups"
+    location: "Florianópolis, Brasil"
+    period: "Jan 2020 - Fev 2022"
+    work_type: "Remoto"
+    responsibilities:
+      - "Desenvolvi APIs REST para aplicações web e mobile com mais de 500 mil usuários"
+      - "Implementei notificações em tempo real com WebSockets e Redis pub/sub"
+    achievements:
+      - "Aumentei a cobertura de testes para 90%, reduzindo bugs em produção"
+      - "Reduzi custos de servidor em 30% com auto-scaling"
+    technologies: ["Java", "Spring Boot", "Redis", "MySQL", "Docker"]
+
+  - role: "Desenvolvedor Júnior"
+    company: "Digital Solutions Lab"
+    location: "Campinas, Brasil"
+    period: "Jun 2018 - Dez 2019"
+    work_type: "Presencial"
+    responsibilities:
+      - "Desenvolvi funcionalidades em Django e React"
+      - "Escrevi a documentação das APIs e da arquitetura do sistema"
+    achievements:
+      - "Promovido a Engenheiro de Software após 1 ano"
+    technologies: ["Python", "Django", "JavaScript", "React", "PostgreSQL"]
+
+education:
+  - degree: "Bacharelado em Ciência da Computação"
+    institution: "Universidade de São Paulo (USP)"
+    location: "São Paulo, Brasil"
+    period: "2014 - 2018"
+    thesis: "Análise de desempenho de padrões de comunicação entre microsserviços"
+    relevant_courses: "Sistemas Distribuídos, Computação em Nuvem, Banco de Dados"
+
+  - degree: "Técnico em Desenvolvimento de Sistemas"
+    institution: "ETEC"
+    location: "São Paulo, Brasil"
+    period: "2012 - 2013"
+
+certificates:
+  - name: "AWS Certified Solutions Architect – Professional"
+    institution: "Amazon Web Services"
+    date: "2023"
+    url: "credly.com/users/carlos-silva"
+  - name: "Certified Kubernetes Administrator (CKA)"
+    institution: "Cloud Native Computing Foundation"
+    date: "2022"
+
+languages:
+  - language: "Português"
+    level: "Nativo"
+  - language: "Inglês"
+    level: "Fluente"
+  - language: "Espanhol"
+    level: "Intermediário"

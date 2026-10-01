@@ -1,0 +1,52 @@
+# English example: section titles are rendered in English via meta.locale.
+meta:
+  locale: en
+
+contact:
+  name: "Ana Oliveira"
+  email: "ana.oliveira.dev@example.com"
+  phone: "+55 (21) 91234-5678"
+  location: "Rio de Janeiro, Brazil"
+  linkedin: "linkedin.com/in/ana-oliveira-dev"
+  portfolio: "anaoliveira-dev.vercel.app"
+
+professional_title: "Full Stack Developer | React & Node.js"
+
+summary: >-
+  Full Stack Developer with 4 years of experience building web applications.
+  Passionate about user-friendly interfaces and robust backend systems.
+
+skills:
+  - name: "Frontend"
+    level: "proficient"
+    keywords: ["React", "TypeScript", "Next.js", "Tailwind CSS"]
+  - name: "Backend"
+    level: "proficient"
+    keywords: ["Node.js", "Express", "Python", "REST APIs"]
+  - name: "Tools"
+    level: "intermediate"
+    keywords: ["Git", "Docker", "AWS", "Jest", "Cypress"]
+
+experience:
+  - role: "Full Stack Developer"
+    company: "Digital Innovations Inc"
+    location: "Remote"
+    period: "2021 - Present"
+    responsibilities:
+      - "Built and maintained responsive web applications with React and Node.js"
+      - "Implemented real-time features with WebSockets"
+    achievements:
+      - "Improved page load times by 40%"
+    technologies: ["React", "Node.js", "MongoDB", "AWS"]
+
+education:
+  - degree: "Bachelor of Information Systems"
+    institution: "Federal University of Rio de Janeiro"
+    location: "Rio de Janeiro, Brazil"
+    period: "2017 - 2021"
+
+languages:
+  - language: "Portuguese"
+    level: "Native"
+  - language: "English"
+    level: "Fluent"

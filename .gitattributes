@@ -1,0 +1,5 @@
+# Golden files e scripts com LF em todos os sistemas (inclusive Windows).
+* text=auto eol=lf
+*.ttf binary
+*.pdf binary
+*.png binary
