@@ -50,4 +50,4 @@ Não há testes, CI, `.gitignore` nem processo de release. O repositório versio
 
 ## Decisões
 
-- **Primeira release publicada é a `v0.2.0`.** A automação de release só entrou na Fase 2, então o commit da Fase 1 (merge do #2) não tem o workflow de release. Ele recebe a tag `v0.1.0` apenas como marco, sem binários, e a `v0.2.0` é a primeira com binários publicados. O `CHANGELOG.md` registra as duas versões.
+- **Primeira release publicada é a `v0.2.0`.** A automação de release só entrou na Fase 2, então o commit da Fase 1 (merge do #2) não tem o workflow de release. A Fase 1 não recebeu tag própria: a `v0.2.0` é a primeira versão publicada, com binários, e o `CHANGELOG.md` registra nela o conteúdo das duas fases.
