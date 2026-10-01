@@ -4,7 +4,7 @@ Este diretório organiza o desenvolvimento do CV-Craft em **Spec Driven Developm
 
 ## Fluxo
 
-```
+```text
 spec.md (O QUÊ / POR QUÊ)  →  revisão  →  testes a partir dos critérios de aceite  →  implementação  →  status: Done
 ```
 

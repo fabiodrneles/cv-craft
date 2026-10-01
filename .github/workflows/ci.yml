@@ -5,6 +5,7 @@ on:
     branches: [main]
   pull_request:
   workflow_dispatch:
+  workflow_call: # usado pelo release.yml antes de publicar
 
 permissions:
   contents: read
@@ -117,3 +118,44 @@ jobs:
           go-version: stable
       - name: govulncheck
         run: go run golang.org/x/vuln/cmd/govulncheck@latest ./...
+
+  docs:
+    name: Documentação
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-go@v6
+        with:
+          go-version: ${{ env.GO_MIN }}
+      # Inclui os golden files de Markdown, que são a saída gerada a partir de
+      # examples/ (spec 004 FR-MD-5).
+      - name: markdownlint
+        run: npx --yes markdownlint-cli2@0.23.3
+      - name: Comandos da documentação
+        run: scripts/doc-commands.sh
+      - name: Links
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --config lychee.toml --no-progress './**/*.md'
+          fail: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  release-check:
+    name: Release (snapshot)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-go@v6
+        with:
+          go-version: stable
+      - name: goreleaser check + snapshot
+        uses: goreleaser/goreleaser-action@v6
+        with:
+          distribution: goreleaser
+          version: "~> v2"
+          args: release --snapshot --clean
+      - name: Conferir arquivos e versão embutida
+        run: scripts/check-release.sh dist

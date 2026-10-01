@@ -11,7 +11,7 @@ A CLI é o produto. Hoje o parsing de argumentos é manual, há um "modo legado"
 
 ## Comandos
 
-```
+```text
 cv-craft build <arquivo.yaml> [flags]     Gera o currículo
 cv-craft validate <arquivo.yaml>           Valida sem gerar
 cv-craft init [arquivo.yaml]               Cria um YAML modelo (padrão: curriculum.yaml)

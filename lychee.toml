@@ -1,0 +1,24 @@
+# Verificação de links da documentação (spec 008 FR-4). Roda no CI (job "docs").
+# Links dentro de blocos de código não são verificados (padrão do lychee), então
+# os dados fictícios dos exemplos YAML não geram falsos positivos.
+
+exclude_path = [
+  "internal/generator/testdata", # saídas geradas com dados fictícios
+  ".claude",
+  "node_modules",
+  "dist",
+]
+
+exclude = [
+  '^https?://(www\.)?linkedin\.com', # bloqueia robôs (HTTP 999)
+  '^mailto:',
+  # O pkg.go.dev só indexa o módulo depois que o caminho novo
+  # (github.com/fabiodrneles/cv-craft) estiver na main ou numa tag.
+  # Remover esta exclusão no PR de fechamento da Fase 1, após a tag v0.1.0.
+  '^https://pkg\.go\.dev/github\.com/fabiodrneles/cv-craft',
+]
+
+# Links para issues/PRs e para o próprio repositório: o GitHub limita requisições
+# anônimas; com GITHUB_TOKEN no CI elas passam.
+max_retries = 3
+accept = ["200..=299", "429"]
