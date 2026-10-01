@@ -23,8 +23,8 @@ jobs:
     name: Lint e formatação
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-go@v6
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
         with:
           go-version: ${{ env.GO_MIN }}
       - name: go mod tidy sem diferenças
@@ -34,7 +34,7 @@ jobs:
       - name: go vet
         run: go vet ./...
       - name: golangci-lint (inclui gofmt e goimports)
-        uses: golangci/golangci-lint-action@v8
+        uses: golangci/golangci-lint-action@v9
         with:
           version: v2.14
 
@@ -50,8 +50,8 @@ jobs:
           - os: ubuntu-latest
             go: stable
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-go@v6
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
         with:
           go-version: ${{ matrix.go }}
 
@@ -80,7 +80,7 @@ jobs:
         run: scripts/coverage.sh coverage.out 80
       - name: Publicar relatório de cobertura
         if: runner.os == 'Linux' && matrix.go != 'stable'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: coverage
           path: coverage.out
@@ -97,8 +97,8 @@ jobs:
         goos: [linux, darwin, windows]
         goarch: [amd64, arm64]
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-go@v6
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
         with:
           go-version: ${{ env.GO_MIN }}
       - name: go build
@@ -112,8 +112,8 @@ jobs:
     name: Vulnerabilidades (govulncheck)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-go@v6
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
         with:
           go-version: stable
       - name: govulncheck
@@ -123,8 +123,8 @@ jobs:
     name: Documentação
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-go@v6
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
         with:
           go-version: ${{ env.GO_MIN }}
       # Inclui os golden files de Markdown, que são a saída gerada a partir de
@@ -145,14 +145,14 @@ jobs:
     name: Release (snapshot)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
-      - uses: actions/setup-go@v6
+      - uses: actions/setup-go@v7
         with:
           go-version: stable
       - name: goreleaser check + snapshot
-        uses: goreleaser/goreleaser-action@v6
+        uses: goreleaser/goreleaser-action@v7
         with:
           distribution: goreleaser
           version: "~> v2"
