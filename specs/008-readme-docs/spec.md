@@ -46,9 +46,11 @@ O README atual tem ~25 linhas, está truncado (bloco de código não fechado), t
 - **FR-5** `docs/schema.md` — referência campo a campo, gerada a partir da spec 001.
 - **FR-6** `CONTRIBUTING.md` — fluxo SDD, `make test`, convenção de commits.
 - **FR-7** `examples/README.md` — o que cada exemplo demonstra.
+- **FR-8** Guia de instalação para iniciantes nos dois READMEs (#40): um comando de uma linha por sistema (`scripts/install.ps1` no Windows; `scripts/install.sh` no macOS e no Linux), que baixa a última release, confere o checksum, instala numa pasta do usuário (sem administrador) e cuida do `PATH`; instalação manual detalhada no Windows; primeiro currículo passo a passo; atualizar, desinstalar e problemas comuns. Os instaladores rodam no CI nos três sistemas (job `install`).
 
 ## Critérios de aceite
 
 - **AC-1** Uma pessoa sem contexto consegue, só com o README, instalar e gerar um PDF em < 5 minutos.
 - **AC-2** Todos os comandos do README rodam com exit 0 em CI.
 - **AC-3** Nenhuma funcionalidade descrita no README deixa de existir no binário.
+- **AC-4** Em Windows, macOS e Linux, o comando de instalação do README, colado num terminal novo, termina com `cv-craft version` funcionando (job `install` do CI).

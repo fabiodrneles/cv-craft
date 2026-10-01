@@ -32,15 +32,16 @@ for doc in "${docs[@]}"; do
   mkdir -p "$dir"
   cp -r "$root/examples" "$dir/examples"
 
-  # Linhas que começam com "cv-craft " dentro de blocos ```bash.
+  # Linhas que começam com "cv-craft " dentro de blocos ```bash (também os
+  # recuados dentro de listas numeradas).
   # (while read em vez de mapfile: funciona também no bash 3.2 do macOS)
   cmds=()
   while IFS= read -r line; do
     cmds+=("$line")
   done < <(awk '
-    /^```bash/ { inside = 1; next }
-    /^```/     { inside = 0; next }
-    inside && /^cv-craft / { print }
+    /^ *```bash/ { inside = 1; next }
+    /^ *```/     { inside = 0; next }
+    inside && /^ *cv-craft / { sub(/^ +/, ""); print }
   ' "$root/$doc")
 
   for cmd in ${cmds[@]+"${cmds[@]}"}; do
