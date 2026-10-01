@@ -1,3 +1,4 @@
+<!-- markdownlint-disable-file MD041 -- o corpo do PR não tem título; o título é o do próprio PR -->
 <!-- Título no formato Conventional Commits, ex.: "feat: add --watch mode" -->
 
 Closes # · Épico # · Spec <!-- ex.: Closes #12 · Épico #10 · Spec 002 (use "Spec —" se nenhuma spec for afetada) -->
