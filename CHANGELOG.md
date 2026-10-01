@@ -2,9 +2,27 @@
 
 Todas as mudanças relevantes do CV-Craft são registradas aqui.
 
-O formato segue o [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/), e o projeto usa [Versionamento Semântico](https://semver.org/lang/pt-BR/). Enquanto a versão for `0.x`, mudanças incompatíveis podem ocorrer em versões minor e são sempre sinalizadas aqui.
+O formato segue o [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/), e o projeto usa [Versionamento Semântico](https://semver.org/lang/pt-BR/). A partir da `1.0.0`, mudanças incompatíveis na CLI ou no formato do YAML só acontecem numa nova versão major.
 
 ## [Unreleased]
+
+## [1.0.0] - 2026-10-01
+
+Fase 3, "profissional" ([#10](https://github.com/fabiodrneles/cv-craft/issues/10)). A partir desta versão, a CLI e o formato do YAML são estáveis.
+
+### Adicionado
+
+- `cv-craft build --watch` (`-w`): gera de novo a cada vez que o YAML é salvo, em menos de um segundo, até `Ctrl+C`. Erros de validação aparecem sem encerrar a observação ([#12](https://github.com/fabiodrneles/cv-craft/issues/12)).
+- JSON Schema do YAML em [`schema/cv-craft.schema.json`](schema/cv-craft.schema.json): no VS Code e nas IDEs JetBrains, autocompletar, descrição dos campos e erros marcados enquanto se digita. Os exemplos e o modelo do `init` já apontam para ele, e `cv-craft schema` imprime uma cópia para uso offline ([#11](https://github.com/fabiodrneles/cv-craft/issues/11)).
+- README em inglês ([`README.en.md`](README.en.md)), com prévia do PDF em inglês ([#13](https://github.com/fabiodrneles/cv-craft/issues/13)).
+
+### Alterado
+
+- Dependências atualizadas: `fatih/color` 1.19.0 e `go-isatty` 0.0.24.
+
+### Removido
+
+- **Incompatível:** a flag `-ats`, depreciada desde a 0.2.0. Agora ela é uma flag desconhecida (exit code `2`); o layout padrão já é otimizado para ATS ([#14](https://github.com/fabiodrneles/cv-craft/issues/14)).
 
 ## [0.2.0] - 2026-10-01
 
@@ -52,5 +70,6 @@ Incluída na 0.2.0: a Fase 1 não recebeu tag própria.
 
 - `-ats`: aceita, mas sem efeito (o layout padrão já é otimizado para ATS). Será removida em uma versão futura.
 
-[Unreleased]: https://github.com/fabiodrneles/cv-craft/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/fabiodrneles/cv-craft/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/fabiodrneles/cv-craft/compare/v0.2.0...v1.0.0
 [0.2.0]: https://github.com/fabiodrneles/cv-craft/releases/tag/v0.2.0
